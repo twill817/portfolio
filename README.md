@@ -49,6 +49,27 @@ components consume them only through the Tailwind utilities mapped in the
 `globals.css` and `src/lib/theme.ts` (the `BRANDS` list and labels) —
 components don't need to change.
 
+## Storybook
+
+```bash
+npm run storybook          # dev server at http://localhost:6006
+npm run build-storybook    # static build → storybook-static/
+```
+
+Stories live next to each component (`src/components/**/*.stories.tsx`).
+The toolbar has **Brand** and **Theme** controls that drive the same
+`data-brand`/`data-theme` attributes the real app uses, so every story can
+be previewed in all six brand/theme combinations without touching code.
+`ThemeSwitcher` and `Header` stories are wrapped in the real `ThemeProvider`
+so the switcher itself is clickable — note that interacting with it and the
+toolbar controls at the same time will fight each other, since they drive
+the same attributes independently; use one or the other per session.
+
+[Chromatic](https://chromatic.com) (`chromatic` devDependency) is set up to
+run visual regression tests against these stories once a project token is
+configured — get one from chromatic.com, then run
+`npx chromatic --project-token=<token>`.
+
 ## Contact form
 
 The contact form posts to `POST /api/contact`
