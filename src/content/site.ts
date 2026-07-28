@@ -1,6 +1,5 @@
 /**
- * Single source of truth for personal/site info. Everything here is
- * placeholder content for a fictional persona — replace with real details.
+ * Single source of truth for personal/site info.
  */
 
 export type TimelineEntry = {
@@ -16,25 +15,24 @@ export type SocialLink = {
 };
 
 export const siteConfig = {
-  name: "Alex Reyes",
-  role: "Principal UX Designer",
-  tagline: "25+ years designing products people trust with the important parts of their lives.",
-  email: "hello@alexreyes.design",
-  location: "Portland, Oregon",
+  name: "Tucker Williams",
+  role: "Product Experience Designer and Strategist",
+  tagline: "25+ years designing products people trust.",
+  email: "williams.tucker@gmail.com",
+  location: "USA",
   resumeHref: "/resume.pdf",
 
   shortBio:
     "I've spent the last two and a half decades leading design for enterprise software, fintech, and healthcare products — the kind where a confusing screen has real consequences. These days I split my time between hands-on design work and building the systems and teams that make good design repeatable.",
 
   longBio: [
-    "I started designing for the web in the late 1990s, when \"UX\" wasn't yet a job title — I was a print designer who got curious about interaction. Since then I've worked across agency, startup, and enterprise environments, shipping everything from early e-commerce checkouts to the design systems that now run inside Fortune 500 companies.",
-    "My focus has always been on the products where the stakes are real: healthcare platforms where a bad flow means a missed appointment, financial tools where confusion costs someone money, enterprise software that thousands of employees are required to use every day. Twenty-five years in, I still think the hardest and most valuable design work is making complexity feel calm.",
-    "For the last decade I've moved increasingly into design leadership — building and mentoring design teams, establishing design systems, and working directly with engineering and product leadership to make design a first-class part of how organizations build software. I still draw my own wireframes.",
+    "I started designing for the web in the late 1990s, when \"UX\" wasn't yet a job title — I was a graphic designer who got curious about interaction. Since then I've worked across agency, startup, and enterprise environments, shipping everything from end-to-end e-commerce experiences for both retail and B2B organizations, as well working on user journey and service design optimization.",
+    "My focus has always been on the product, finding the balance between business value and user delight. Twenty-five years in, I still think the hardest and most valuable design work is making the complex simple.",
+    "For the last decade I've moved increasingly into design leadership — mentoring designers, evolving how work gets done, and working directly with engineering and product leadership to make design a first-class part of how organizations build software. I still make wireframes, but I use tools to quickly turn them into prototypes.",
   ],
 
   skills: [
     "Product & UX strategy",
-    "Design systems",
     "Enterprise & B2B UX",
     "Accessibility (WCAG AA/AAA)",
     "Design team leadership",
@@ -45,16 +43,16 @@ export const siteConfig = {
 
   timeline: [
     {
-      role: "Principal UX Designer",
-      org: "Meridian Health Systems",
-      period: "2019 — Present",
+      role: "Product Design Lead",
+      org: "ABC Supply Co. Inc.",
+      period: "2026",
       description:
-        "Leading UX for the clinician- and patient-facing platforms, and building out the design systems practice across a 40-person product org.",
+        "Leading UX for a new web based application allowing contractors and homeowners to collaborate on exterior materials for a home.",
     },
     {
-      role: "Head of Design",
-      org: "Northline Financial",
-      period: "2013 — 2019",
+      role: "Senior UX Strategist",
+      org: "Coppel",
+      period: "2025",
       description:
         "Built and led a 12-person design team through Northline's shift from legacy desktop software to a modern web and mobile platform.",
     },
@@ -75,8 +73,8 @@ export const siteConfig = {
   ] satisfies TimelineEntry[],
 
   social: [
-    { label: "Email", href: "mailto:hello@alexreyes.design" },
-    { label: "LinkedIn", href: "https://linkedin.com/in/example" },
+    { label: "Email", href: "mailto:williams.tucker@gmail.com" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/tuckerwilliams/" },
     { label: "Read.cv", href: "https://read.cv/example" },
   ] satisfies SocialLink[],
 };
