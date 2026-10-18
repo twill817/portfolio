@@ -129,6 +129,27 @@ html,body{overflow-x:clip}
 .caps ul{list-style:none; margin:0; padding:0; display:grid; gap:4px}
 @media (max-width:480px){ .caps{grid-template-columns:1fr; gap:22px} }
 
+
+/* ---------- Case study visuals ---------- */
+.case-visual{margin:0 0 30px; min-width:0}
+.case-visual .v, .case-visual img{display:block; width:100%; height:auto; max-width:100%; aspect-ratio:800/340;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); object-fit:cover}
+.case-visual figcaption{margin-top:10px; font-size:var(--step--1); color:var(--muted); max-width:52em}
+.v .v-dot{fill:var(--muted); opacity:.5}
+.v .v-dot2{fill:var(--muted); opacity:.28}
+.v .v-acc{fill:var(--accent)}
+.v .v-acc2{fill:var(--accent); opacity:.5}
+.v .v-flow{fill:none; stroke:var(--muted); stroke-width:1; opacity:.16}
+.v .v-ring{fill:none; stroke:var(--accent); stroke-width:1.5}
+.v .v-journey{fill:none; stroke:var(--accent); stroke-width:2}
+.v .v-seam{fill:none; stroke:var(--line); stroke-width:1.5; stroke-dasharray:4 5}
+.v .v-split{fill:none; stroke:var(--ink); stroke-width:1; stroke-dasharray:3 4; opacity:.5}
+.v .v-swatch{stroke:none}
+.v .v-swatch.v-dot2{opacity:.45}
+.v .v-label{fill:var(--muted); font:400 13px var(--body)}
+.v .v-strong{fill:var(--ink); font-weight:500}
+@media (max-width:480px){ .v .v-label{font-size:21px} .case-visual{margin-bottom:24px} }
+
 /* ---------- Clients, approach, contact ---------- */
 .block{border-top:1px solid var(--line); padding-block:56px}
 .clients{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px 32px; margin:28px 0 0}
