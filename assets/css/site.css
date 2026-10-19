@@ -122,11 +122,14 @@ html,body{overflow-x:clip}
 @media (max-width:480px){ .xp-list li{grid-template-columns:1fr; gap:4px} }
 
 .clients-sec{padding-block:0 56px; scroll-margin-top:24px}
-.caps{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 40px; margin:28px 0 0}
+.caps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px 36px; margin:28px 0 0}
+.caps li b{font-weight:500; color:var(--ink)}
+.caps li{color:var(--muted)}
+@media (max-width:960px){ .caps{grid-template-columns:repeat(2,minmax(0,1fr))} }
 .caps > div{min-width:0; border-top:1px solid var(--line); padding-top:12px}
 .caps dt{font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:8px}
 .caps dd{margin:0}
-.caps ul{list-style:none; margin:0; padding:0; display:grid; gap:4px}
+.caps ul{list-style:none; margin:0; padding:0; display:grid; gap:8px}
 @media (max-width:480px){ .caps{grid-template-columns:1fr; gap:22px} }
 
 
