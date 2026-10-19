@@ -92,6 +92,8 @@ html,body{overflow-x:clip}
 .case-meta{display:flex; flex-wrap:wrap; gap:6px 18px; align-items:baseline}
 .case h3{font-family:var(--display); font-weight:600; font-size:var(--step3); line-height:1.1; letter-spacing:-.025em; margin:10px 0 6px; text-wrap:balance}
 .case .client{font-weight:600; margin:0}
+.case .summary{font-size:var(--step1); line-height:1.5; max-width:40em; margin:0 0 10px; text-wrap:pretty}
+.points.two{grid-template-columns:repeat(2,minmax(0,1fr)); gap:36px}
 .case .role{color:var(--muted); margin:0 0 26px; font-size:var(--step--1)}
 .points{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin:0; padding:0; list-style:none}
 .points li{min-width:0}
@@ -221,7 +223,7 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
   .hero{padding-block:32px 56px}
   .layout{grid-template-columns:1fr; gap:0; padding-top:48px}
   .index{display:none}
-  .points,.approach{grid-template-columns:1fr; gap:22px}
+  .points,.points.two,.approach{grid-template-columns:1fr; gap:22px}
   .clients{grid-template-columns:repeat(2,minmax(0,1fr))}
   .contact{grid-template-columns:1fr; align-items:start}
   .email{justify-content:flex-start}.status{text-align:left}
