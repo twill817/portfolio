@@ -400,3 +400,14 @@ if ('IntersectionObserver' in window) {
   bar.querySelector('.tp-clear').addEventListener('click', () => { try { localStorage.removeItem('tw-theme'); } catch (e) {} root.removeAttribute('data-theme'); bar.remove(); });
   show(); document.body.appendChild(bar);
 })();
+
+/* Visit counts (GoatCounter): video plays and case-study carousel opens */
+(() => {
+  const gc = (path, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path, title, event: true }); } catch (e) {} };
+  const v = document.querySelector('.vid video'); let sent = false;
+  if (v) v.addEventListener('play', () => { if (!sent) { sent = true; gc('video-play', 'Played the visualization video'); } });
+  const seen = new Set();
+  document.querySelectorAll('.case').forEach(c => c.querySelectorAll('.car-btn, .car-slide').forEach(el => el.addEventListener('click', () => {
+    if (seen.has(c.id)) return; seen.add(c.id); gc('carousel-' + c.id, 'Browsed the ' + c.id + ' carousel');
+  })));
+})();
