@@ -246,11 +246,17 @@
         <p class="role">Associate Creative Director, Experience · Publicis Sapient</p>
         <figure class="case-visual">
           <div class="vid">
-            <video muted loop playsinline preload="none" poster="assets/video/visualizer-flow.webp" width="1280" height="974" aria-label="Walkthrough of the flow: a contractor creates a project, tries roof and siding materials on a photo of the house, the homeowner approves a design, and it becomes an order.">
+            <video playsinline muted preload="metadata" poster="assets/video/visualizer-flow.webp" width="1280" height="974" aria-label="Walkthrough of the flow: a contractor creates a project, tries roof and siding materials on a photo of the house, the homeowner approves a design, and it becomes an order.">
               <source src="assets/video/visualizer-flow.webm" type="video/webm">
               <source src="assets/video/visualizer-flow.mp4" type="video/mp4">
             </video>
-            <button type="button" class="vid-btn" aria-label="Play video"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-play" d="M5 3.5v9l7-4.5z"/><path class="i-pause" d="M5 3.5h2v9H5zM9 3.5h2v9H9z"/></svg></button>
+            <button type="button" class="vid-big" aria-label="Play video"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg></button>
+            <div class="vid-bar">
+              <button type="button" class="vid-ctl vid-play" aria-label="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-play" d="M5 3.5v9l7-4.5z"/><path class="i-pause" d="M4.5 3.5h2.2v9H4.5zM9.3 3.5h2.2v9H9.3z"/></svg></button>
+              <button type="button" class="vid-ctl vid-replay" aria-label="Replay from the start"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 6.5A5 5 0 1 1 3 9.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2.4 2.8v4.4h4.4z"/></svg></button>
+              <input type="range" class="vid-seek" min="0" max="1000" step="1" value="0" aria-label="Video progress">
+              <span class="vid-time">0:00 / 0:40</span>
+            </div>
           </div>
           <figcaption>The end-to-end flow, rebuilt with a fictional brand: create a project, try materials, homeowner approval, then the order.</figcaption>
         </figure>

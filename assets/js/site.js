@@ -350,18 +350,30 @@ if ('IntersectionObserver' in window) {
   requestAnimationFrame(frame);
 })();
 
-/* Case-study video: autoplays muted while in view, unless reduced motion is set */
+/* Case-study video: plays only when asked, with play/pause, replay and a seek bar */
 (() => {
+  const fmt = s => { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
   document.querySelectorAll('.vid').forEach(box => {
-    const v = box.querySelector('video'), btn = box.querySelector('.vid-btn');
-    let userPaused = false;
-    const sync = () => { const on = !v.paused; box.classList.toggle('playing', on); btn.setAttribute('aria-label', on ? 'Pause video' : 'Play video'); };
-    v.addEventListener('play', sync); v.addEventListener('pause', sync);
-    btn.addEventListener('click', () => { if (v.paused) { userPaused = false; v.play(); } else { userPaused = true; v.pause(); } });
-    if (reduce || !('IntersectionObserver' in window)) return;
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !userPaused) v.play().catch(() => {});
-      else if (!e.isIntersecting) v.pause();
-    }, { threshold: .5 }).observe(v);
+    const v = box.querySelector('video'), big = box.querySelector('.vid-big'), play = box.querySelector('.vid-play'),
+          replay = box.querySelector('.vid-replay'), seek = box.querySelector('.vid-seek'), time = box.querySelector('.vid-time');
+    let dragging = false;
+    const toggle = () => { if (v.paused || v.ended) v.play().catch(() => {}); else v.pause(); };
+    const sync = () => { const on = !v.paused && !v.ended; box.classList.toggle('playing', on); play.setAttribute('aria-label', on ? 'Pause' : 'Play'); };
+    const progress = () => {
+      const d = v.duration || 0, p = d ? v.currentTime / d : 0;
+      if (!dragging) seek.value = Math.round(p * 1000);
+      seek.style.setProperty('--p', (seek.value / 10) + '%');
+      seek.setAttribute('aria-valuetext', fmt(v.currentTime) + ' of ' + fmt(d));
+      time.textContent = fmt(v.currentTime) + ' / ' + fmt(d);
+    };
+    v.addEventListener('play', () => { box.classList.add('started'); sync(); });
+    ['pause', 'ended'].forEach(e => v.addEventListener(e, sync));
+    ['timeupdate', 'loadedmetadata', 'seeked'].forEach(e => v.addEventListener(e, progress));
+    big.addEventListener('click', toggle); play.addEventListener('click', toggle); v.addEventListener('click', toggle);
+    replay.addEventListener('click', () => { v.currentTime = 0; v.play().catch(() => {}); });
+    seek.addEventListener('input', () => { dragging = true; if (v.duration) v.currentTime = seek.value / 1000 * v.duration; seek.style.setProperty('--p', (seek.value / 10) + '%'); box.classList.add('started'); });
+    seek.addEventListener('change', () => { dragging = false; });
+    // Pause if the viewer scrolls away mid-play
+    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0 }).observe(box);
   });
 })();
