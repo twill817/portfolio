@@ -349,3 +349,19 @@ if ('IntersectionObserver' in window) {
   }
   requestAnimationFrame(frame);
 })();
+
+/* Case-study video: autoplays muted while in view, unless reduced motion is set */
+(() => {
+  document.querySelectorAll('.vid').forEach(box => {
+    const v = box.querySelector('video'), btn = box.querySelector('.vid-btn');
+    let userPaused = false;
+    const sync = () => { const on = !v.paused; box.classList.toggle('playing', on); btn.setAttribute('aria-label', on ? 'Pause video' : 'Play video'); };
+    v.addEventListener('play', sync); v.addEventListener('pause', sync);
+    btn.addEventListener('click', () => { if (v.paused) { userPaused = false; v.play(); } else { userPaused = true; v.pause(); } });
+    if (reduce || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !userPaused) v.play().catch(() => {});
+      else if (!e.isIntersecting) v.pause();
+    }, { threshold: .5 }).observe(v);
+  });
+})();
