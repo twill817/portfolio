@@ -203,19 +203,19 @@ if ('IntersectionObserver' in window) {
   const edgeLag = new Float32Array(E), edgeFold = new Float32Array(E);
   EDGES.forEach(([i,j], e) => { edgeLag[e] = rnd() * .35; edgeFold[e] = ((MESH.p[i][0] + MESH.p[j][0]) / 2 / W) * .7 + rnd() * .3; });
 
-  const vert = 'attribute float aSize; attribute float aAlpha; uniform float uPR; uniform float uScale; varying float vA;' +
-    'void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv;' +
+  const vert = 'attribute float aSize; attribute float aAlpha; attribute float aMix; uniform float uPR; uniform float uScale; varying float vA; varying float vM;' +
+    'void main(){ vM = aMix; vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv;' +
     'gl_PointSize = aSize * uPR * uScale * (9.0 / -mv.z); vA = aAlpha; }';
-  const fragDot = 'uniform vec3 uColor; uniform float uOpacity; varying float vA;' +
+  const fragDot = 'uniform vec3 uColor; uniform vec3 uColor2; uniform float uOpacity; varying float vA; varying float vM;' +
     'void main(){ float d = length(gl_PointCoord - 0.5); float a = smoothstep(0.5, 0.36, d);' +
-    'gl_FragColor = vec4(uColor, a * vA * uOpacity); }';
-  const fragSoft = 'uniform vec3 uColor; uniform float uOpacity; varying float vA;' +
+    'gl_FragColor = vec4(mix(uColor, uColor2, vM), a * vA * uOpacity); }';
+  const fragSoft = 'uniform vec3 uColor; uniform vec3 uColor2; uniform float uOpacity; varying float vA; varying float vM;' +
     'void main(){ float d = length(gl_PointCoord - 0.5); float a = smoothstep(0.5, 0.0, d); a *= a;' +
-    'gl_FragColor = vec4(uColor, a * vA * uOpacity); }';
-  const vertFlat = 'attribute float aAlpha; varying float vA; void main(){ gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); vA = aAlpha; }';
-  const fragFlat = 'uniform vec3 uColor; uniform float uOpacity; varying float vA; void main(){ gl_FragColor = vec4(uColor, vA * uOpacity); }';
+    'gl_FragColor = vec4(mix(uColor, uColor2, vM), a * vA * uOpacity); }';
+  const vertFlat = 'attribute float aAlpha; attribute float aMix; varying float vA; varying float vM; void main(){ vM = aMix; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); vA = aAlpha; }';
+  const fragFlat = 'uniform vec3 uColor; uniform vec3 uColor2; uniform float uOpacity; varying float vA; varying float vM; void main(){ gl_FragColor = vec4(mix(uColor, uColor2, vM), vA * uOpacity); }';
   const mat = (v, f) => new THREE.ShaderMaterial({ vertexShader: v, fragmentShader: f, transparent: true, depthWrite: false, side: THREE.DoubleSide,
-    uniforms: { uColor: { value: new THREE.Color() }, uOpacity: { value: 1 }, uPR: { value: PR }, uScale: { value: 1 } } });
+    uniforms: { uColor: { value: new THREE.Color() }, uColor2: { value: new THREE.Color() }, uOpacity: { value: 1 }, uPR: { value: PR }, uScale: { value: 1 } } });
 
   // Facets (very faint fills), lines, dots
   const fPos = new Float32Array(F*9), fAlpha = new Float32Array(F*3), fShade = new Float32Array(F);
@@ -228,12 +228,17 @@ if ('IntersectionObserver' in window) {
     const n = B.clone().sub(A).cross(C.clone().sub(A)).normalize(); if (n.z < 0) n.negate();
     fShade[f] = Math.max(0, n.dot(light));
   });
+  const fMix = new Float32Array(F*3);
+  for (let f = 0; f < F; f++) { const m = Math.min(1, Math.max(0, (fShade[f] - .45) / .4)) * .85 + (rnd() < .12 ? .5 : 0); fMix[f*3] = fMix[f*3+1] = fMix[f*3+2] = Math.min(1, m); }
+  fGeo.setAttribute('aMix', new THREE.BufferAttribute(fMix, 1));
   const lPos = new Float32Array(E*6), lAlpha = new Float32Array(E*2);
   const lGeo = new THREE.BufferGeometry();
-  lGeo.setAttribute('position', new THREE.BufferAttribute(lPos, 3)); lGeo.setAttribute('aAlpha', new THREE.BufferAttribute(lAlpha, 1));
+  lGeo.setAttribute('position', new THREE.BufferAttribute(lPos, 3)); lGeo.setAttribute('aAlpha', new THREE.BufferAttribute(lAlpha, 1)); lGeo.setAttribute('aMix', new THREE.BufferAttribute(new Float32Array(E*2).fill(.12), 1));
   const lMat = mat(vertFlat, fragFlat); const lines = new THREE.LineSegments(lGeo, lMat); lines.frustumCulled = false; head.add(lines);
   const dGeo = new THREE.BufferGeometry();
   dGeo.setAttribute('position', new THREE.BufferAttribute(vpos, 3)); dGeo.setAttribute('aSize', new THREE.BufferAttribute(vSize, 1)); dGeo.setAttribute('aAlpha', new THREE.BufferAttribute(liveA, 1));
+  const dMix = new Float32Array(M); for (let i = 0; i < M; i++) dMix[i] = rnd() < .35 ? .8 + rnd() * .2 : rnd() * .15;
+  dGeo.setAttribute('aMix', new THREE.BufferAttribute(dMix, 1));
   const dMat = mat(vert, fragDot); const dots = new THREE.Points(dGeo, dMat); dots.frustumCulled = false; head.add(dots);
 
   // Room dust
@@ -242,6 +247,8 @@ if ('IntersectionObserver' in window) {
   for (let i = 0; i < D; i++) { sBase[i*3] = rnd(); sBase[i*3+1] = rnd(); sBase[i*3+2] = (rnd()-.5)*4; sPh[i] = rnd()*6.28; sSize[i] = 3 + rnd()*6; sAlpha[i] = .06 + rnd()*.14; }
   const sGeo = new THREE.BufferGeometry();
   sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3)); sGeo.setAttribute('aSize', new THREE.BufferAttribute(sSize, 1)); sGeo.setAttribute('aAlpha', new THREE.BufferAttribute(sAlpha, 1));
+  const sMix = new Float32Array(D); for (let i = 0; i < D; i++) sMix[i] = rnd() < .4 ? 1 : 0;
+  sGeo.setAttribute('aMix', new THREE.BufferAttribute(sMix, 1));
   const sMat = mat(vert, fragSoft); const dust = new THREE.Points(sGeo, sMat); dust.frustumCulled = false; room.add(dust);
 
   let VW = VH, s = .01, narrow = false, base = 1;
@@ -263,6 +270,8 @@ if ('IntersectionObserver' in window) {
     const acc = cs.getPropertyValue('--accent').trim() || '#0E6656', mut = cs.getPropertyValue('--muted').trim() || '#5A646B';
     dMat.uniforms.uColor.value.set(acc); lMat.uniforms.uColor.value.set(acc); fMat.uniforms.uColor.value.set(acc);
     sMat.uniforms.uColor.value.set(mut);
+    const warm = cs.getPropertyValue('--warm').trim() || '#C08A2E';
+    [dMat, lMat, fMat, sMat].forEach(m => m.uniforms.uColor2.value.set(warm));
     if (reduce) requestAnimationFrame(frame);
   }
 

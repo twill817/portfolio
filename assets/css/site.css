@@ -1,7 +1,7 @@
 /* Layout: one wide reading column, a sticky section index on desktop, one Three.js moment in the hero. */
 :root{
-  --bg:#F1F3F1; --surface:#FFFFFF; --ink:#15191C; --muted:#5A646B; --line:#D3D9D6;
-  --accent:#0E6656; --accent-soft:#DCEBE6;
+  --bg:#F4F2EE; --surface:#FFFFFF; --ink:#17191B; --muted:#5E6468; --line:#DAD6CE;
+  --accent:#0E6656; --accent-soft:#DCEBE6; --warm:#C08A2E; --warm-soft:#F3E7CF;
   --display:"Schibsted Grotesk", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body:"Roboto", "Helvetica Neue", Arial, system-ui, sans-serif;
   --mono:"Roboto", "Helvetica Neue", Arial, system-ui, sans-serif;
@@ -10,11 +10,11 @@
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#0E1213; --surface:#151A1C; --ink:#E6EAE8; --muted:#97A3A0; --line:#2A3335;
-  --accent:#5DC6AC; --accent-soft:#16302B; color-scheme:dark } }
+  --bg:#111212; --surface:#191A1A; --ink:#E6EAE8; --muted:#97A3A0; --line:#2F3231;
+  --accent:#5DC6AC; --accent-soft:#16302B; --warm:#E3B860; --warm-soft:#2E2618; color-scheme:dark } }
 :root[data-theme="dark"]{
-  --bg:#0E1213; --surface:#151A1C; --ink:#E6EAE8; --muted:#97A3A0; --line:#2A3335;
-  --accent:#5DC6AC; --accent-soft:#16302B; color-scheme:dark }
+  --bg:#111212; --surface:#191A1A; --ink:#E6EAE8; --muted:#97A3A0; --line:#2F3231;
+  --accent:#5DC6AC; --accent-soft:#16302B; --warm:#E3B860; --warm-soft:#2E2618; color-scheme:dark }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
@@ -100,7 +100,7 @@ html,body{overflow-x:clip}
 .points h4{font-family:var(--mono); font-weight:500; font-size:.72rem; text-transform:uppercase; letter-spacing:.09em; color:var(--accent); margin:0 0 8px}
 .points p{margin:0; text-wrap:pretty}
 .stats{display:flex; flex-wrap:wrap; gap:10px; margin:28px 0 0; padding:0; list-style:none}
-.stats li{background:var(--accent-soft); border-radius:999px; padding:6px 13px; font-size:var(--step--1); font-variant-numeric:tabular-nums}
+.stats li{background:var(--warm-soft); border-radius:999px; padding:6px 13px; font-size:var(--step--1); font-variant-numeric:tabular-nums}
 .stats strong{font-weight:600}
 .case .more{display:inline-block; margin-top:18px; font-size:var(--step--1); color:var(--accent); text-underline-offset:3px}
 .case .note{font-size:.78rem; color:var(--muted); margin:14px 0 0}
