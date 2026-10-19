@@ -163,12 +163,27 @@
         <h3>Commonwealth of Pennsylvania</h3>
         <p class="summary">Residents had to know which agency owned their task before they could find it, the opposite of the governor's "No wrong door" commitment.</p>
                 <p class="role">PA.gov · UX Lead · Publicis Sapient</p>
-        <figure class="case-visual shots">
-          <div class="shots-row">
-            <img class="shot shot-main" src="assets/img/pa-search.webp" width="1230" height="935" loading="lazy" alt="PA.gov Find Services page with two life-event filters applied, Finding a Job and Navigating Unemployment, showing 74 results from several agencies. Each result carries tags for its agency, topic, and life events.">
-            <img class="shot shot-side" src="assets/img/pa-service-page.webp" width="720" height="1937" loading="lazy" alt="PA.gov service page for applying for unemployment compensation, laid out as eligibility, tips for filing, ways to file a claim, and what happens after you apply.">
+        <figure class="case-visual">
+          <div class="carousel" aria-roledescription="carousel" aria-label="PA.gov screens">
+            <div class="car-stage">
+              <div class="car-slide" data-title="Search that starts from the resident" data-desc="Life-event filters sit beside agency and service type. Someone who just lost a job sees services from every agency at once."><img src="assets/img/pa-1-search.webp" width="1200" height="900" alt="PA.gov Find Services page with the life-event filters Finding a Job and Navigating Unemployment applied, showing 74 results from several agencies." loading="lazy" decoding="async"></div>
+              <div class="car-slide" data-title="Tags instead of folders" data-desc="Each service carries tags for its agency, topic, and life events, so one page shows up wherever a resident might look for it."><img src="assets/img/pa-2-tags.webp" width="910" height="682" alt="Search results on PA.gov, each tagged with its agency, topics, and life events such as Finding a Job and Adopting a Child." loading="lazy" decoding="async"></div>
+              <div class="car-slide" data-title="One pattern for every service" data-desc="Service pages open with what the service is and how to start, then an on-page guide to eligibility, filing, and next steps."><img src="assets/img/pa-3-service.webp" width="1200" height="900" alt="PA.gov service page for unemployment compensation, with File a claim and Reopen a claim buttons and an On this page guide." loading="lazy" decoding="async"></div>
+              <div class="car-slide" data-title="Clear ways to act" data-desc="The options to apply sit side by side: online, by phone, or by videophone for people who use sign language."><img src="assets/img/pa-4-apply.webp" width="890" height="668" alt="PA.gov File a claim section with three cards: Apply Online, Apply by Phone, and Apply by Videophone." loading="lazy" decoding="async"></div>
+            </div>
+            <div class="car-info">
+              <div class="car-text" aria-live="polite">
+                <p class="car-count"></p>
+                <p class="car-title"></p>
+                <p class="car-desc"></p>
+              </div>
+              <div class="car-nav">
+                <button type="button" class="car-btn car-prev" aria-label="Previous screen"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+                <button type="button" class="car-btn car-next" aria-label="Next screen"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
+              </div>
+            </div>
           </div>
-          <figcaption>PA.gov today: search filtered by two life events, with every result tagged by agency, topic, and life event, and a service page ordered around the resident's questions, from eligibility to filing to what happens next.</figcaption>
+          <figcaption>Screens from PA.gov today. Select the front screen to view it larger.</figcaption>
         </figure>
         <ul class="points two">
           <li><h4>My part</h4><p>I owned the UX architecture and led the design team. In workshops with each agency, I reorganized their sites around how residents look for content and take it in. I also set the content strategy, replacing folder-based organization with tagging so search could filter the way residents think, including by life event.</p></li>
@@ -250,6 +265,12 @@
     <span>Tucker Williams</span>
   </footer>
 </div>
+
+<dialog class="lightbox" id="lightbox" aria-label="Enlarged screen">
+  <button type="button" class="lightbox-close" aria-label="Close">×</button>
+  <img alt="">
+  <p class="lightbox-cap"></p>
+</dialog>
 
 <button class="to-top" id="to-top" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>Top</button>
 
