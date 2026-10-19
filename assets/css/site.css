@@ -152,7 +152,7 @@ html,body{overflow-x:clip}
 
 /* ---------- Clients, approach, contact ---------- */
 .block{border-top:1px solid var(--line); padding-block:56px}
-.clients{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px 32px; margin:28px 0 0}
+.clients{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:26px 32px; margin:28px 0 0}
 .client-group{min-width:0}
 .client-group summary{list-style:none; font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:4px; cursor:default}
 .client-group summary::-webkit-details-marker{display:none}
