@@ -85,156 +85,189 @@ if ('IntersectionObserver' in window) {
   map.forEach((_, id) => { const el = document.getElementById(id); if (el) spy.observe(el); });
 }
 
-/* ---------- Hero background: particles drift in from the left and settle into a human profile ---------- */
-(function hero(){
+/* ---------- Hero background: larger dots fly in from the left, connect into a low-poly face, and settle ---------- */
+(function heroPolygon(){
   const stage = document.getElementById('stage');
   if (!window.THREE) { document.documentElement.classList.add('no-webgl'); return; }
   let renderer;
-  try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
-  catch (e) { document.documentElement.classList.add('no-webgl'); return; }
+  try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { document.documentElement.classList.add('no-webgl'); return; }
   const PR = Math.min(devicePixelRatio || 1, 2);
   renderer.setPixelRatio(PR);
   stage.appendChild(renderer.domElement);
-
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
   camera.position.set(0, 0, 9);
-  const VH = 2 * 9 * Math.tan(THREE.MathUtils.degToRad(18));   // visible height at the head's depth
+  const VH = 2 * 9 * Math.tan(THREE.MathUtils.degToRad(18));
   const head = new THREE.Group(); scene.add(head);
   const room = new THREE.Group(); scene.add(room);
+  let seed = 31; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 
-  let seed = 23; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const MESH = {"p": [[350, 579], [347, 549], [344, 520], [342, 496], [339, 462], [337, 433], [336, 408], [338, 378], [345, 349], [355, 327], [365, 304], [375, 279], [382, 253], [386, 225], [385, 197], [381, 168], [373, 142], [361, 118], [344, 97], [322, 80], [297, 66], [269, 57], [241, 53], [213, 55], [188, 60], [164, 70], [138, 88], [118, 112], [107, 139], [102, 165], [100, 184], [100, 199], [101, 210], [105, 222], [110, 236], [105, 246], [100, 257], [96, 268], [90, 280], [84, 292], [77, 304], [71, 317], [71, 328], [80, 334], [92, 337], [96, 348], [92, 359], [99, 369], [95, 378], [97, 390], [104, 398], [101, 408], [100, 420], [102, 432], [107, 442], [118, 449], [129, 453], [139, 455], [164, 457], [190, 464], [206, 484], [209, 514], [211, 552], [271.8, 456.5], [311.6, 555.4], [219.5, 185.1], [244.9, 364.5], [320.3, 137.5], [269.9, 119.4], [131.2, 168.1], [243.3, 421.5], [182.8, 140.9], [162.5, 380.5], [174.9, 219.9], [167.4, 313.7], [238.4, 475.0], [267.7, 553.1], [245.3, 221.2], [294.3, 596.2], [261.9, 502.8], [214.9, 281.1], [280.9, 368.2], [145.2, 418.1], [310.9, 503.8], [286.3, 280.6], [210.0, 406.3], [154.7, 274.7], [338.3, 279.7], [266.9, 242.4], [137.0, 209.7], [262.6, 192.4], [325.8, 184.6], [151.0, 134.8], [266.7, 310.1], [318.5, 214.8], [160.9, 340.4], [217.9, 247.8], [205.4, 365.5], [300.8, 396.5], [235.8, 123.3], [139.7, 253.4], [139.9, 232.6], [187.4, 261.3], [140.0, 314.2], [246.5, 592.3], [121.0, 328.7], [187.1, 104.0], [154.2, 160.2], [179.6, 186.0], [291.0, 336.2], [303.2, 255.0], [160.6, 114.0], [160.6, 234.6], [117.5, 300.8], [141.9, 361.6], [202.4, 326.3], [207.9, 217.9], [294.3, 168.9], [210.8, 154.5], [345.7, 250.4], [317.4, 311.8], [234.5, 307.3], [154.6, 296.3], [157.1, 194.9], [118.9, 275.6], [308.0, 450.8], [179.6, 430.8], [138.4, 386.5], [283.2, 525.2], [229.8, 90.8], [211.2, 593.7], [313.5, 356.3], [126.6, 132.8], [240.6, 158.3], [160.9, 92.5], [252.5, 280.0], [269.4, 401.9], [140.8, 110.9], [157.5, 435.2], [219.0, 441.5], [345.6, 154.7], [354.9, 220.7], [134.3, 188.0], [139.9, 338.9], [126.2, 426.6], [239.5, 529.1], [121.0, 362.0], [137.3, 284.6], [287.6, 212.9], [166.6, 411.7], [164.2, 360.4], [290.6, 425.8], [98.2, 307.0], [326.3, 597.7], [117.4, 382.1], [166.8, 253.7], [292.4, 479.1], [267.9, 88.6], [301.9, 110.1], [129.4, 405.1]], "t": [[64, 0, 153], [78, 64, 153], [140, 17, 16], [15, 140, 16], [64, 1, 0], [2, 1, 64], [78, 76, 64], [106, 25, 24], [55, 144, 56], [144, 55, 54], [88, 110, 84], [119, 110, 94], [110, 87, 84], [87, 110, 119], [135, 88, 84], [93, 66, 121], [93, 135, 84], [135, 93, 121], [141, 14, 13], [141, 119, 94], [12, 141, 13], [141, 12, 119], [14, 91, 15], [91, 140, 15], [141, 91, 14], [91, 141, 94], [20, 157, 21], [157, 22, 21], [17, 67, 18], [140, 67, 17], [91, 67, 140], [43, 42, 41], [152, 43, 41], [43, 152, 44], [152, 38, 113], [83, 3, 2], [83, 2, 64], [3, 83, 4], [70, 66, 136], [66, 70, 85], [138, 144, 82], [111, 106, 71], [108, 118, 65], [118, 108, 71], [108, 107, 71], [53, 144, 54], [152, 105, 44], [105, 152, 113], [97, 66, 85], [110, 148, 94], [148, 110, 88], [148, 91, 94], [80, 135, 121], [151, 70, 136], [70, 151, 63], [5, 151, 6], [93, 109, 66], [157, 158, 68], [158, 67, 68], [19, 158, 20], [158, 157, 20], [158, 19, 18], [67, 158, 18], [99, 157, 68], [106, 99, 71], [99, 118, 71], [117, 67, 91], [117, 148, 90], [148, 117, 91], [67, 117, 68], [40, 152, 41], [76, 128, 64], [128, 83, 64], [83, 156, 4], [63, 156, 79], [156, 128, 79], [128, 156, 83], [57, 138, 58], [144, 57, 56], [138, 57, 144], [149, 138, 82], [138, 126, 58], [126, 149, 85], [149, 126, 138], [104, 76, 78], [104, 62, 76], [28, 27, 132], [28, 69, 29], [69, 28, 132], [69, 107, 142], [69, 30, 29], [30, 69, 142], [92, 69, 132], [69, 92, 107], [107, 92, 71], [92, 111, 71], [134, 25, 106], [111, 134, 106], [25, 134, 26], [27, 137, 132], [137, 92, 132], [92, 137, 111], [137, 27, 26], [134, 137, 26], [137, 134, 111], [86, 100, 155], [100, 34, 101], [112, 73, 155], [100, 112, 155], [112, 100, 101], [89, 112, 101], [112, 89, 73], [144, 159, 82], [105, 45, 44], [146, 45, 105], [66, 115, 121], [97, 115, 66], [80, 115, 74], [115, 80, 121], [115, 95, 74], [115, 97, 150], [95, 115, 150], [12, 11, 119], [11, 87, 119], [135, 96, 88], [80, 96, 135], [66, 81, 136], [109, 81, 66], [120, 9, 8], [87, 120, 84], [120, 93, 84], [120, 109, 93], [99, 133, 118], [133, 90, 65], [118, 133, 65], [133, 99, 68], [117, 133, 68], [133, 117, 90], [157, 129, 22], [99, 129, 157], [129, 23, 22], [129, 99, 106], [129, 106, 24], [23, 129, 24], [152, 39, 38], [40, 39, 152], [31, 30, 142], [89, 31, 142], [31, 89, 32], [151, 125, 63], [125, 156, 63], [156, 125, 4], [125, 5, 4], [125, 151, 5], [62, 145, 76], [128, 145, 79], [145, 128, 76], [75, 63, 79], [145, 75, 79], [75, 70, 63], [61, 145, 62], [75, 61, 60], [61, 75, 145], [104, 130, 62], [122, 147, 86], [147, 100, 86], [103, 105, 113], [147, 103, 113], [103, 147, 122], [103, 122, 74], [95, 103, 74], [35, 34, 100], [34, 33, 101], [33, 89, 101], [89, 33, 32], [73, 123, 108], [89, 123, 73], [123, 89, 142], [107, 123, 142], [108, 123, 107], [127, 149, 82], [159, 127, 82], [127, 159, 154], [146, 127, 154], [51, 159, 144], [143, 146, 105], [103, 143, 105], [143, 103, 95], [11, 10, 87], [10, 120, 87], [120, 10, 9], [102, 96, 80], [102, 86, 155], [73, 102, 155], [102, 122, 86], [102, 80, 74], [122, 102, 74], [116, 108, 65], [116, 73, 108], [116, 102, 73], [102, 116, 96], [131, 81, 109], [7, 131, 8], [131, 120, 8], [120, 131, 109], [98, 7, 6], [151, 98, 6], [98, 131, 7], [131, 98, 81], [98, 151, 136], [81, 98, 136], [75, 139, 70], [70, 139, 85], [139, 126, 85], [139, 75, 60], [147, 124, 100], [35, 124, 36], [124, 35, 100], [124, 37, 36], [124, 147, 113], [38, 124, 113], [37, 124, 38], [127, 72, 149], [97, 72, 150], [72, 97, 85], [149, 72, 85], [114, 127, 146], [143, 114, 146], [72, 114, 150], [114, 72, 127], [114, 95, 150], [114, 143, 95], [159, 50, 154], [51, 50, 159], [53, 52, 144], [52, 51, 144], [146, 47, 45], [47, 46, 45], [48, 47, 154], [47, 146, 154], [90, 77, 65], [77, 116, 65], [77, 148, 88], [148, 77, 90], [96, 77, 88], [116, 77, 96], [59, 139, 60], [126, 59, 58], [139, 59, 126], [49, 48, 154], [50, 49, 154]]};
+  const W = 480, CX = 228, CY = 256;
+  const M = MESH.p.length, TRI = MESH.t;
+  const edgeSet = new Map();
+  TRI.forEach(([a,b,c]) => [[a,b],[b,c],[c,a]].forEach(([i,j]) => { const k = i < j ? i+'_'+j : j+'_'+i; if (!edgeSet.has(k)) edgeSet.set(k, [Math.min(i,j), Math.max(i,j)]); }));
+  const EDGES = [...edgeSet.values()], E = EDGES.length, F = TRI.length;
 
-  // Head silhouette (facing left), in a 480 x 600 drawing space.
-  const P = [352,600,351,591,350,579,348,564,347,549,345,534,344,520,343,508,342,496,341,484,340,473,339,462,338,452,337,442,337,433,336,424,336,416,336,408,336,400,336,392,337,385,338,378,339,370,340,363,342,356,345,349,348,342,351,334,355,327,359,320,362,312,365,304,369,296,372,288,375,279,378,271,380,262,382,253,383,244,385,234,386,225,386,215,386,206,385,197,384,187,383,177,381,168,379,159,376,150,373,142,369,133,365,126,361,118,356,111,350,104,344,97,337,91,330,85,322,80,314,74,306,70,297,66,288,63,279,60,269,57,259,55,250,54,241,53,232,53,222,54,213,55,205,56,196,58,188,60,180,63,172,66,164,70,157,74,150,78,144,83,138,88,132,94,127,100,122,106,118,112,115,118,112,125,109,132,107,139,106,145,104,152,103,159,102,165,101,172,101,178,100,184,100,190,100,195,100,199,100,203,101,207,101,210,102,214,103,218,105,222,106,226,108,229,109,233,110,236,110,238,109,240,108,242,107,244,105,246,104,248,103,251,102,254,100,257,99,261,98,264,96,268,94,272,92,276,90,280,88,284,86,288,84,292,82,296,80,300,77,304,75,307,73,311,72,314,71,317,70,319,70,321,69,323,70,324,70,326,71,328,72,329,74,330,76,332,78,333,80,334,82,335,85,335,88,336,90,336,92,337,94,338,95,339,96,341,96,343,96,344,96,346,96,348,96,350,95,351,94,353,93,355,92,356,92,358,92,359,93,361,94,362,94,364,95,365,96,366,97,367,98,368,99,369,99,370,100,371,100,372,99,373,98,374,97,376,96,377,95,378,94,380,94,382,95,384,95,386,96,388,97,390,98,392,99,393,100,394,102,395,103,395,104,396,104,398,104,400,103,403,102,405,101,408,100,411,100,414,100,417,100,420,100,423,101,426,101,429,102,432,103,435,104,437,106,440,107,442,110,444,112,446,115,448,118,449,121,451,125,452,129,453,134,454,139,455,145,455,152,456,158,456,164,457,170,458,175,459,181,461,186,462,190,464,194,467,198,470,201,473,203,476,204,480,206,484,207,491,208,500,209,514,210,532,211,552,211,571,212,588,212,600];
-  const W = 480, H = 600, CX = 228, CY = 256;
-  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
-  const c2 = cv.getContext('2d'); c2.beginPath(); c2.moveTo(P[0], P[1]);
-  for (let i = 2; i < P.length; i += 2) c2.lineTo(P[i], P[i+1]);
-  c2.closePath(); c2.fill();
-  const img = c2.getImageData(0, 0, W, H).data;
-  const inside = [];
-  for (let y = 0; y < H; y += 2) for (let x = 0; x < W; x += 2) if (img[(y*W + x)*4 + 3] > 128) inside.push(x, y);
-
-  // Face particles: even fill, no outline. Light falls from the front of the face; depth follows a rounded skull.
-  const N = 9500;
-  const local = new Float32Array(N*3), pos = new Float32Array(N*3), from = new Float32Array(N*3);
-  const out = new Float32Array(N*3), wob = new Float32Array(N*2), phase = new Float32Array(N), delay = new Float32Array(N), size = new Float32Array(N), alpha = new Float32Array(N);
-  for (let i = 0; i < N; i++) {
-    const j = Math.floor(rnd() * inside.length / 2) * 2;
-    const px = inside[j] + rnd()*2, py = inside[j+1] + rnd()*2;
-    // Distance to the silhouette edge, so light can catch the profile softly (no drawn outline).
-    let dist = 30;
-    for (let r = 3; r <= 30 && dist === 30; r += 3) for (let a = 0; a < 12; a++) {
-      const qx = Math.round(px + Math.cos(a * .5236) * r), qy = Math.round(py + Math.sin(a * .5236) * r);
-      if (qx < 0 || qy < 0 || qx >= W || qy >= H || img[(qy*W + qx)*4 + 3] <= 128) { dist = r; break; }
-    }
-    const rim = Math.pow(1 - dist / 30, 1.6);
-    const depth = 38 * Math.sqrt(Math.max(0, 1 - Math.pow((px - 240) / 175, 2))) * (py > 470 ? .55 : 1);
-    local[i*3] = px - CX; local[i*3+1] = -(py - CY); local[i*3+2] = (rnd()*2 - 1) * depth;
-    const front = Math.max(0, 1 - (px - 70) / 330);
-    const neck = Math.min(1, Math.max(0, (600 - py) / 95));
-    alpha[i] = Math.min(1, (.2 + .38 * Math.pow(front, 1.2)) * (.75 + rnd()*.25) * (1 + rim * (1.2 + 1.8 * front))) * neck;
-    size[i] = 2.4 + rnd() * 2.8;
+  // Vertices
+  const local = new Float32Array(M*3), vpos = new Float32Array(M*3), from = new Float32Array(M*3), out = new Float32Array(M*3);
+  const liveA = new Float32Array(M), wob = new Float32Array(M*2), phase = new Float32Array(M), delay = new Float32Array(M), vSize = new Float32Array(M), vAlpha = new Float32Array(M);
+  for (let i = 0; i < M; i++) {
+    const [px, py] = MESH.p[i];
+    const z = 70 * Math.sqrt(Math.max(0, 1 - Math.pow((px - 240) / 190, 2))) * (.55 + rnd() * .45) * (py > 470 ? .6 : 1);
+    local[i*3] = px - CX; local[i*3+1] = -(py - CY); local[i*3+2] = z;
+    const neck = Math.min(1, Math.max(0, (600 - py) / 110));
+    vAlpha[i] = (.7 + rnd() * .3) * neck;
+    vSize[i] = 8 + rnd() * 6;
     phase[i] = rnd() * 6.28;
-    from[i*3] = rnd(); from[i*3+1] = rnd(); from[i*3+2] = (rnd()-.5) * 3;   // normalized start: left of screen, any height
-    wob[i*2] = (rnd()-.5) * 1.4; wob[i*2+1] = (rnd()-.5) * 1.2;
-    delay[i] = rnd() * 2.6 + (px / W) * .8;
-    // Leaving: the back of the head lets go first, and everything drifts off to the right.
-    out[i*3] = rnd(); out[i*3+1] = (rnd()-.5) * .35; out[i*3+2] = (1 - px / W) * 1.3 + rnd() * 1.1;
+    from[i*3] = rnd(); from[i*3+1] = rnd(); from[i*3+2] = (rnd() - .5) * 3;
+    wob[i*2] = (rnd() - .5) * 1.4; wob[i*2+1] = (rnd() - .5) * 1.2;
+    delay[i] = rnd() * 2.2 + (px / W) * .7;
+    out[i*3] = rnd(); out[i*3+1] = (rnd() - .5) * .35; out[i*3+2] = (1 - px / W) * 1.2 + rnd() * 1.0;
   }
 
-  // Room dust: quiet complexity that stays in the background.
-  const D = 900;
-  const dBase = new Float32Array(D*3), dPos = new Float32Array(D*3), dPh = new Float32Array(D), dSize = new Float32Array(D), dAlpha = new Float32Array(D);
-  for (let i = 0; i < D; i++) { dBase[i*3] = rnd(); dBase[i*3+1] = rnd(); dBase[i*3+2] = (rnd()-.5)*4; dPh[i] = rnd()*6.28; dSize[i] = 3 + rnd()*6; dAlpha[i] = .06 + rnd()*.16; }
+  // Timeline (seconds)
+  const SPEED = 1.3;
+  const FLY = 4.2, ARRIVE = .3 + 2.9 + FLY;   // last dot lands
+  const LINE_IN = .9, HOLD = 3.2, FOLD = 1.6, PAUSE = .5, OUT = 4.8;
+  const arriveAt = i => .3 + delay[i] + FLY * .92;
+  const MESH_DONE = ARRIVE + LINE_IN;
+  const FOLD_AT = MESH_DONE + HOLD, OUT_AT = FOLD_AT + FOLD + PAUSE;
+  const edgeLag = new Float32Array(E), edgeFold = new Float32Array(E);
+  EDGES.forEach(([i,j], e) => { edgeLag[e] = rnd() * .35; edgeFold[e] = ((MESH.p[i][0] + MESH.p[j][0]) / 2 / W) * .7 + rnd() * .3; });
 
   const vert = 'attribute float aSize; attribute float aAlpha; uniform float uPR; uniform float uScale; varying float vA;' +
     'void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv;' +
     'gl_PointSize = aSize * uPR * uScale * (9.0 / -mv.z); vA = aAlpha; }';
-  const frag = 'uniform vec3 uColor; uniform float uOpacity; varying float vA;' +
+  const fragDot = 'uniform vec3 uColor; uniform float uOpacity; varying float vA;' +
+    'void main(){ float d = length(gl_PointCoord - 0.5); float a = smoothstep(0.5, 0.36, d);' +
+    'gl_FragColor = vec4(uColor, a * vA * uOpacity); }';
+  const fragSoft = 'uniform vec3 uColor; uniform float uOpacity; varying float vA;' +
     'void main(){ float d = length(gl_PointCoord - 0.5); float a = smoothstep(0.5, 0.0, d); a *= a;' +
     'gl_FragColor = vec4(uColor, a * vA * uOpacity); }';
-  const makePoints = (parent, posArr, sizeArr, alphaArr) => {
-    const g = new THREE.BufferGeometry();
-    g.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
-    g.setAttribute('aSize', new THREE.BufferAttribute(sizeArr, 1));
-    g.setAttribute('aAlpha', new THREE.BufferAttribute(alphaArr, 1));
-    const m = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: frag, transparent: true, depthWrite: false,
-      uniforms: { uColor: { value: new THREE.Color() }, uOpacity: { value: 1 }, uPR: { value: PR }, uScale: { value: 1 } } });
-    const p = new THREE.Points(g, m); p.frustumCulled = false; parent.add(p); return { g, m };
-  };
-  const dust = makePoints(room, dPos, dSize, dAlpha);
-  const face = makePoints(head, pos, size, alpha);
+  const vertFlat = 'attribute float aAlpha; varying float vA; void main(){ gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); vA = aAlpha; }';
+  const fragFlat = 'uniform vec3 uColor; uniform float uOpacity; varying float vA; void main(){ gl_FragColor = vec4(uColor, vA * uOpacity); }';
+  const mat = (v, f) => new THREE.ShaderMaterial({ vertexShader: v, fragmentShader: f, transparent: true, depthWrite: false, side: THREE.DoubleSide,
+    uniforms: { uColor: { value: new THREE.Color() }, uOpacity: { value: 1 }, uPR: { value: PR }, uScale: { value: 1 } } });
 
-  // Layout: the head sits toward the right and runs off the edge; smaller screens get a quieter version.
-  let VW = VH, s = .01, narrow = false;
+  // Facets (very faint fills), lines, dots
+  const fPos = new Float32Array(F*9), fAlpha = new Float32Array(F*3), fShade = new Float32Array(F);
+  const fGeo = new THREE.BufferGeometry();
+  fGeo.setAttribute('position', new THREE.BufferAttribute(fPos, 3)); fGeo.setAttribute('aAlpha', new THREE.BufferAttribute(fAlpha, 1));
+  const fMat = mat(vertFlat, fragFlat); const facets = new THREE.Mesh(fGeo, fMat); facets.frustumCulled = false; head.add(facets);
+  const light = new THREE.Vector3(-.75, .35, .55).normalize();
+  TRI.forEach(([a,b,c], f) => {
+    const A = new THREE.Vector3(local[a*3], local[a*3+1], local[a*3+2]), B = new THREE.Vector3(local[b*3], local[b*3+1], local[b*3+2]), C = new THREE.Vector3(local[c*3], local[c*3+1], local[c*3+2]);
+    const n = B.clone().sub(A).cross(C.clone().sub(A)).normalize(); if (n.z < 0) n.negate();
+    fShade[f] = Math.max(0, n.dot(light));
+  });
+  const lPos = new Float32Array(E*6), lAlpha = new Float32Array(E*2);
+  const lGeo = new THREE.BufferGeometry();
+  lGeo.setAttribute('position', new THREE.BufferAttribute(lPos, 3)); lGeo.setAttribute('aAlpha', new THREE.BufferAttribute(lAlpha, 1));
+  const lMat = mat(vertFlat, fragFlat); const lines = new THREE.LineSegments(lGeo, lMat); lines.frustumCulled = false; head.add(lines);
+  const dGeo = new THREE.BufferGeometry();
+  dGeo.setAttribute('position', new THREE.BufferAttribute(vpos, 3)); dGeo.setAttribute('aSize', new THREE.BufferAttribute(vSize, 1)); dGeo.setAttribute('aAlpha', new THREE.BufferAttribute(liveA, 1));
+  const dMat = mat(vert, fragDot); const dots = new THREE.Points(dGeo, dMat); dots.frustumCulled = false; head.add(dots);
+
+  // Room dust
+  const D = 500;
+  const sBase = new Float32Array(D*3), sPos = new Float32Array(D*3), sPh = new Float32Array(D), sSize = new Float32Array(D), sAlpha = new Float32Array(D);
+  for (let i = 0; i < D; i++) { sBase[i*3] = rnd(); sBase[i*3+1] = rnd(); sBase[i*3+2] = (rnd()-.5)*4; sPh[i] = rnd()*6.28; sSize[i] = 3 + rnd()*6; sAlpha[i] = .06 + rnd()*.14; }
+  const sGeo = new THREE.BufferGeometry();
+  sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3)); sGeo.setAttribute('aSize', new THREE.BufferAttribute(sSize, 1)); sGeo.setAttribute('aAlpha', new THREE.BufferAttribute(sAlpha, 1));
+  const sMat = mat(vert, fragSoft); const dust = new THREE.Points(sGeo, sMat); dust.frustumCulled = false; room.add(dust);
+
+  let VW = VH, s = .01, narrow = false, base = 1;
   function layout() {
     const w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
     renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
     VW = VH * camera.aspect; narrow = w < 960;
     s = Math.min(.74 * VH / 404, (narrow ? 1.05 : .5) * VW / 316);
-    const fx = narrow ? .74 : .73;   // where the front of the face lands, as a share of the width
+    const fx = narrow ? .74 : .73;
     head.position.set(VW * (fx - .5) + (CX - 70) * s, VH * .44 - (CY - 54) * s, 0);
     head.scale.setScalar(s);
-    face.m.uniforms.uScale.value = dust.m.uniforms.uScale.value = Math.max(.8, Math.min(1.25, w / 1200));
-    face.m.uniforms.uOpacity.value = narrow ? .4 : 1;
-    dust.m.uniforms.uOpacity.value = narrow ? .6 : 1;
+    dMat.uniforms.uScale.value = sMat.uniforms.uScale.value = Math.max(.8, Math.min(1.25, w / 1200));
+    base = narrow ? .4 : 1;
+    sMat.uniforms.uOpacity.value = narrow ? .6 : 1;
     if (reduce) requestAnimationFrame(frame);
   }
-
   function applyTheme() {
     const cs = getComputedStyle(document.documentElement);
-    face.m.uniforms.uColor.value.set(cs.getPropertyValue('--accent').trim() || '#0E6656');
-    dust.m.uniforms.uColor.value.set(cs.getPropertyValue('--muted').trim() || '#5A646B');
+    const acc = cs.getPropertyValue('--accent').trim() || '#0E6656', mut = cs.getPropertyValue('--muted').trim() || '#5A646B';
+    dMat.uniforms.uColor.value.set(acc); lMat.uniforms.uColor.value.set(acc); fMat.uniforms.uColor.value.set(acc);
+    sMat.uniforms.uColor.value.set(mut);
     if (reduce) requestAnimationFrame(frame);
   }
 
   const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
-  let t0 = performance.now();
-  const FLY = 5.2, FORMED = .3 + 3.4 + FLY, HOLD = 3.5, OUT = 4.8;
-  let visible = true;
+  const clamp = t => Math.min(1, Math.max(0, t));
+  let t0 = performance.now(), visible = true;
 
   function frame(now) {
-    const T = reduce ? FORMED : (now - t0) / 1000;
-    const tm = reduce ? 0 : T;
+    if (!stage.isConnected) return;
+    const secs = (now - t0) / 1000;
+    const T = reduce ? FOLD_AT + FOLD + 1 : secs * SPEED;   // timeline runs a little faster than real time
+    const tm = reduce ? 0 : secs;
     const hx = head.position.x, hy = head.position.y;
-    const live = reduce ? 0 : 1;
-    for (let i = 0; i < N; i++) {
-      const k = ease(Math.min(1, Math.max(0, (T - .3 - delay[i]) / FLY)));
-      const q = ease(Math.min(1, Math.max(0, (T - FORMED - HOLD - out[i*3+2]) / OUT)));
-      // Formed: a slow, subtle shimmer, with a soft wave moving down the face.
-      const wave = Math.sin(tm * 1.1 - local[i*3+1] * .025) * .9;
-      const tx = local[i*3]   + (Math.sin(tm*.8 + phase[i]) * 1.4 + wave) * live;
-      const ty = local[i*3+1] + Math.cos(tm*.7 + phase[i]) * 1.4 * live;
-      const tz = local[i*3+2] + Math.sin(tm*.6 + phase[i]) * 2 * live;
+    const formed = clamp((T - ARRIVE + 1) / 2);
+    for (let i = 0; i < M; i++) {
+      const k = ease(clamp((T - .3 - delay[i]) / FLY));
+      const q = 0;   // the dots stay; they no longer drift off
+      // Dots start out partly transparent, reach full strength as they land, then soften once the face has formed.
+      const soften = 1 - .55 * ease(clamp((T - MESH_DONE - .3) / 1.6));
+      liveA[i] = vAlpha[i] * (.18 + .82 * k * k) * soften;
+      const tx = local[i*3]   + Math.sin(tm*.8 + phase[i]) * 1.6 * formed;
+      const ty = local[i*3+1] + Math.cos(tm*.7 + phase[i]) * 1.6 * formed;
+      const tz = local[i*3+2] + Math.sin(tm*.6 + phase[i]) * 2 * formed;
       if (q > 0) {
-        if (q >= 1) { pos[i*3] = 1e5; continue; }   // gone off to the right
-        const ex = (VW/2 + .6 + out[i*3] * VW * .35 - hx) / s, ey = ty + out[i*3+1] * VH / s, ez = tz + wob[i*2+1] * 2 / s;
+        if (q >= 1) { vpos[i*3] = 1e5; continue; }
+        const ex = (VW/2 + .8 + out[i*3] * VW * .35 - hx) / s, ey = ty + out[i*3+1] * VH / s, ez = tz + wob[i*2+1] * 2 / s;
         const arc = Math.sin(q * Math.PI);
-        pos[i*3]   = tx + (ex - tx) * q;
-        pos[i*3+1] = ty + (ey - ty) * q + arc * wob[i*2] * .6 / s;
-        pos[i*3+2] = tz + (ez - tz) * q;
+        vpos[i*3] = tx + (ex - tx) * q; vpos[i*3+1] = ty + (ey - ty) * q + arc * wob[i*2] * .6 / s; vpos[i*3+2] = tz + (ez - tz) * q;
         continue;
       }
-      if (k >= 1) { pos[i*3] = tx; pos[i*3+1] = ty; pos[i*3+2] = tz; continue; }
-      // Arriving: start just past the left edge of the screen, at any height, expressed in the head's local space.
-      const wx = -VW/2 - .6 - from[i*3] * VW * .35, wy = (from[i*3+1] - .5) * VH * 1.1, wz = from[i*3+2];
-      const sx = (wx - hx) / s, sy = (wy - hy) / s, sz = wz / s;
-      const arc = Math.sin(k * Math.PI);
-      pos[i*3]   = sx + (tx - sx) * k;
-      pos[i*3+1] = sy + (ty - sy) * k + arc * wob[i*2]   / s;
-      pos[i*3+2] = sz + (tz - sz) * k + arc * wob[i*2+1] / s;
+      if (k >= 1) { vpos[i*3] = tx; vpos[i*3+1] = ty; vpos[i*3+2] = tz; continue; }
+      const wx = -VW/2 - .8 - from[i*3] * VW * .35, wy = (from[i*3+1] - .5) * VH * 1.1, wz = from[i*3+2];
+      const sx = (wx - hx) / s, sy = (wy - hy) / s, sz = wz / s, arc = Math.sin(k * Math.PI);
+      vpos[i*3] = sx + (tx - sx) * k; vpos[i*3+1] = sy + (ty - sy) * k + arc * wob[i*2] / s; vpos[i*3+2] = sz + (tz - sz) * k + arc * wob[i*2+1] / s;
     }
-    face.g.attributes.position.needsUpdate = true;
+    dGeo.attributes.position.needsUpdate = true; dGeo.attributes.aAlpha.needsUpdate = true;
+
+    // Lines: grow from one dot to the next once both have landed, then shrink to their midpoints and fade.
+    for (let e = 0; e < E; e++) {
+      const [i, j] = EDGES[e];
+      const grow = ease(clamp((T - Math.max(arriveAt(i), arriveAt(j)) - edgeLag[e]) / LINE_IN));
+      const fold = 0;   // the lines stay once they have drawn in
+      const ax = vpos[i*3], ay = vpos[i*3+1], az = vpos[i*3+2], bx = vpos[j*3], by = vpos[j*3+1], bz = vpos[j*3+2];
+      const mx = (ax + bx) / 2, my = (ay + by) / 2, mz = (az + bz) / 2;
+      // during growth: from a toward b. during fold: both ends toward the middle.
+      let x0 = ax, y0 = ay, z0 = az, x1 = ax + (bx - ax) * grow, y1 = ay + (by - ay) * grow, z1 = az + (bz - az) * grow;
+      if (fold > 0) { x0 = ax + (mx - ax) * fold; y0 = ay + (my - ay) * fold; z0 = az + (mz - az) * fold; x1 = bx + (mx - bx) * fold; y1 = by + (my - by) * fold; z1 = bz + (mz - bz) * fold; }
+      lPos[e*6] = x0; lPos[e*6+1] = y0; lPos[e*6+2] = z0; lPos[e*6+3] = x1; lPos[e*6+4] = y1; lPos[e*6+5] = z1;
+      const a = .5 * grow * (1 - fold) * Math.min(vAlpha[i], vAlpha[j]);
+      lAlpha[e*2] = a; lAlpha[e*2+1] = a;
+    }
+    lGeo.attributes.position.needsUpdate = true; lGeo.attributes.aAlpha.needsUpdate = true;
+
+    // Facets: a faint, lit fill that comes in with the mesh and leaves with the lines.
+    const facetIn = ease(clamp((T - ARRIVE - .2) / 1.2));
+    for (let f = 0; f < F; f++) {
+      const [a, b, c] = TRI[f];
+      for (let v = 0; v < 3; v++) { const id = [a,b,c][v]; fPos[f*9+v*3] = vpos[id*3]; fPos[f*9+v*3+1] = vpos[id*3+1]; fPos[f*9+v*3+2] = vpos[id*3+2]; }
+      const al = (.03 + .16 * fShade[f]) * facetIn * Math.min(vAlpha[a], vAlpha[b], vAlpha[c]);
+      fAlpha[f*3] = fAlpha[f*3+1] = fAlpha[f*3+2] = al;
+    }
+    fGeo.attributes.position.needsUpdate = true; fGeo.attributes.aAlpha.needsUpdate = true;
+
     for (let i = 0; i < D; i++) {
-      dPos[i*3]   = (dBase[i*3] - .5) * VW * 1.05 + Math.sin(tm*.07 + dPh[i]) * .5;
-      dPos[i*3+1] = (dBase[i*3+1] - .5) * VH * 1.05 + Math.cos(tm*.06 + dPh[i]) * .35;
-      dPos[i*3+2] = dBase[i*3+2];
+      sPos[i*3] = (sBase[i*3] - .5) * VW * 1.05 + Math.sin(tm*.07 + sPh[i]) * .5;
+      sPos[i*3+1] = (sBase[i*3+1] - .5) * VH * 1.05 + Math.cos(tm*.06 + sPh[i]) * .35;
+      sPos[i*3+2] = sBase[i*3+2];
     }
-    dust.g.attributes.position.needsUpdate = true;
-    const settled = ease(Math.min(1, Math.max(0, (T - 4) / 4)));
-    head.rotation.y = Math.sin(tm * .1) * .03 * settled;
+    sGeo.attributes.position.needsUpdate = true;
+    dMat.uniforms.uOpacity.value = lMat.uniforms.uOpacity.value = fMat.uniforms.uOpacity.value = base;
+    const settled = ease(clamp((T - ARRIVE + 2) / 4));
+    head.rotation.y = -.12 + Math.sin(tm * .12) * .07 * settled;
     head.scale.setScalar(s * (1 + Math.sin(tm * .5) * .006 * settled));
     renderer.render(scene, camera);
     if (visible && !reduce) requestAnimationFrame(frame);
@@ -245,11 +278,7 @@ if ('IntersectionObserver' in window) {
   new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   new ResizeObserver(layout).observe(stage); layout();
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => {
-      const was = visible; visible = e.isIntersecting;
-      // Coming back into view replays the arrival from the left.
-      if (visible && !was && !reduce) { t0 = performance.now(); requestAnimationFrame(frame); }
-    }).observe(stage);
+    new IntersectionObserver(([e]) => { const was = visible; visible = e.isIntersecting; if (visible && !was && !reduce) { t0 = performance.now(); requestAnimationFrame(frame); } }).observe(stage);
   }
   requestAnimationFrame(frame);
 })();
