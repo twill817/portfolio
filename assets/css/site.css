@@ -297,3 +297,9 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
 .vid-time{flex:none; font-family:var(--mono); font-size:.72rem; color:rgba(255,255,255,.75); font-variant-numeric:tabular-nums}
 .vid button:focus-visible, .vid-seek:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (max-width:480px){ .vid-time{display:none} .vid-big{width:60px; height:60px; top:calc(50% - 26px)} }
+
+/* private theme toggle */
+.theme-pin{position:fixed; left:16px; bottom:16px; z-index:90; display:flex; border:1px solid var(--line); border-radius:999px; background:var(--surface); box-shadow:0 4px 16px rgba(0,0,0,.12); overflow:hidden}
+.theme-pin button{border:0; background:none; color:var(--ink); font:500 var(--step--1)/1 var(--body); padding:9px 12px; cursor:pointer}
+.theme-pin .tp-clear{border-left:1px solid var(--line); color:var(--muted); padding:9px 11px}
+.theme-pin button:hover{background:var(--accent-soft)}

@@ -386,3 +386,17 @@ if ('IntersectionObserver' in window) {
     if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0 }).observe(box);
   });
 })();
+
+/* Private theme toggle: only appears once a theme has been pinned with ?theme=dark or ?theme=light */
+(() => {
+  let t; try { t = localStorage.getItem('tw-theme'); } catch (e) {}
+  if (!t) return;
+  const root = document.documentElement, bar = document.createElement('div');
+  bar.className = 'theme-pin';
+  bar.innerHTML = '<button type="button" class="tp-toggle"></button><button type="button" class="tp-clear" aria-label="Stop pinning a theme">×</button>';
+  const btn = bar.querySelector('.tp-toggle');
+  const show = () => { btn.textContent = (root.getAttribute('data-theme') === 'dark' ? 'Dark' : 'Light') + ' mode'; };
+  btn.addEventListener('click', () => { const n = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', n); try { localStorage.setItem('tw-theme', n); } catch (e) {} show(); });
+  bar.querySelector('.tp-clear').addEventListener('click', () => { try { localStorage.removeItem('tw-theme'); } catch (e) {} root.removeAttribute('data-theme'); bar.remove(); });
+  show(); document.body.appendChild(bar);
+})();
