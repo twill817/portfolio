@@ -137,28 +137,15 @@ html,body{overflow-x:clip}
 
 /* ---------- Case study visuals ---------- */
 .case-visual{margin:0 0 30px; min-width:0}
-.case-visual .v, .case-visual img{display:block; width:100%; height:auto; max-width:100%; aspect-ratio:800/340;
+.case-visual img{display:block; width:100%; height:auto; max-width:100%; aspect-ratio:800/340;
   background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); object-fit:cover}
 .case-visual figcaption{margin-top:10px; font-size:var(--step--1); color:var(--muted); max-width:52em}
-.v .v-dot{fill:var(--muted); opacity:.5}
-.v .v-dot2{fill:var(--muted); opacity:.28}
-.v .v-acc{fill:var(--accent)}
-.v .v-acc2{fill:var(--accent); opacity:.5}
-.v .v-flow{fill:none; stroke:var(--muted); stroke-width:1; opacity:.16}
-.v .v-ring{fill:none; stroke:var(--accent); stroke-width:1.5}
-.v .v-journey{fill:none; stroke:var(--accent); stroke-width:2}
-.v .v-seam{fill:none; stroke:var(--line); stroke-width:1.5; stroke-dasharray:4 5}
-.v .v-split{fill:none; stroke:var(--ink); stroke-width:1; stroke-dasharray:3 4; opacity:.5}
-.v .v-swatch{stroke:none}
-.v .v-swatch.v-dot2{opacity:.45}
-.v .v-label{fill:var(--muted); font:400 13px var(--body)}
-.v .v-strong{fill:var(--ink); font-weight:500}
-@media (max-width:480px){ .v .v-label{font-size:21px} .case-visual{margin-bottom:24px} }
+@media (max-width:480px){ .case-visual{margin-bottom:24px} }
 
 /* ---------- 3D carousel for case-study screens ---------- */
 .carousel{position:relative}
 .car-stage{position:relative; aspect-ratio:16/9; max-width:100%; perspective:1600px; overflow:hidden; border-radius:var(--radius);
-  background:linear-gradient(180deg, var(--accent-soft), transparent 85%); touch-action:pan-y; user-select:none}
+  background:linear-gradient(180deg, var(--warm-soft), transparent 85%); touch-action:pan-y; user-select:none}
 .car-slide{position:absolute; left:50%; top:50%; width:58%; aspect-ratio:4/3; margin:0; cursor:pointer;
   transform-style:preserve-3d; transition:transform .7s cubic-bezier(.2,.7,.2,1), opacity .5s ease, filter .5s ease; will-change:transform}
 .car-slide img{display:block; width:100%; height:100%; object-fit:cover; object-position:top; border-radius:6px;
@@ -299,7 +286,10 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
 @media (max-width:480px){ .vid-time{display:none} .vid-big{width:60px; height:60px; top:calc(50% - 26px)} }
 
 /* private theme toggle */
-.theme-pin{position:fixed; left:16px; bottom:16px; z-index:90; display:flex; border:1px solid var(--line); border-radius:999px; background:var(--surface); box-shadow:0 4px 16px rgba(0,0,0,.12); overflow:hidden}
+.theme-pin{position:fixed; left:50%; transform:translateX(-50%); bottom:16px; z-index:90; display:flex; border:1px solid var(--line); border-radius:999px; background:var(--surface); box-shadow:0 4px 16px rgba(0,0,0,.12); overflow:hidden}
 .theme-pin button{border:0; background:none; color:var(--ink); font:500 var(--step--1)/1 var(--body); padding:9px 12px; cursor:pointer}
 .theme-pin .tp-clear{border-left:1px solid var(--line); color:var(--muted); padding:9px 11px}
 .theme-pin button:hover{background:var(--accent-soft)}
+
+.email .li{text-decoration:none}
+footer a{color:var(--muted); text-underline-offset:3px}
