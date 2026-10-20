@@ -5,8 +5,8 @@
   'use strict';
 
   // ---- Connection (filled in after Supabase setup; both values are safe to publish) ----
-  var SUPABASE_URL = '';
-  var SUPABASE_KEY = '';
+  var SUPABASE_URL = 'https://rwkaqdrkibfsnfobvwxs.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_QZv5RkgAR9mdK1LOqrjx0g__nU2ABH4';
 
   var STORE_KEY = 'tw-review';
   var code;

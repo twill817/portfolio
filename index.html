@@ -26,7 +26,7 @@ var t=localStorage.getItem(k);if(t)document.documentElement.setAttribute('data-t
 (function(){try{var p=new URLSearchParams(location.search),q=p.get('review'),k='tw-review';
 if(q){if(q==='off')localStorage.removeItem(k);else localStorage.setItem(k,q);p.delete('review');
 history.replaceState(null,'',location.pathname+(p.toString()?'?'+p:'')+location.hash)}
-if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.createElement('script');s.src='assets/js/review.js?v=2';document.head.appendChild(s)}}catch(e){}})();
+if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.createElement('script');s.src='assets/js/review.js?v=3';document.head.appendChild(s)}}catch(e){}})();
 </script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
