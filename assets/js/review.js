@@ -52,7 +52,7 @@
   var ERRORS = {
     invalid_code: "This review link isn't active anymore. If that seems wrong, let Tucker know.",
     not_configured: "Review mode isn't connected to its comment service yet.",
-    name_required: 'Add your name first, so your comments are attributed.',
+    name_required: 'Add a name for this reviewer first.',
     rate_limited: "That's a lot of comments in a short time. Give it a few minutes and try again.",
     thread_not_found: 'That thread was removed.',
     not_allowed: "You don't have permission to do that.",
@@ -457,7 +457,7 @@
       var list = tab === 'open' ? open : done;
       if (!list.length) {
         body.appendChild(h('p', { class: 'twr-empty', text: tab === 'open'
-          ? (threads.length ? 'Nothing open. Everything has been resolved.' : 'No comments yet. Turn on Comment, then click anything on the page.')
+          ? (threads.length ? 'Nothing open right now.' : 'No comments yet. Turn on Comment, then click anything on the page.')
           : 'Nothing resolved yet.' }));
       } else {
         list.slice().sort(function (a, b) {
@@ -496,13 +496,14 @@
   }
 
   function renderPeople(body) {
-    body.appendChild(h('p', { class: 'twr-note', text: 'Each person gets their own link, so comments are attributed and any link can be switched off later. Leave the name blank for a shared link; people will be asked for their name.' }));
+    body.appendChild(h('p', { class: 'twr-note', text: 'Each person gets their own link. They see only their own comments and your replies, and any link can be switched off later.' }));
     var inp = h('input', { type: 'text', class: 'twr-input', maxlength: '80', placeholder: 'Reviewer name', 'aria-label': 'Reviewer name' });
     var btn = h('button', { type: 'submit', class: 'twr-btn twr-primary twr-sm', text: 'Create link' });
+    inp.required = true;
     var form = h('form', { class: 'twr-invite' }, [inp, btn]);
     form.addEventListener('submit', function (e) {
       e.preventDefault(); btn.disabled = true;
-      rpc('review_invite', { p_code: code, p_name: inp.value.trim() || null }).then(function (r) {
+      rpc('review_invite', { p_code: code, p_name: inp.value.trim() }).then(function (r) {
         copy(linkFor(r.code)); inp.value = ''; btn.disabled = false; renderPanel();
       }, function (x) { btn.disabled = false; toast(errText(x)); });
     });
@@ -513,7 +514,7 @@
       list.replaceChildren.apply(list, people.filter(function (p) { return !p.is_owner; }).map(function (p) {
         return h('li', { class: p.active ? '' : 'off' }, [
           h('div', null, [
-            h('b', { text: p.name || 'Shared link' }),
+            h('b', { text: p.name }),
             h('span', { class: 'twr-item-meta', text: (p.active ? '' : 'Switched off · ') + p.comments + (p.comments === 1 ? ' comment' : ' comments') + (p.last_seen_at ? ' · last visit ' + ago(p.last_seen_at) : ' · not opened yet') })
           ]),
           h('div', { class: 'twr-row' }, [
@@ -558,9 +559,9 @@
     var card = h('div', { class: 'twr-card twr-welcome' }, [
       h('h2', { text: owner ? 'Review mode is on.' : (me.name ? 'Thanks for taking a look, ' + me.name.split(' ')[0] + '.' : 'Thanks for taking a look.') }),
       h('p', { text: owner
-        ? "You'll see every comment here. Resolve threads as you go, and create reviewer links from the Reviewers tab in the comments panel."
+        ? "You'll see every reviewer's comments here; each of them sees only their own, plus your replies. Create reviewer links from the Reviewers tab in the comments panel."
         : 'Turn on Comment, then click anything on the page to leave a note. Small things are just as useful as big ones: a typo, a sentence that didn’t land, a project you wanted to hear more about.' }),
-      owner ? null : h('p', { class: 'twr-note', text: 'Other reviewers can see and reply to comments. Normal visitors never see any of this.' }),
+      owner ? null : h('p', { class: 'twr-note', text: 'Your comments go only to Tucker, and replies show up here. Other reviewers and normal visitors don’t see them.' }),
       name,
       h('div', { class: 'twr-row twr-end' }, [h('button', { type: 'button', class: 'twr-btn twr-primary twr-sm', text: 'Get started', on: { click: close } })])
     ]);

@@ -7,8 +7,8 @@ Private, pin-style feedback on the live portfolio. Invited reviewers open a pers
 - `index.html` has a small loader. A link with `?review=<code>` saves the code in that browser and loads `assets/js/review.js` and `assets/css/review.css`. Without a code, nothing extra loads. `?review=off` turns it off again.
 - Comments are stored in a free Supabase project. The browser can only call the `review_*` functions in `supabase-setup.sql`, and each one checks the reviewer's code first. The tables themselves are closed to the public API.
 - Reviewer visits are left out of GoatCounter page views.
-- Each reviewer gets their own link, so comments are attributed and any link can be switched off later. A link created without a name is a shared link; people on it are asked for their name.
-- By default, reviewers see and can reply to each other's comments. To make one person's feedback private to you, set `sees_all` to false for them in the `review_reviewers` table.
+- Each reviewer gets their own named link, so comments are attributed and any link can be switched off later.
+- Feedback is private: each reviewer sees only the threads they started, plus your replies. You see and can reply to everything.
 
 ## One-time setup
 

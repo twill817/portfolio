@@ -11,9 +11,8 @@
 create table if not exists public.review_reviewers (
   id            uuid primary key default gen_random_uuid(),
   code          text not null unique,
-  name          text,                         -- null = shared link; reviewer types a name
+  name          text not null,
   is_owner      boolean not null default false,
-  sees_all      boolean not null default true, -- false = sees only their own threads
   active        boolean not null default true,
   created_at    timestamptz not null default now(),
   last_seen_at  timestamptz
@@ -56,10 +55,11 @@ end $$;
 revoke all on function public._review_me(text) from public, anon, authenticated;
 
 -- Can this reviewer see the thread whose first comment is p_root?
+-- Reviewers see only threads they started (with your replies); you see everything.
 create or replace function public._review_can_see(me public.review_reviewers, p_root uuid)
 returns boolean
 language sql security definer set search_path = public as $$
-  select me.is_owner or me.sees_all
+  select me.is_owner
       or exists (select 1 from review_comments c where c.id = p_root and c.reviewer_id = me.id);
 $$;
 
@@ -72,7 +72,7 @@ returns json
 language plpgsql security definer set search_path = public as $$
 declare me review_reviewers := _review_me(p_code);
 begin
-  return json_build_object('name', me.name, 'is_owner', me.is_owner, 'needs_name', me.name is null);
+  return json_build_object('name', me.name, 'is_owner', me.is_owner, 'needs_name', false);
 end $$;
 
 create or replace function public.review_list(p_code text)
@@ -109,11 +109,10 @@ returns json
 language plpgsql security definer set search_path = public as $$
 declare
   me review_reviewers := _review_me(p_code);
-  v_name text := coalesce(me.name, nullif(btrim(left(p_name, 80)), ''));
+  v_name text := me.name;
   v_body text := btrim(p_body);
   v_id uuid;
 begin
-  if v_name is null then raise exception 'name_required'; end if;
   if v_body is null or v_body = '' then raise exception 'empty_comment'; end if;
   if char_length(v_body) > 4000 then raise exception 'comment_too_long'; end if;
   if (select count(*) from review_comments where reviewer_id = me.id
@@ -168,6 +167,7 @@ declare
   v_id uuid;
 begin
   if not me.is_owner then raise exception 'not_allowed'; end if;
+  if v_name is null then raise exception 'name_required'; end if;
   insert into review_reviewers (code, name) values (v_code, v_name) returning id into v_id;
   return json_build_object('id', v_id, 'code', v_code, 'name', v_name);
 end $$;
