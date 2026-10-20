@@ -21,6 +21,12 @@
 (function(){try{var q=new URLSearchParams(location.search).get('theme'),k='tw-theme';
 if(q==='auto'){localStorage.removeItem(k)}else if(q==='dark'||q==='light'){localStorage.setItem(k,q)}
 var t=localStorage.getItem(k);if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}})();
+/* Private review mode: ?review=<code> turns on feedback comments for invited reviewers; ?review=off turns it off.
+   Reviewer visits are left out of analytics. */
+(function(){try{var p=new URLSearchParams(location.search),q=p.get('review'),k='tw-review';
+if(q){if(q==='off')localStorage.removeItem(k);else localStorage.setItem(k,q);p.delete('review');
+history.replaceState(null,'',location.pathname+(p.toString()?'?'+p:'')+location.hash)}
+if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.createElement('script');s.src='assets/js/review.js?v=1';document.head.appendChild(s)}}catch(e){}})();
 </script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
