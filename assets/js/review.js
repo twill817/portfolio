@@ -15,7 +15,7 @@
 
   var css = document.createElement('link');
   css.rel = 'stylesheet';
-  css.href = (document.currentScript && document.currentScript.src || 'assets/js/review.js').replace(/js\/review\.js.*$/, 'css/review.css?v=1');
+  css.href = (document.currentScript && document.currentScript.src || 'assets/js/review.js').replace(/js\/review\.js.*$/, 'css/review.css?v=2');
   document.head.appendChild(css);
 
   // ---------- State ----------
@@ -170,7 +170,7 @@
     ui.layer = h('div', { class: 'twr-layer', 'data-twr': '' });
     ui.hl = h('div', { class: 'twr-hl', 'data-twr': '', 'aria-hidden': 'true' });
     ui.banner = h('div', { class: 'twr-banner', 'data-twr': '', role: 'status' }, [
-      h('span', { text: narrow.matches ? 'Tap anything to leave a comment.' : "Click anything to leave a comment. Press Esc when you're done." }),
+      h('span', { class: 'twr-banner-text' }),
       h('button', { type: 'button', class: 'twr-link', text: 'Done', on: { click: function () { setMode(false); } } })
     ]);
     ui.modeBtn = h('button', { type: 'button', class: 'twr-btn twr-primary', 'aria-pressed': 'false', title: 'Comment (C)', on: { click: function () { setMode(!mode); } } }, [
@@ -199,6 +199,8 @@
     mode = on;
     document.documentElement.classList.toggle('twr-commenting', on);
     ui.modeBtn.setAttribute('aria-pressed', String(on));
+    ui.banner.querySelector('.twr-banner-text').textContent = matchMedia('(hover: none)').matches
+      ? 'Tap anything to leave a comment.' : "Click anything to leave a comment. Press Esc when you're done.";
     ui.banner.classList.toggle('show', on);
     if (!on) { if (!draft) hideHl(); }
     else { closePop(); if (narrow.matches) closePanel(); }
