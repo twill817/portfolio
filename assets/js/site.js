@@ -41,24 +41,49 @@ document.getElementById('copy').addEventListener('click', () => {
 })();
 
 
-/* ---------- 3D carousels for case-study screens ---------- */
+/* ---------- Case-study carousels: 3D on larger screens, a flat native swipe strip on phones ---------- */
 (function(){
   const box = document.getElementById('lightbox');
-  const boxImg = box && box.querySelector('img'), boxCap = box && box.querySelector('.lightbox-cap');
+  const boxImg = box && box.querySelector('img'), boxCap = box && box.querySelector('.lightbox-cap'), pan = box && box.querySelector('.lb-pan');
   if (box) {
+    const fit = () => box.classList.toggle('can-zoom', !!boxImg.naturalWidth && boxImg.naturalWidth > pan.clientWidth + 40);
     box.querySelector('.lightbox-close').addEventListener('click', () => box.close());
     box.addEventListener('click', e => { if (e.target === box) box.close(); });
+    box.addEventListener('close', () => box.classList.remove('zoomed', 'can-zoom'));
+    boxImg.addEventListener('load', fit);
+    // Tap to zoom to the image's full size, centred on the tap; tap again to fit
+    boxImg.addEventListener('click', e => {
+      if (!box.classList.contains('can-zoom') && !box.classList.contains('zoomed')) return;
+      const r = boxImg.getBoundingClientRect(), fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+      const on = box.classList.toggle('zoomed');
+      if (on) { pan.scrollLeft = fx * boxImg.offsetWidth - pan.clientWidth / 2; pan.scrollTop = fy * boxImg.offsetHeight - pan.clientHeight / 2; }
+    });
   }
   document.querySelectorAll('.carousel').forEach(root => {
     const slides = [...root.querySelectorAll('.car-slide')], n = slides.length;
     const count = root.querySelector('.car-count'), title = root.querySelector('.car-title'), desc = root.querySelector('.car-desc');
+    const stage = root.querySelector('.car-stage');
     const narrow = matchMedia('(max-width:640px)');
     let index = 0;
+    const flat = () => narrow.matches;
+    function caption() {
+      count.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
+      title.textContent = slides[index].dataset.title;
+      desc.textContent = slides[index].dataset.desc;
+    }
     function render() {
-      const step = narrow.matches ? 66 : 70, depth = narrow.matches ? 160 : 260, turn = narrow.matches ? 26 : 34;
+      root.classList.toggle('flat', flat());
       slides.forEach((el, i) => {
+        el.setAttribute('role', 'button');
+        if (flat()) {
+          el.style.transform = el.style.opacity = el.style.filter = el.style.zIndex = el.style.pointerEvents = '';
+          el.classList.toggle('is-active', i === index);
+          el.removeAttribute('aria-hidden'); el.tabIndex = 0;
+          el.setAttribute('aria-label', 'View larger: ' + el.dataset.title);
+          return;
+        }
         let d = ((i - index) % n + n) % n; if (d > n / 2) d -= n;
-        const a = Math.abs(d);
+        const a = Math.abs(d), step = 70, depth = 260, turn = 34;
         el.style.transform = `translate(-50%,-50%) translateX(${d * step}%) translateZ(${-a * depth}px) rotateY(${-Math.sign(d) * Math.min(a, 1) * turn}deg)`;
         el.style.opacity = a > 1 ? 0 : a === 1 ? .55 : 1;
         el.style.filter = a ? 'saturate(.6)' : 'none';
@@ -67,42 +92,57 @@ document.getElementById('copy').addEventListener('click', () => {
         el.classList.toggle('is-active', a === 0);
         el.setAttribute('aria-hidden', a ? 'true' : 'false');
         el.tabIndex = a ? -1 : 0;
-        el.setAttribute('role', 'button');
         el.setAttribute('aria-label', a ? '' : 'View larger: ' + el.dataset.title);
       });
-      count.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
-      title.textContent = slides[index].dataset.title;
-      desc.textContent = slides[index].dataset.desc;
+      caption();
     }
-    const go = i => { index = (i + n) % n; render(); };
+    const go = i => {
+      index = (i + n) % n;
+      if (flat()) { stage.scrollTo({ left: slides[index].offsetLeft - parseFloat(getComputedStyle(stage).paddingLeft), behavior: reduce ? 'auto' : 'smooth' }); slides.forEach((el, k) => el.classList.toggle('is-active', k === index)); caption(); }
+      else render();
+    };
     root.querySelector('.car-prev').addEventListener('click', () => go(index - 1));
     root.querySelector('.car-next').addEventListener('click', () => go(index + 1));
     function open(i) {
       if (!box || typeof box.showModal !== 'function') return;
       const img = slides[i].querySelector('img');
-      boxImg.src = img.currentSrc || img.src; boxImg.alt = img.alt;
+      box.classList.remove('zoomed');
+      boxImg.src = img.getAttribute('src'); boxImg.alt = img.alt;   // always the full screen, never the phone crop
       boxCap.textContent = slides[i].dataset.title + '. ' + slides[i].dataset.desc;
-      box.showModal();
+      box.showModal(); pan.scrollTop = pan.scrollLeft = 0;
+      if (boxImg.complete) boxImg.dispatchEvent(new Event('load'));
     }
     slides.forEach((el, i) => {
-      el.addEventListener('click', () => { if (moved) return; i === index ? open(i) : go(i); });
+      el.addEventListener('click', () => { if (moved) return; (flat() || i === index) ? open(i) : go(i); });
       el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
     });
     root.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
     });
-    // Swipe
+    // Phones: the strip scrolls natively; keep the caption in step with the slide in view
+    let t;
+    stage.addEventListener('scroll', () => {
+      if (!flat()) return;
+      clearTimeout(t);
+      t = setTimeout(() => {
+        const pad = parseFloat(getComputedStyle(stage).paddingLeft);
+        let best = 0, bd = Infinity;
+        slides.forEach((el, i) => { const d = Math.abs(el.offsetLeft - pad - stage.scrollLeft); if (d < bd) { bd = d; best = i; } });
+        if (best !== index) { index = best; slides.forEach((el, i) => el.classList.toggle('is-active', i === index)); caption(); }
+      }, 60);
+    }, { passive: true });
+    // Larger screens: swipe or drag to turn the 3D carousel
     let x0 = null, moved = false;
-    const stage = root.querySelector('.car-stage');
-    stage.addEventListener('pointerdown', e => { x0 = e.clientX; moved = false; });
+    stage.addEventListener('pointerdown', e => { if (flat()) return; x0 = e.clientX; moved = false; });
     stage.addEventListener('pointermove', e => { if (x0 !== null && Math.abs(e.clientX - x0) > 8) moved = true; });
     stage.addEventListener('pointerup', e => {
       if (x0 === null) return; const dx = e.clientX - x0; x0 = null;
       if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
       setTimeout(() => { moved = false; }, 0);
     });
-    narrow.addEventListener ? narrow.addEventListener('change', render) : narrow.addListener(render);
+    const onChange = () => { render(); if (flat()) stage.scrollLeft = 0, index = 0, caption(); };
+    narrow.addEventListener ? narrow.addEventListener('change', onChange) : narrow.addListener(onChange);
     render();
   });
 })();
@@ -382,6 +422,22 @@ if ('IntersectionObserver' in window) {
     replay.addEventListener('click', () => { v.currentTime = 0; v.play().catch(() => {}); });
     seek.addEventListener('input', () => { dragging = true; if (v.duration) v.currentTime = seek.value / 1000 * v.duration; seek.style.setProperty('--p', (seek.value / 10) + '%'); box.classList.add('started'); });
     seek.addEventListener('change', () => { dragging = false; });
+    // Step chapters below the video: readable on any screen, and a quick way to jump in
+    const fig = box.closest('figure'), chaps = fig ? [...fig.querySelectorAll('.vid-chapters button')] : [];
+    chaps.forEach(b => b.addEventListener('click', () => { v.currentTime = parseFloat(b.dataset.t); box.classList.add('started'); v.play().catch(() => {}); }));
+    const mark = () => { let on = 0; chaps.forEach((b, i) => { if (v.currentTime + .05 >= parseFloat(b.dataset.t)) on = i; }); chaps.forEach((b, i) => { b.classList.toggle('on', box.classList.contains('started') && i === on); b.setAttribute('aria-current', box.classList.contains('started') && i === on ? 'step' : 'false'); }); };
+    ['timeupdate', 'seeked', 'play'].forEach(e => v.addEventListener(e, mark));
+    // Full screen, so the interface in the recording is legible on a phone
+    const full = box.querySelector('.vid-full');
+    if (full) {
+      const can = v.requestFullscreen || v.webkitRequestFullscreen || v.webkitEnterFullscreen;
+      if (!can) full.hidden = true;
+      full.addEventListener('click', () => {
+        const go = v.requestFullscreen ? v.requestFullscreen() : v.webkitRequestFullscreen ? v.webkitRequestFullscreen() : v.webkitEnterFullscreen && v.webkitEnterFullscreen();
+        Promise.resolve(go).then(() => { try { screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => {}); } catch (e) {} }).catch(() => {});
+        box.classList.add('started'); if (v.paused) v.play().catch(() => {});
+      });
+    }
     // Pause if the viewer scrolls away mid-play
     if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0 }).observe(box);
   });

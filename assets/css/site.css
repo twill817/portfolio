@@ -294,3 +294,53 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
 
 .email .li{text-decoration:none}
 footer a{color:var(--muted); text-underline-offset:3px}
+
+/* ---------- AI in my process ---------- */
+#ai{scroll-margin-top:24px}
+#ai .intro{margin-bottom:28px}
+.ai-points li{border-top:1px solid var(--line); padding-top:14px}
+.ai-points .ai-n{display:block; margin-bottom:6px}
+.ai-points a{color:var(--accent); text-underline-offset:3px}
+.ai-tools{margin:30px 0 0; display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px}
+.ai-tools span{color:var(--ink); background:var(--accent-soft); border-radius:999px; padding:4px 11px; letter-spacing:0}
+
+/* ---------- Video chapters ---------- */
+.vid-chapters{list-style:none; margin:12px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px}
+.vid-chapters button{width:100%; height:100%; text-align:left; display:flex; gap:10px; align-items:baseline; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--surface); color:var(--ink); font:400 var(--step--1)/1.35 var(--body); cursor:pointer; transition:border-color .2s, background .2s}
+.vid-chapters button:hover{border-color:var(--ink)}
+.vid-chapters button.on{border-color:var(--accent); background:var(--accent-soft)}
+.vid-chapters .node{flex:none}
+.vid-chapters button.on .node{color:var(--accent)}
+@media (max-width:960px){ .vid-chapters{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:480px){ .vid-chapters{grid-template-columns:1fr; gap:6px} .vid-chapters button{padding:12px 14px} }
+
+/* ---------- Carousels on phones: flat, full-width, native swipe ---------- */
+.car-slide picture{display:block; width:100%; height:100%}
+@media (max-width:640px){
+  .carousel.flat .car-stage{--gut:24px; display:flex; gap:10px; aspect-ratio:auto; perspective:none; overflow-x:auto; overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; touch-action:pan-x pan-y pinch-zoom;
+    margin-inline:calc(-1 * var(--gut)); padding:4px var(--gut) 14px; scroll-padding-inline:var(--gut); border-radius:0; background:none}
+  .carousel.flat .car-stage::-webkit-scrollbar{display:none}
+  .carousel.flat .car-slide{position:relative; left:auto; top:auto; flex:0 0 calc(100% - 28px); width:auto; aspect-ratio:1/1; scroll-snap-align:start; transition:none; will-change:auto}
+  .carousel.flat.wide .car-slide{aspect-ratio:16/9; width:auto}
+  .carousel.flat .car-slide img{box-shadow:0 10px 22px -16px rgba(10,20,20,.45)}
+  .carousel.flat .car-info{margin-top:6px}
+}
+@media (max-width:480px){ .carousel.flat .car-stage{--gut:16px} }
+
+/* ---------- Lightbox: pan and zoom ---------- */
+.lightbox[open]{display:flex; flex-direction:column}
+.lb-pan{overflow:auto; flex:1; min-height:0; display:flex; -webkit-overflow-scrolling:touch; overscroll-behavior:contain}
+.lb-pan img{margin:auto; cursor:zoom-in}
+.lightbox.zoomed .lb-pan img{width:auto; max-width:none; max-height:none; cursor:zoom-out}
+.lb-hint{display:none; margin:0; padding:0 16px 14px; font-size:.72rem}
+.lightbox.can-zoom .lb-hint{display:block}
+.lightbox-close{z-index:2}
+@media (max-width:640px){
+  .lightbox{width:100vw; max-width:100vw; height:100dvh; max-height:100dvh; margin:0; border-radius:0; background:#0c1010; color:#e6eae8}
+  .lightbox .lb-pan{background:#0c1010}
+  .lightbox img{max-height:none}
+  .lightbox-cap{color:#aab4b1; padding:12px 16px 6px}
+  .lightbox-close{top:calc(10px + env(safe-area-inset-top, 0px)); right:12px; width:40px; height:40px; background:#fff; color:#111}
+}

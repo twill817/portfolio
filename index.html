@@ -32,7 +32,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700&family=Roboto:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=20261019e">
+<link rel="stylesheet" href="assets/css/site.css?v=20261028a">
 </head>
 <body>
 
@@ -42,6 +42,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
     <nav aria-label="Sections">
       <a href="#experience">Experience</a>
       <a href="#work">Work</a>
+      <a href="#ai">AI</a>
       <a href="#approach">Approach</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -75,7 +76,8 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
         <li><a href="#coppel">Grupo Coppel</a></li>
         <li><a href="#visualizer">Visualization tool</a></li>
       </ol>
-      <div class="node" style="margin-top:22px"><a href="#approach" style="text-decoration:none">Approach</a></div>
+      <div class="node" style="margin-top:22px"><a href="#ai" style="text-decoration:none">AI in my process</a></div>
+      <div class="node" style="margin-top:6px"><a href="#approach" style="text-decoration:none">Approach</a></div>
       <div class="node" style="margin-top:6px"><a href="#contact" style="text-decoration:none">Contact</a></div>
     </aside>
 
@@ -181,10 +183,10 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
         <figure class="case-visual">
           <div class="carousel" aria-roledescription="carousel" aria-label="PA.gov screens">
             <div class="car-stage">
-              <div class="car-slide" data-title="Search that starts from the resident" data-desc="Life-event filters sit beside agency and service type. Someone who just lost a job sees services from every agency at once."><img src="assets/img/pa-1-search.webp" width="1200" height="900" alt="PA.gov Find Services page with the life-event filters Finding a Job and Navigating Unemployment applied, showing 74 results from several agencies." loading="lazy" decoding="async"></div>
-              <div class="car-slide" data-title="Tags instead of folders" data-desc="Each service carries tags for its agency, topic, and life events, so one page shows up wherever a resident might look for it."><img src="assets/img/pa-2-tags.webp" width="910" height="682" alt="Search results on PA.gov, each tagged with its agency, topics, and life events such as Finding a Job and Adopting a Child." loading="lazy" decoding="async"></div>
-              <div class="car-slide" data-title="One pattern for every service" data-desc="Service pages open with what the service is and how to start, then an on-page guide to eligibility, filing, and next steps."><img src="assets/img/pa-3-service.webp" width="1200" height="900" alt="PA.gov service page for unemployment compensation, with File a claim and Reopen a claim buttons and an On this page guide." loading="lazy" decoding="async"></div>
-              <div class="car-slide" data-title="Clear ways to act" data-desc="The options to apply sit side by side: online, by phone, or by videophone for people who use sign language."><img src="assets/img/pa-4-apply.webp" width="890" height="668" alt="PA.gov File a claim section with three cards: Apply Online, Apply by Phone, and Apply by Videophone." loading="lazy" decoding="async"></div>
+              <div class="car-slide" data-title="Search that starts from the resident" data-desc="Life-event filters sit beside agency and service type. Someone who just lost a job sees services from every agency at once."><picture><source media="(max-width:640px)" srcset="assets/img/pa-1-search-m.webp"><img src="assets/img/pa-1-search.webp" width="1200" height="900" alt="PA.gov Find Services page with the life-event filters Finding a Job and Navigating Unemployment applied, showing 74 results from several agencies." loading="lazy" decoding="async"></picture></div>
+              <div class="car-slide" data-title="Tags instead of folders" data-desc="Each service carries tags for its agency, topic, and life events, so one page shows up wherever a resident might look for it."><picture><source media="(max-width:640px)" srcset="assets/img/pa-2-tags-m.webp"><img src="assets/img/pa-2-tags.webp" width="910" height="682" alt="Search results on PA.gov, each tagged with its agency, topics, and life events such as Finding a Job and Adopting a Child." loading="lazy" decoding="async"></picture></div>
+              <div class="car-slide" data-title="One pattern for every service" data-desc="Service pages open with what the service is and how to start, then an on-page guide to eligibility, filing, and next steps."><picture><source media="(max-width:640px)" srcset="assets/img/pa-3-service-m.webp"><img src="assets/img/pa-3-service.webp" width="1200" height="900" alt="PA.gov service page for unemployment compensation, with File a claim and Reopen a claim buttons and an On this page guide." loading="lazy" decoding="async"></picture></div>
+              <div class="car-slide" data-title="Clear ways to act" data-desc="The options to apply sit side by side: online, by phone, or by videophone for people who use sign language."><picture><source media="(max-width:640px)" srcset="assets/img/pa-4-apply-m.webp"><img src="assets/img/pa-4-apply.webp" width="890" height="668" alt="PA.gov File a claim section with three cards: Apply Online, Apply by Phone, and Apply by Videophone." loading="lazy" decoding="async"></picture></div>
             </div>
             <div class="car-info">
               <div class="car-text" aria-live="polite">
@@ -272,13 +274,25 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
               <button type="button" class="vid-ctl vid-replay" aria-label="Replay from the start"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 6.5A5 5 0 1 1 3 9.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2.4 2.8v4.4h4.4z"/></svg></button>
               <input type="range" class="vid-seek" min="0" max="1000" step="1" value="0" aria-label="Video progress">
               <span class="vid-time">0:00 / 0:40</span>
+              <button type="button" class="vid-ctl vid-full" aria-label="Full screen"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             </div>
           </div>
-          <figcaption>The end-to-end flow, rebuilt with a fictional brand.</figcaption>
+          <ol class="vid-chapters" aria-label="Jump to a step">
+            <li><button type="button" data-t="0"><span class="node">01</span>Contractor creates a project</button></li>
+            <li><button type="button" data-t="8.8"><span class="node">02</span>Tries materials on the house</button></li>
+            <li><button type="button" data-t="17.3"><span class="node">03</span>Homeowner reviews and approves</button></li>
+            <li><button type="button" data-t="25.3"><span class="node">04</span>Approved design becomes an order</button></li>
+          </ol>
+          <figcaption>The end-to-end flow, rebuilt with a fictional brand. Select a step to jump to it.</figcaption>
         </figure>
         <ul class="points two">
           <li><h4>My part</h4><p>I led one to three designers from first research to final sprint, designing the full flow from project setup and visualization through homeowner approval to the order. The team committed early to real-time material rendering, and it never looked convincing. Contractor research showed that quality mattered more than speed. I introduced Figma Make prototyping to the team and used it to make the case for generative-AI rendering. It also took a day or two off each sprint review.</p></li>
           <li><h4>The lesson</h4><p>I let that direction stay open too long. By the time the research and prototypes reached the client's decision-maker, much of the real-time build was done. The client held course, and the team added an AI render on top to recover quality. Next time I'll test the riskiest assumptions before the build commits.</p></li>
+        </ul>
+        <ul class="stats" aria-label="Where AI helped">
+          <li><strong>Figma Make</strong> brought into the team</li>
+          <li><strong>1–2 days</strong> off each sprint review</li>
+          <li><strong>Generative-AI</strong> render added</li>
         </ul>
       </article>
 
@@ -294,12 +308,23 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
     </main>
   </div>
 
+  <section class="block settle" id="ai" aria-labelledby="ai-title">
+    <div class="section-head"><h2 id="ai-title">AI in my process</h2></div>
+    <p class="intro">I use AI where it shortens the distance between an idea and something people can react to. The judgment calls still sit with me and the team.</p>
+    <ul class="points ai-points">
+      <li><span class="ai-n node">01</span><h4>Prototyping with the team</h4><p>On the <a href="#visualizer">visualization tool</a>, I brought Figma Make into the team's process. We put working prototypes in front of people in hours rather than weeks, used them to make the case for generative-AI rendering, and took a day or two off each sprint review.</p></li>
+      <li><span class="ai-n node">02</span><h4>Building, not only mocking up</h4><p>I designed and built this site with Claude Code, including a private review mode for invited reviewers and a weekly analytics report that runs on its own. It keeps me close to what these tools can actually do, and where they still need a designer.</p></li>
+      <li><span class="ai-n node">03</span><h4>Documentation and standards</h4><p>I use AI to draft standards, specs, and documentation, then edit them myself. It takes the slow parts out of design operations, so more of the team's time goes into the work itself.</p></li>
+    </ul>
+    <p class="ai-tools node">Tools I use day to day: <span>Figma Make</span><span>Claude Code</span><span>Gemini</span><span>Copilot</span></p>
+  </section>
+
   <section class="block settle" id="approach" aria-labelledby="approach-title">
     <div class="section-head"><h2 id="approach-title">How I work</h2></div>
     <div class="approach">
       <div><h3>Build shared ground before arguing structure</h3><p>People who disagree about structure usually disagree about who they're serving. I get agreement on that first, then let the group reach the structure together.</p></div>
       <div><h3>Earn adoption instead of requiring it</h3><p>Some of my most lasting work had no mandate behind it. I bring product and engineering in early, so a proposal reaches leadership with their support behind it. Agencies and teams adopted the work because it held up for them.</p></div>
-      <div><h3>Make it testable</h3><p>I prototype to put real designs in front of people early. AI speeds that up: testing interactions in Figma Make, drafting standards and documentation, exploring options before a team commits.</p></div>
+      <div><h3>Make it testable</h3><p>I prototype to put real designs in front of people early, before a team commits to a direction. Real reactions surface the risky assumptions while they're still cheap to change.</p></div>
     </div>
   </section>
 
@@ -326,14 +351,15 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 
 <dialog class="lightbox" id="lightbox" aria-label="Enlarged screen">
   <button type="button" class="lightbox-close" aria-label="Close">×</button>
-  <img alt="">
+  <div class="lb-pan"><img alt=""></div>
   <p class="lightbox-cap"></p>
+  <p class="lb-hint node">Tap the image to zoom. Drag to look around.</p>
 </dialog>
 
 <button class="to-top" id="to-top" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>Top</button>
 
 <script src="assets/js/vendor/three.min.js"></script>
-<script src="assets/js/site.js?v=20261019e"></script>
+<script src="assets/js/site.js?v=20261028a"></script>
 <script data-goatcounter="https://tuckerwilliams.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
