@@ -346,3 +346,6 @@ footer a{color:var(--muted); text-underline-offset:3px}
 }
 .ai-site{margin:28px 0 0; color:var(--muted); max-width:44em}
 .ai-site + .ai-tools{margin-top:14px}
+
+/* Hero motion graphic is desktop and tablet only */
+@media (max-width:640px){ .hero-bg{display:none} }

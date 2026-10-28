@@ -195,6 +195,7 @@ if ('IntersectionObserver' in window) {
 /* ---------- Hero background: larger dots fly in from the left, connect into a low-poly face, and settle ---------- */
 (function heroPolygon(){
   const stage = document.getElementById('stage');
+  if (matchMedia('(max-width:640px)').matches) return;   // hidden on phones, so don't start it there
   if (!window.THREE) { document.documentElement.classList.add('no-webgl'); return; }
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { document.documentElement.classList.add('no-webgl'); return; }
