@@ -31,7 +31,10 @@ document.getElementById('copy').addEventListener('click', () => {
   const apply = () => {
     groups.forEach((g, i) => {
       g.open = mq.matches ? i === 0 : true;
-      g.querySelector('summary').tabIndex = mq.matches ? 0 : -1;
+      const sum = g.querySelector('summary');
+      sum.tabIndex = mq.matches ? 0 : -1;
+      // On larger screens the groups stay open, so the toggle is reported as unavailable
+      if (mq.matches) sum.removeAttribute('aria-disabled'); else sum.setAttribute('aria-disabled', 'true');
     });
     label();
   };
@@ -75,7 +78,13 @@ document.getElementById('copy').addEventListener('click', () => {
       if (e.key === 'ArrowLeft') { e.preventDefault(); show(lb.i - 1); }
     });
     box.addEventListener('click', e => { if (e.target === box) box.close(); });
-    box.addEventListener('close', () => box.classList.remove('zoomed', 'can-zoom'));
+    box.addEventListener('close', () => {
+      box.classList.remove('zoomed', 'can-zoom');
+      setTimeout(() => {
+        const f = document.activeElement;
+        if (f && f.classList.contains('car-slide') && f.getAttribute('aria-hidden') === 'true') f.closest('.carousel').querySelector('.car-slide.is-active')?.focus({ preventScroll: true });
+      });
+    });
     boxImg.addEventListener('load', fit);
     // Swipe between screens when the image isn't zoomed
     let sx = null, sy = 0, swiped = false;
@@ -94,6 +103,7 @@ document.getElementById('copy').addEventListener('click', () => {
       if (on) { pan.scrollLeft = fx * boxImg.offsetWidth - pan.clientWidth / 2; pan.scrollTop = fy * boxImg.offsetHeight - pan.clientHeight / 2; }
     });
   }
+  let carUid = 0;
   document.querySelectorAll('.carousel').forEach(root => {
     const slides = [...root.querySelectorAll('.car-slide')], n = slides.length;
     const count = root.querySelector('.car-count'), title = root.querySelector('.car-title'), desc = root.querySelector('.car-desc');
@@ -101,6 +111,8 @@ document.getElementById('copy').addEventListener('click', () => {
     const narrow = matchMedia('(max-width:640px)');
     let index = 0;
     const flat = () => narrow.matches;
+    // The button's name stays short; the image's full alt text is read as its description
+    slides.forEach(el => { const img = el.querySelector('img'); if (!img.id) img.id = 'car-img-' + (++carUid); el.setAttribute('aria-describedby', img.id); });
     function caption() {
       count.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
       title.textContent = slides[index].dataset.title;
@@ -127,14 +139,16 @@ document.getElementById('copy').addEventListener('click', () => {
         el.classList.toggle('is-active', a === 0);
         el.setAttribute('aria-hidden', a ? 'true' : 'false');
         el.tabIndex = a ? -1 : 0;
-        el.setAttribute('aria-label', a ? '' : 'View larger: ' + el.dataset.title);
+        if (a) el.removeAttribute('aria-label'); else el.setAttribute('aria-label', 'View larger: ' + el.dataset.title);
       });
       caption();
     }
     const go = i => {
+      const hadFocus = slides.includes(document.activeElement);
       index = (i + n) % n;
       if (flat()) { stage.scrollTo({ left: slides[index].offsetLeft - parseFloat(getComputedStyle(stage).paddingLeft), behavior: reduce ? 'auto' : 'smooth' }); slides.forEach((el, k) => el.classList.toggle('is-active', k === index)); caption(); }
       else render();
+      if (hadFocus) slides[index].focus({ preventScroll: true });   // focus moves with the slide in front
     };
     root.querySelector('.car-prev').addEventListener('click', () => go(index - 1));
     root.querySelector('.car-next').addEventListener('click', () => go(index + 1));
@@ -146,7 +160,7 @@ document.getElementById('copy').addEventListener('click', () => {
     });
     slides.forEach((el, i) => {
       el.addEventListener('click', () => { if (moved) return; (flat() || i === index) ? open(i) : go(i); });
-      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); (flat() || i === index) ? open(i) : go(i); } });
     });
     root.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
@@ -225,9 +239,28 @@ if ('IntersectionObserver' in window) {
 }
 
 /* ---------- Hero background: larger dots fly in from the left, connect into a low-poly face, and settle ---------- */
-(function heroPolygon(){
+/* three.js is only fetched on screens wide enough to show the hero; a phone turned sideways starts it then. */
+(function(){
   const stage = document.getElementById('stage');
-  if (matchMedia('(max-width:640px)').matches) return;   // hidden on phones, so don't start it there
+  if (!stage) return;
+  const phone = matchMedia('(max-width:640px)');
+  let started = false;
+  const loadThree = () => new Promise((resolve, reject) => {
+    if (window.THREE) return resolve();
+    const s = document.createElement('script');
+    s.src = 'assets/js/vendor/three.min.js'; s.onload = resolve; s.onerror = reject;
+    document.head.appendChild(s);
+  });
+  const start = () => {
+    if (started || phone.matches) return;
+    started = true;
+    phone.removeEventListener ? phone.removeEventListener('change', start) : phone.removeListener(start);
+    loadThree().then(heroPolygon, () => document.documentElement.classList.add('no-webgl'));
+  };
+  phone.addEventListener ? phone.addEventListener('change', start) : phone.addListener(start);
+  start();
+
+function heroPolygon(){
   if (!window.THREE) { document.documentElement.classList.add('no-webgl'); return; }
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { document.documentElement.classList.add('no-webgl'); return; }
@@ -250,7 +283,7 @@ if ('IntersectionObserver' in window) {
   const EDGES = [...edgeSet.values()], E = EDGES.length, F = TRI.length;
 
   // Vertices
-  const local = new Float32Array(M*3), vpos = new Float32Array(M*3), from = new Float32Array(M*3), out = new Float32Array(M*3);
+  const local = new Float32Array(M*3), vpos = new Float32Array(M*3), from = new Float32Array(M*3);
   const liveA = new Float32Array(M), wob = new Float32Array(M*2), phase = new Float32Array(M), delay = new Float32Array(M), vSize = new Float32Array(M), vAlpha = new Float32Array(M);
   for (let i = 0; i < M; i++) {
     const [px, py] = MESH.p[i];
@@ -263,18 +296,18 @@ if ('IntersectionObserver' in window) {
     from[i*3] = rnd(); from[i*3+1] = rnd(); from[i*3+2] = (rnd() - .5) * 3;
     wob[i*2] = (rnd() - .5) * 1.4; wob[i*2+1] = (rnd() - .5) * 1.2;
     delay[i] = rnd() * 2.2 + (px / W) * .7;
-    out[i*3] = rnd(); out[i*3+1] = (rnd() - .5) * .35; out[i*3+2] = (1 - px / W) * 1.2 + rnd() * 1.0;
+    rnd(); rnd(); rnd();   // keeps the seeded sequence, and so the face, exactly as designed
   }
 
   // Timeline (seconds)
   const SPEED = 1.3;
   const FLY = 4.2, ARRIVE = .3 + 2.9 + FLY;   // last dot lands
-  const LINE_IN = .9, HOLD = 3.2, FOLD = 1.6, PAUSE = .5, OUT = 4.8;
+  const LINE_IN = .9;
   const arriveAt = i => .3 + delay[i] + FLY * .92;
   const MESH_DONE = ARRIVE + LINE_IN;
-  const FOLD_AT = MESH_DONE + HOLD, OUT_AT = FOLD_AT + FOLD + PAUSE;
-  const edgeLag = new Float32Array(E), edgeFold = new Float32Array(E);
-  EDGES.forEach(([i,j], e) => { edgeLag[e] = rnd() * .35; edgeFold[e] = ((MESH.p[i][0] + MESH.p[j][0]) / 2 / W) * .7 + rnd() * .3; });
+  const AT_REST = MESH_DONE + 5.8;   // well after everything has settled; reduced motion shows this frame
+  const edgeLag = new Float32Array(E);
+  EDGES.forEach((_, e) => { edgeLag[e] = rnd() * .35; rnd(); });   // second draw keeps the seeded sequence
 
   const vert = 'attribute float aSize; attribute float aAlpha; attribute float aMix; uniform float uPR; uniform float uScale; varying float vA; varying float vM;' +
     'void main(){ vM = aMix; vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv;' +
@@ -336,7 +369,7 @@ if ('IntersectionObserver' in window) {
     dMat.uniforms.uScale.value = sMat.uniforms.uScale.value = Math.max(.8, Math.min(1.25, w / 1200));
     base = narrow ? .4 : 1;
     sMat.uniforms.uOpacity.value = narrow ? .6 : 1;
-    if (reduce) requestAnimationFrame(frame);
+    if (reduce) tick();
   }
   function applyTheme() {
     const cs = getComputedStyle(document.documentElement);
@@ -345,36 +378,30 @@ if ('IntersectionObserver' in window) {
     sMat.uniforms.uColor.value.set(mut);
     const warm = cs.getPropertyValue('--warm').trim() || '#C08A2E';
     [dMat, lMat, fMat, sMat].forEach(m => m.uniforms.uColor2.value.set(warm));
-    if (reduce) requestAnimationFrame(frame);
+    if (reduce) tick();
   }
 
   const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
   const clamp = t => Math.min(1, Math.max(0, t));
-  let t0 = performance.now(), visible = true;
+  let t0 = performance.now(), visible = true, pausedAt = 0, raf = 0;
+  const tick = () => { if (!raf) raf = requestAnimationFrame(frame); };
 
   function frame(now) {
+    raf = 0;
     if (!stage.isConnected) return;
     const secs = (now - t0) / 1000;
-    const T = reduce ? FOLD_AT + FOLD + 1 : secs * SPEED;   // timeline runs a little faster than real time
+    const T = reduce ? AT_REST : secs * SPEED;   // timeline runs a little faster than real time
     const tm = reduce ? 0 : secs;
     const hx = head.position.x, hy = head.position.y;
     const formed = clamp((T - ARRIVE + 1) / 2);
     for (let i = 0; i < M; i++) {
       const k = ease(clamp((T - .3 - delay[i]) / FLY));
-      const q = 0;   // the dots stay; they no longer drift off
       // Dots start out partly transparent, reach full strength as they land, then soften once the face has formed.
       const soften = 1 - .55 * ease(clamp((T - MESH_DONE - .3) / 1.6));
       liveA[i] = vAlpha[i] * (.18 + .82 * k * k) * soften;
       const tx = local[i*3]   + Math.sin(tm*.8 + phase[i]) * 1.6 * formed;
       const ty = local[i*3+1] + Math.cos(tm*.7 + phase[i]) * 1.6 * formed;
       const tz = local[i*3+2] + Math.sin(tm*.6 + phase[i]) * 2 * formed;
-      if (q > 0) {
-        if (q >= 1) { vpos[i*3] = 1e5; continue; }
-        const ex = (VW/2 + .8 + out[i*3] * VW * .35 - hx) / s, ey = ty + out[i*3+1] * VH / s, ez = tz + wob[i*2+1] * 2 / s;
-        const arc = Math.sin(q * Math.PI);
-        vpos[i*3] = tx + (ex - tx) * q; vpos[i*3+1] = ty + (ey - ty) * q + arc * wob[i*2] * .6 / s; vpos[i*3+2] = tz + (ez - tz) * q;
-        continue;
-      }
       if (k >= 1) { vpos[i*3] = tx; vpos[i*3+1] = ty; vpos[i*3+2] = tz; continue; }
       const wx = -VW/2 - .8 - from[i*3] * VW * .35, wy = (from[i*3+1] - .5) * VH * 1.1, wz = from[i*3+2];
       const sx = (wx - hx) / s, sy = (wy - hy) / s, sz = wz / s, arc = Math.sin(k * Math.PI);
@@ -382,23 +409,19 @@ if ('IntersectionObserver' in window) {
     }
     dGeo.attributes.position.needsUpdate = true; dGeo.attributes.aAlpha.needsUpdate = true;
 
-    // Lines: grow from one dot to the next once both have landed, then shrink to their midpoints and fade.
+    // Lines: grow from one dot to the next once both have landed, then stay.
     for (let e = 0; e < E; e++) {
       const [i, j] = EDGES[e];
       const grow = ease(clamp((T - Math.max(arriveAt(i), arriveAt(j)) - edgeLag[e]) / LINE_IN));
-      const fold = 0;   // the lines stay once they have drawn in
       const ax = vpos[i*3], ay = vpos[i*3+1], az = vpos[i*3+2], bx = vpos[j*3], by = vpos[j*3+1], bz = vpos[j*3+2];
-      const mx = (ax + bx) / 2, my = (ay + by) / 2, mz = (az + bz) / 2;
-      // during growth: from a toward b. during fold: both ends toward the middle.
-      let x0 = ax, y0 = ay, z0 = az, x1 = ax + (bx - ax) * grow, y1 = ay + (by - ay) * grow, z1 = az + (bz - az) * grow;
-      if (fold > 0) { x0 = ax + (mx - ax) * fold; y0 = ay + (my - ay) * fold; z0 = az + (mz - az) * fold; x1 = bx + (mx - bx) * fold; y1 = by + (my - by) * fold; z1 = bz + (mz - bz) * fold; }
-      lPos[e*6] = x0; lPos[e*6+1] = y0; lPos[e*6+2] = z0; lPos[e*6+3] = x1; lPos[e*6+4] = y1; lPos[e*6+5] = z1;
-      const a = .5 * grow * (1 - fold) * Math.min(vAlpha[i], vAlpha[j]);
+      lPos[e*6] = ax; lPos[e*6+1] = ay; lPos[e*6+2] = az;
+      lPos[e*6+3] = ax + (bx - ax) * grow; lPos[e*6+4] = ay + (by - ay) * grow; lPos[e*6+5] = az + (bz - az) * grow;
+      const a = .5 * grow * Math.min(vAlpha[i], vAlpha[j]);
       lAlpha[e*2] = a; lAlpha[e*2+1] = a;
     }
     lGeo.attributes.position.needsUpdate = true; lGeo.attributes.aAlpha.needsUpdate = true;
 
-    // Facets: a faint, lit fill that comes in with the mesh and leaves with the lines.
+    // Facets: a faint, lit fill that comes in with the mesh.
     const facetIn = ease(clamp((T - ARRIVE - .2) / 1.2));
     for (let f = 0; f < F; f++) {
       const [a, b, c] = TRI[f];
@@ -419,7 +442,7 @@ if ('IntersectionObserver' in window) {
     head.rotation.y = -.12 + Math.sin(tm * .12) * .07 * settled;
     head.scale.setScalar(s * (1 + Math.sin(tm * .5) * .006 * settled));
     renderer.render(scene, camera);
-    if (visible && !reduce) requestAnimationFrame(frame);
+    if (visible && !reduce) tick();
   }
 
   applyTheme();
@@ -427,9 +450,15 @@ if ('IntersectionObserver' in window) {
   new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   new ResizeObserver(layout).observe(stage); layout();
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => { const was = visible; visible = e.isIntersecting; if (visible && !was && !reduce) { t0 = performance.now(); requestAnimationFrame(frame); } }).observe(stage);
+    // Scrolling away pauses the animation; coming back picks up where it left off instead of replaying the fly-in
+    new IntersectionObserver(([e]) => {
+      const was = visible; visible = e.isIntersecting;
+      if (!visible && was) pausedAt = performance.now();
+      if (visible && !was) { if (pausedAt) t0 += performance.now() - pausedAt; pausedAt = 0; if (!reduce) tick(); }
+    }).observe(stage);
   }
-  requestAnimationFrame(frame);
+  tick();
+}
 })();
 
 /* Case-study video: plays only when asked, with play/pause, replay and a seek bar */

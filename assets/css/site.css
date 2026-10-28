@@ -30,7 +30,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
 @media (max-width:480px){ .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))} }
 
 .node{font-family:var(--mono); font-size:var(--step--1); letter-spacing:.04em; color:var(--muted); font-variant-numeric:tabular-nums}
-.node b{color:var(--accent); font-weight:500}
 
 /* ---------- Header ---------- */
 .top{display:flex; justify-content:space-between; align-items:center; gap:16px; padding-block:22px; flex-wrap:wrap}
@@ -81,7 +80,6 @@ html,body{overflow-x:clip}
 .index{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 24px); align-self:start}
 .index ol{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:2px}
 .index a{display:block; padding:6px 0; text-decoration:none; font-size:var(--step--1); color:var(--muted); border-left:2px solid transparent; padding-left:10px; transition:color .2s, border-color .2s}
-.index a .n{font-family:var(--mono); font-size:.72rem; padding-top:2px}
 .index a:hover,.index a.on{color:var(--ink); border-left-color:var(--accent)}
 
 .section-head{display:flex; align-items:baseline; gap:14px; margin:0 0 8px}
@@ -91,7 +89,6 @@ html,body{overflow-x:clip}
 .case{border-top:1px solid var(--line); padding-block:40px 44px; scroll-margin-top:24px}
 .case-meta{display:flex; flex-wrap:wrap; gap:6px 18px; align-items:baseline}
 .case h3{font-family:var(--display); font-weight:600; font-size:var(--step3); line-height:1.1; letter-spacing:-.025em; margin:10px 0 6px; text-wrap:balance}
-.case .client{font-weight:600; margin:0}
 .case .summary{font-size:var(--step1); line-height:1.5; max-width:40em; margin:0 0 10px; text-wrap:pretty}
 .points.two{grid-template-columns:repeat(2,minmax(0,1fr)); gap:36px}
 .case .role{color:var(--muted); margin:0 0 26px; font-size:var(--step--1)}
@@ -106,7 +103,6 @@ html,body{overflow-x:clip}
 .case .more{display:inline-block; margin-top:18px; font-size:var(--step--1); color:var(--accent); text-underline-offset:3px}
 .case .note{font-size:.78rem; color:var(--muted); margin:14px 0 0}
 
-.case.lesson{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:36px 32px 38px; margin-block:8px}
 
 /* Scroll motion: elements are fully visible at rest; this only adds a short settle. */
 .settle{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
@@ -252,7 +248,6 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
 }
 @media (max-width:480px){
   .facts{grid-template-columns:1fr}
-  .case.lesson{padding:28px 20px}
   .top nav{gap:16px}
 }
 @media (prefers-reduced-motion: reduce){

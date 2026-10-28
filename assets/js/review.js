@@ -19,13 +19,11 @@
   document.head.appendChild(css);
 
   // ---------- State ----------
-  var me = null;            // {name, is_owner, needs_name}
+  var me = null;            // {name, is_owner}
   var threads = [];         // from review_list
   var mode = false;         // comment mode on?
   var tab = 'open';         // panel tab
   var pinsHidden = false;
-  var guestName = '';
-  try { guestName = localStorage.getItem(STORE_KEY + '-name') || ''; } catch (e) {}
   var ui = {};
   var openThreadId = null;
   var draft = null;         // {anchor, el, x, y}
@@ -233,8 +231,12 @@
     ui.pop.classList.remove('nudge'); void ui.pop.offsetWidth; ui.pop.classList.add('nudge');
     var f = ui.pop.querySelector('textarea'); if (f) f.focus({ preventScroll: true });
   }
+  // The image lightbox is a modal dialog that sits above everything, including the comment card,
+  // so commenting pauses while it's open.
+  function inModal(el) { return !!(el && el.closest && el.closest('dialog[open]')); }
+  function modalOpen() { return !!document.querySelector('dialog[open]'); }
   document.addEventListener('click', function (e) {
-    if (!ui.pop || isUi(e.target)) return;
+    if (!ui.pop || isUi(e.target) || inModal(e.target)) return;
     if (!mode) {
       // Outside click closes an open card, unless it holds unsent text.
       if (!ui.pop.hidden && !ui.pop.classList.contains('center')) { if (draftHasText()) nudge(); else closePop(); }
@@ -254,7 +256,7 @@
   }, true);
 
   document.addEventListener('keydown', function (e) {
-    if (!ui.pop) return;
+    if (!ui.pop || modalOpen()) return;
     var typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement && document.activeElement.tagName);
     if (e.key === 'Escape') {
       if (!ui.pop.hidden) { closePop(); return; }
@@ -299,23 +301,14 @@
     renderPins();
   }
 
-  function nameField() {
-    if (!me || !me.needs_name) return null;
-    var inp = h('input', { type: 'text', class: 'twr-input', maxlength: '80', placeholder: 'Your name', value: guestName, 'aria-label': 'Your name', autocomplete: 'name' });
-    inp.addEventListener('input', function () { guestName = inp.value.trim(); try { localStorage.setItem(STORE_KEY + '-name', guestName); } catch (e) {} });
-    return inp;
-  }
-
   function composeBox(placeholder, submitLabel, onSubmit, onCancel) {
     var ta = h('textarea', { class: 'twr-input twr-ta', rows: '3', maxlength: '4000', placeholder: placeholder, 'aria-label': placeholder });
     var send = h('button', { type: 'submit', class: 'twr-btn twr-primary twr-sm', text: submitLabel, disabled: true });
     var err = h('p', { class: 'twr-err', role: 'alert' });
-    var name = (!guestName && me && me.needs_name) ? nameField() : null;
-    function valid() { return ta.value.trim() && (!me.needs_name || guestName); }
+    function valid() { return !!ta.value.trim(); }
     function sync() { send.disabled = !valid(); }
     ta.addEventListener('input', sync);
-    if (name) name.addEventListener('input', sync);
-    var form = h('form', { class: 'twr-compose' }, [name, ta, err, h('div', { class: 'twr-row' }, [
+    var form = h('form', { class: 'twr-compose' }, [ta, err, h('div', { class: 'twr-row' }, [
       onCancel ? h('button', { type: 'button', class: 'twr-link', text: 'Cancel', on: { click: onCancel } }) : null,
       h('span', { class: 'twr-hint', text: (navigator.platform || '').indexOf('Mac') > -1 ? '⌘↵ to send' : 'Ctrl+Enter to send' }),
       send
@@ -327,7 +320,7 @@
       send.disabled = true; err.textContent = '';
       onSubmit(ta.value.trim()).then(function () { ta.value = ''; sync(); }, function (x) { err.textContent = errText(x); sync(); });
     });
-    form.focusTa = function () { (name && !guestName ? name : ta).focus({ preventScroll: true }); };
+    form.focusTa = function () { ta.focus({ preventScroll: true }); };
     return form;
   }
 
@@ -336,7 +329,7 @@
     draft = { anchor: anchor, el: el };
     showHl(el);
     var form = composeBox('Add a comment', 'Comment', function (text) {
-      return rpc('review_add', { p_code: code, p_body: text, p_anchor: anchor, p_page: location.pathname, p_name: guestName || null })
+      return rpc('review_add', { p_code: code, p_body: text, p_anchor: anchor, p_page: location.pathname })
         .then(function (res) { draft = null; return refresh().then(function () { openThread(res.id); }); });
     }, closePop);
     var box = h('div', { class: 'twr-card' }, [
@@ -368,7 +361,7 @@
       ]);
     }));
     var reply = composeBox('Reply', 'Reply', function (text) {
-      return rpc('review_add', { p_code: code, p_body: text, p_thread: t.id, p_name: guestName || null })
+      return rpc('review_add', { p_code: code, p_body: text, p_thread: t.id })
         .then(function () { return refresh().then(function () { openThread(t.id); }); });
     });
     var resolveBtn = t.can_resolve ? h('button', { type: 'button', class: 'twr-btn twr-sm', text: t.resolved ? 'Reopen' : 'Resolve', on: { click: function () {
@@ -542,8 +535,10 @@
       t.comments.forEach(function (c) { lines.push('- **' + c.author + '** (' + new Date(c.created_at).toLocaleDateString() + '): ' + c.body.replace(/\n+/g, ' ')); });
       lines.push('');
     });
-    var a = h('a', { href: URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/markdown' })), download: 'portfolio-feedback.md' });
+    var url = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/markdown' }));
+    var a = h('a', { href: url, download: 'portfolio-feedback.md' });
     document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
   function leave() {
@@ -556,7 +551,6 @@
     var seenKey = STORE_KEY + '-seen-' + code;
     try { if (localStorage.getItem(seenKey)) return; } catch (e) {}
     var owner = me.is_owner;
-    var name = me.needs_name ? nameField() : null;
     var close = function () { closePop(); };
     var card = h('div', { class: 'twr-card twr-welcome' }, [
       h('h2', { text: owner ? 'Review mode is on.' : (me.name ? 'Thanks for taking a look, ' + me.name.split(' ')[0] + '.' : 'Thanks for taking a look.') }),
@@ -564,7 +558,6 @@
         ? "You'll see every reviewer's comments here; each of them sees only their own, plus your replies. Create reviewer links from the Reviewers tab in the comments panel."
         : 'Turn on Comment, then click anything on the page to leave a note. Small things are just as useful as big ones: a typo, a sentence that didn’t land, a project you wanted to hear more about.' }),
       owner ? null : h('p', { class: 'twr-note', text: 'Your comments go only to Tucker, and replies show up here. Other reviewers and normal visitors don’t see them.' }),
-      name,
       h('div', { class: 'twr-row twr-end' }, [h('button', { type: 'button', class: 'twr-btn twr-primary twr-sm', text: 'Get started', on: { click: close } })])
     ]);
     ui.pop.classList.add('center');
@@ -613,6 +606,9 @@
     if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(document.body);
     setInterval(schedule, 1500); // carousels and other motion move anchors without telling anyone
     narrow.addEventListener && narrow.addEventListener('change', placePop);
+    document.querySelectorAll('dialog').forEach(function (d) {
+      new MutationObserver(function () { if (d.open && mode) setMode(false); }).observe(d, { attributes: true, attributeFilter: ['open'] });
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
