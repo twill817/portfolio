@@ -349,3 +349,19 @@ footer a{color:var(--muted); text-underline-offset:3px}
 
 /* Hero motion graphic is desktop and tablet only */
 @media (max-width:640px){ .hero-bg{display:none} }
+
+/* Lightbox paging */
+.lb-foot{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 16px 0 0}
+.lb-foot .lightbox-cap{flex:1; min-width:0}
+.lb-nav{display:flex; align-items:center; gap:8px; flex:none}
+.lb-count{margin-right:6px}
+.lightbox.single .lb-nav{display:none}
+@media (max-width:640px){
+  .lb-foot{flex-direction:column; align-items:stretch; gap:4px; padding:0 16px 10px 0}
+  .lb-nav{justify-content:space-between; padding-left:16px}
+  .lb-count{color:#aab4b1; margin-right:auto}
+  .lightbox .car-btn{background:transparent; border-color:#3a4442; color:#e6eae8; width:44px; height:44px}
+}
+.car-btn:focus-visible,.lightbox-close:focus-visible{border-radius:999px}
+.lb-hint-touch{display:none}
+@media (hover:none){ .lb-hint-touch{display:inline} .lb-hint-mouse{display:none} }

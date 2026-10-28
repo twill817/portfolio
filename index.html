@@ -32,7 +32,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700&family=Roboto:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=20261028c">
+<link rel="stylesheet" href="assets/css/site.css?v=20261028e">
 </head>
 <body>
 
@@ -353,14 +353,21 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <dialog class="lightbox" id="lightbox" aria-label="Enlarged screen">
   <button type="button" class="lightbox-close" aria-label="Close">×</button>
   <div class="lb-pan"><img alt=""></div>
-  <p class="lightbox-cap"></p>
-  <p class="lb-hint node">Tap the image to zoom. Drag to look around.</p>
+  <div class="lb-foot">
+    <p class="lightbox-cap"></p>
+    <div class="lb-nav">
+      <span class="lb-count node" aria-live="polite"></span>
+      <button type="button" class="car-btn lb-prev" aria-label="Previous"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+      <button type="button" class="car-btn lb-next" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
+    </div>
+  </div>
+  <p class="lb-hint node"><span class="lb-hint-touch">Tap the image to zoom. Swipe for the next one.</span><span class="lb-hint-mouse">Select the image to zoom. Arrow keys move between screens.</span></p>
 </dialog>
 
 <button class="to-top" id="to-top" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>Top</button>
 
 <script src="assets/js/vendor/three.min.js"></script>
-<script src="assets/js/site.js?v=20261028c"></script>
+<script src="assets/js/site.js?v=20261028d"></script>
 <script data-goatcounter="https://tuckerwilliams.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

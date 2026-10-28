@@ -45,14 +45,49 @@ document.getElementById('copy').addEventListener('click', () => {
 (function(){
   const box = document.getElementById('lightbox');
   const boxImg = box && box.querySelector('img'), boxCap = box && box.querySelector('.lightbox-cap'), pan = box && box.querySelector('.lb-pan');
+  // The lightbox steps through whichever carousel opened it
+  const lb = { slides: null, i: 0, sync: null };
+  const boxCount = box && box.querySelector('.lb-count');
+  function show(i) {
+    const n = lb.slides.length; lb.i = (i + n) % n;
+    const el = lb.slides[lb.i], img = el.querySelector('img');
+    box.classList.remove('zoomed', 'can-zoom');
+    boxImg.src = img.getAttribute('src'); boxImg.alt = img.alt;   // always the full screen, never the phone crop
+    boxCap.textContent = el.dataset.title + '. ' + el.dataset.desc;
+    boxCount.textContent = String(lb.i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
+    box.classList.toggle('single', n < 2);
+    pan.scrollTop = pan.scrollLeft = 0;
+    if (boxImg.complete) boxImg.dispatchEvent(new Event('load'));
+    if (lb.sync) lb.sync(lb.i);
+  }
+  window.__lbOpen = (slides, i, sync) => {
+    if (!box || typeof box.showModal !== 'function') return;
+    lb.slides = slides; lb.sync = sync; show(i);
+    if (!box.open) box.showModal();
+  };
   if (box) {
     const fit = () => box.classList.toggle('can-zoom', !!boxImg.naturalWidth && boxImg.naturalWidth > pan.clientWidth + 40);
     box.querySelector('.lightbox-close').addEventListener('click', () => box.close());
+    box.querySelector('.lb-prev').addEventListener('click', () => show(lb.i - 1));
+    box.querySelector('.lb-next').addEventListener('click', () => show(lb.i + 1));
+    box.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(lb.i + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(lb.i - 1); }
+    });
     box.addEventListener('click', e => { if (e.target === box) box.close(); });
     box.addEventListener('close', () => box.classList.remove('zoomed', 'can-zoom'));
     boxImg.addEventListener('load', fit);
+    // Swipe between screens when the image isn't zoomed
+    let sx = null, sy = 0, swiped = false;
+    pan.addEventListener('pointerdown', e => { sx = box.classList.contains('zoomed') ? null : e.clientX; sy = e.clientY; swiped = false; });
+    pan.addEventListener('pointerup', e => {
+      if (sx === null) return; const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { swiped = true; show(lb.i + (dx < 0 ? 1 : -1)); }
+    });
+    pan.addEventListener('pointercancel', () => { sx = null; });
     // Tap to zoom to the image's full size, centred on the tap; tap again to fit
     boxImg.addEventListener('click', e => {
+      if (swiped) { swiped = false; return; }
       if (!box.classList.contains('can-zoom') && !box.classList.contains('zoomed')) return;
       const r = boxImg.getBoundingClientRect(), fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
       const on = box.classList.toggle('zoomed');
@@ -103,15 +138,12 @@ document.getElementById('copy').addEventListener('click', () => {
     };
     root.querySelector('.car-prev').addEventListener('click', () => go(index - 1));
     root.querySelector('.car-next').addEventListener('click', () => go(index + 1));
-    function open(i) {
-      if (!box || typeof box.showModal !== 'function') return;
-      const img = slides[i].querySelector('img');
-      box.classList.remove('zoomed');
-      boxImg.src = img.getAttribute('src'); boxImg.alt = img.alt;   // always the full screen, never the phone crop
-      boxCap.textContent = slides[i].dataset.title + '. ' + slides[i].dataset.desc;
-      box.showModal(); pan.scrollTop = pan.scrollLeft = 0;
-      if (boxImg.complete) boxImg.dispatchEvent(new Event('load'));
-    }
+    // Opening the lightbox; paging inside it keeps this carousel on the same screen
+    const open = i => window.__lbOpen && window.__lbOpen(slides, i, k => {
+      if (k === index) return;
+      if (flat()) { index = k; stage.scrollLeft = slides[k].offsetLeft - parseFloat(getComputedStyle(stage).paddingLeft); slides.forEach((el, j) => el.classList.toggle('is-active', j === k)); caption(); }
+      else { index = k; render(); }
+    });
     slides.forEach((el, i) => {
       el.addEventListener('click', () => { if (moved) return; (flat() || i === index) ? open(i) : go(i); });
       el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
