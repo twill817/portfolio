@@ -32,7 +32,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700&family=Roboto:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=20261029d">
+<link rel="stylesheet" href="assets/css/site.css?v=20261029e">
 <link rel="preload" href="assets/js/vendor/three.min.js" as="script" media="(min-width:641px)">
 </head>
 <body>
@@ -128,6 +128,10 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
               <button type="button" class="vid-ctl vid-replay" aria-label="Replay from the start"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 6.5A5 5 0 1 1 3 9.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2.4 2.8v4.4h4.4z"/></svg></button>
               <input type="range" class="vid-seek" min="0" max="1000" step="1" value="0" aria-label="Video progress">
               <span class="vid-time">0:00 / 2:51</span>
+              <div class="vid-audio">
+                <button type="button" class="vid-ctl vid-mute" aria-label="Mute" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 6h2.4L8.5 3v10L4.9 10H2.5z"/><path class="i-waves" d="M10.6 5.6a3.4 3.4 0 0 1 0 4.8M12.3 3.8a6 6 0 0 1 0 8.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="i-x" d="M10.8 6.2l3.6 3.6M14.4 6.2l-3.6 3.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+                <input type="range" class="vid-volume" min="0" max="1" step="0.05" value="1" aria-label="Volume">
+              </div>
               <button type="button" class="vid-ctl vid-cc" aria-label="Captions" aria-pressed="true"><span class="cc-label">CC</span></button>
               <button type="button" class="vid-ctl vid-full" aria-label="Full screen"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             </div>
@@ -406,7 +410,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 
 <button class="to-top" id="to-top" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>Top</button>
 
-<script src="assets/js/site.js?v=20261029a"></script>
+<script src="assets/js/site.js?v=20261029b"></script>
 <script data-goatcounter="https://tuckerwilliams.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

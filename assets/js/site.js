@@ -500,6 +500,19 @@ function heroPolygon(){
         box.classList.add('started'); if (v.paused) v.play().catch(() => {});
       });
     }
+    // Sound: mute toggle and volume slider (phones set volume with their own buttons, so they get mute only)
+    const mute = box.querySelector('.vid-mute'), vol = box.querySelector('.vid-volume');
+    if (mute) {
+      const syncAudio = () => {
+        const off = v.muted || v.volume === 0;
+        box.classList.toggle('muted', off);
+        mute.setAttribute('aria-pressed', off ? 'true' : 'false'); mute.setAttribute('aria-label', off ? 'Unmute' : 'Mute');
+        if (vol) { vol.value = off ? 0 : v.volume; vol.style.setProperty('--p', (vol.value * 100) + '%'); vol.setAttribute('aria-valuetext', Math.round(vol.value * 100) + '%'); }
+      };
+      mute.addEventListener('click', () => { if (v.muted || v.volume === 0) { v.muted = false; if (v.volume === 0) v.volume = 1; } else v.muted = true; });
+      if (vol) vol.addEventListener('input', () => { v.volume = +vol.value; v.muted = +vol.value === 0; });
+      v.addEventListener('volumechange', syncAudio); syncAudio();
+    }
     // Captions on by default, with a toggle in the bar
     const cc = box.querySelector('.vid-cc'), tr = v.textTracks && v.textTracks[0];
     if (cc) {
