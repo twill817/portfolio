@@ -1,0 +1,261 @@
+{
+ "title": "PA.gov walkthrough",
+ "chapters": [
+  "Introduction",
+  "The problem",
+  "The structure underneath",
+  "Search that starts from the resident",
+  "Tags instead of folders",
+  "One pattern for every service",
+  "The hard call",
+  "Outcome"
+ ],
+ "cues": [
+  {
+   "id": "intro",
+   "chapter": 0,
+   "slide": "s01-title",
+   "motion": [
+    [
+     0.02,
+     0.02,
+     0.96
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "Hi, I'm Tucker. This is a short walk through PA.gov, the Commonwealth of Pennsylvania's website, and the part I played in it.",
+    "I owned the UX architecture and led a team of four designers. I also set direction for our visual design lead, a fellow associate creative director. We worked closely with the governor's digital team."
+   ]
+  },
+  {
+   "id": "scale",
+   "chapter": 1,
+   "slide": "s02-scale",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "The program covered sixty-two websites across forty-three agencies, each organized around the agency that ran it. The governor had committed to \"no wrong door.\" The sites were doing the opposite."
+   ]
+  },
+  {
+   "id": "journey1",
+   "chapter": 1,
+   "slide": "s03-journey-first",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.3,
+     0.1,
+     0.62
+    ]
+   ],
+   "text": [
+    "Our early research showed what that meant for people. Someone applying for benefits for the first time is often coming off a financial shock. They search, get overwhelmed by complex information, and sometimes land on unscrupulous sites before they find the right one."
+   ]
+  },
+  {
+   "id": "journey2",
+   "chapter": 1,
+   "slide": "s04-journey-renewal",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.22,
+     0.12,
+     0.7
+    ]
+   ],
+   "text": [
+    "For people already receiving benefits, the hard part was keeping them, with renewals that were easy to miss. Both pointed to the same starting point: help people find the right service quickly, without knowing which agency owns it."
+   ]
+  },
+  {
+   "id": "sitemap",
+   "chapter": 2,
+   "slide": "s05-sitemap",
+   "motion": [
+    [
+     0,
+     0.08,
+     0.5
+    ],
+    [
+     0.3,
+     0.08,
+     0.58
+    ]
+   ],
+   "text": [
+    "Here's the structure, simplified. Services come first, as task-based entry points, with the content supplied by each agency.",
+    "Then every agency gets the same landing page, with the same seven sections. Visitors learn the pattern once, and it works on every agency's site."
+   ]
+  },
+  {
+   "id": "search",
+   "chapter": 3,
+   "slide": "s06-search",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.05,
+     0.13,
+     0.62
+    ]
+   ],
+   "text": [
+    "The core idea was to start from the resident, not the org chart. This is the Find Services page. Next to agency and service type, there are life-event filters.",
+    "Choose \"Navigating Unemployment,\" and you see services from every agency at once, not just one department."
+   ]
+  },
+  {
+   "id": "tags",
+   "chapter": 4,
+   "slide": "s07-tags",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.2,
+     0.15,
+     0.6
+    ]
+   ],
+   "text": [
+    "That works because of a change underneath. Content used to live in folders, one tree per agency. We moved it to tags for agency, topic, and life event.",
+    "Now one service page can show up wherever a resident might look for it."
+   ]
+  },
+  {
+   "id": "service",
+   "chapter": 5,
+   "slide": "s08-service",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.3,
+     0.04,
+     0.62
+    ]
+   ],
+   "text": [
+    "We also gave every service the same shape. It opens with what the service is and how to start, then an on-page guide to eligibility, filing, and next steps."
+   ]
+  },
+  {
+   "id": "apply",
+   "chapter": 5,
+   "slide": "s09-apply",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.45,
+     0.3,
+     0.42
+    ]
+   ],
+   "text": [
+    "The ways to act sit side by side: online, by phone, or by videophone for people who use sign language."
+   ]
+  },
+  {
+   "id": "hardcall",
+   "chapter": 6,
+   "slide": "s10-hardcall",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "One decision is worth mentioning. We first planned to organize around life events, but no one on the client side was going to own that content.",
+    "So we kept our recommendations simpler, and put the effort into examples and guidance agencies could follow on their own."
+   ]
+  },
+  {
+   "id": "outcome",
+   "chapter": 7,
+   "slide": "s11-outcome",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "That turned out to matter. Agencies weren't required to adopt the new structure, and all but a handful did.",
+    "Across the program, the accessibility audit score went from 37 to 95 percent. Those numbers come from a lot of people's work. My part was the structure underneath, and the team that designed it."
+   ]
+  },
+  {
+   "id": "close",
+   "chapter": 7,
+   "slide": "s12-close",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "Thanks for watching."
+   ]
+  }
+ ]
+}
