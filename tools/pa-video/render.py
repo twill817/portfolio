@@ -13,6 +13,14 @@ CARDS = {'s01-title', 's02-scale', 's10-hardcall', 's11-outcome', 's12-close'}
 
 take = json.load(open(sys.argv[1])); audio = sys.argv[2]; out = sys.argv[3]
 os.makedirs(out, exist_ok=True)
+# Large takes are stored by the studio as base64 text of a mono WAV; turn that back into audio.
+with open(audio, 'rb') as fh:
+    head = fh.read(5)
+if head == b'UklGR':
+    import base64
+    wav = os.path.join(out, '_take.wav')
+    open(wav, 'wb').write(base64.b64decode(open(audio, 'rb').read()))
+    audio = wav
 data = json.load(open(os.path.join(HERE, 'cues.json'))); cues = data['cues']
 marks = [float(m) for m in take['marks']]
 assert len(marks) == len(cues) and marks[0] == 0 and all(b > a for a, b in zip(marks, marks[1:])), 'marks must be one per cue, rising, starting at 0'
