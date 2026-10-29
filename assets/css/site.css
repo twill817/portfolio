@@ -381,3 +381,5 @@ footer a{color:var(--muted); text-underline-offset:3px}
 @media (max-width:480px){ .caps-wrap summary > span:first-child{font-size:var(--step--1)} }
 .caps-wrap .m-hide, .caps-wrap[open] .m-show{display:none}
 .caps-wrap[open] .m-hide{display:inline}
+/* Diagram slides keep their whole image */
+.car-slide.fit img{object-fit:contain; object-position:center; background:#fafafa}
