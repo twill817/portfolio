@@ -360,3 +360,24 @@ footer a{color:var(--muted); text-underline-offset:3px}
 .car-btn:focus-visible,.lightbox-close:focus-visible{border-radius:999px}
 .lb-hint-touch{display:none}
 @media (hover:none){ .lb-hint-touch{display:inline} .lb-hint-mouse{display:none} }
+/* Hero proof line */
+.lede + .proof{margin-top:-18px}
+.proof{font-size:var(--step--1); color:var(--muted); margin:0 0 30px; max-width:36em}
+.proof a{color:var(--ink); text-underline-offset:3px}
+/* Outcome-first case openers */
+.case .outcome{font-size:var(--step1); line-height:1.5; max-width:40em; margin:0 0 8px; text-wrap:pretty}
+.case .outcome + .summary{font-size:1rem; color:var(--muted)}
+/* Clients and Capabilities after the work */
+.work-start + .clients-sec{padding-top:56px}
+/* Capabilities, collapsed by default */
+.caps-wrap{margin-top:20px}
+.caps-wrap summary{list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; padding-block:14px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); cursor:pointer; color:var(--muted)}
+.caps-wrap summary::-webkit-details-marker{display:none}
+.caps-wrap[open] summary{border-bottom-color:transparent}
+.caps-more{display:inline-flex; align-items:center; gap:6px; flex:none; color:var(--accent); font-weight:500; font-size:var(--step--1)}
+.caps-more .chev{width:16px; height:16px; transition:transform .2s ease}
+.caps-wrap[open] .caps-more .chev{transform:rotate(180deg)}
+.caps-wrap .caps{margin-top:8px}
+@media (max-width:480px){ .caps-wrap summary > span:first-child{font-size:var(--step--1)} }
+.caps-wrap .m-hide, .caps-wrap[open] .m-show{display:none}
+.caps-wrap[open] .m-hide{display:inline}
