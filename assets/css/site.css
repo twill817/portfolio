@@ -383,3 +383,12 @@ footer a{color:var(--muted); text-underline-offset:3px}
 .caps-wrap[open] .m-hide{display:inline}
 /* Diagram slides keep their whole image */
 .car-slide.fit img{object-fit:contain; object-position:center; background:#fafafa}
+
+/* PA.gov walkthrough: 16:9 video with captions */
+.case-visual .vid.wide video{aspect-ratio:16/9}
+.case-video{margin-bottom:28px}
+.vid-cc .cc-label{font:600 .68rem/1 var(--mono); letter-spacing:.04em; padding:3px 4px; border:1.5px solid currentColor; border-radius:3px; opacity:.55}
+.vid-cc[aria-pressed="true"] .cc-label{opacity:1; background:#fff; color:#12181E; border-color:#fff}
+.vid video::cue{font-family:var(--body); font-size:.95em; line-height:1.35; background:rgba(18,24,30,.82); color:#fff}
+.vid.wide .vid-big{left:72%}
+@media (max-width:480px){ .case-video .vid-chapters{grid-template-columns:repeat(2,minmax(0,1fr))} .case-video .vid-chapters button{padding:10px 12px; font-size:.875rem} }

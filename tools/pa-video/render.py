@@ -72,28 +72,56 @@ os.remove(tmp)
 
 # Captions: each cue's sentences share its time in proportion to their words; long sentences split near 12 words.
 def chunks(text):
+    """Sentences, with long ones split into even pieces of about 12 words, at a comma where one is close."""
     out_ = []
-    for s in re.split(r'(?<=[.!?])\s+', text.strip()):
-        w = s.split()
-        while len(w) > 14:
-            cut = 12
-            for k in range(8, min(14, len(w) - 3)):
-                if w[k - 1].endswith(','): cut = k
-            out_.append(' '.join(w[:cut])); w = w[cut:]
+    for s in re.split(r'(?<=[.!?])\s+|(?<=[.!?]["\u201d])\s+', text.strip()):
+        w = s.split(); n = -(-len(w) // 13)
+        while n > 1:
+            target = round(len(w) / n); cut = target
+            for k in sorted(range(max(4, target - 3), min(len(w) - 3, target + 3) + 1), key=lambda k: abs(k - target)):
+                if w[k - 1].endswith((',', ';', ':')): cut = k; break
+            out_.append(' '.join(w[:cut])); w = w[cut:]; n -= 1
         if w: out_.append(' '.join(w))
     return out_
 def ts(t):
     h = int(t // 3600); m = int(t % 3600 // 60); s = t % 60
     return f'{h:02d}:{m:02d}:{s:06.3f}'
+# Pauses in the voice track, so captions follow the speech rather than the clock.
+sd = subprocess.run(['ffmpeg', '-hide_banner', '-i', audio, '-af', 'silencedetect=noise=-38dB:d=0.25', '-f', 'null', '-'], capture_output=True, text=True).stderr
+pauses = list(zip([float(x) for x in re.findall(r'silence_start: ([0-9.]+)', sd)], [float(x) for x in re.findall(r'silence_end: ([0-9.]+)', sd)]))
+def speech(a, b):
+    """Speech intervals inside [a, b]."""
+    segs, t = [], a
+    for ps, pe in pauses:
+        if pe <= a or ps >= b: continue
+        if ps > t: segs.append((t, min(ps, b)))
+        t = max(t, pe)
+    if t < b: segs.append((t, b))
+    return segs or [(a, b)]
+def at(segs, x):
+    """Real time after x seconds of speech."""
+    for s_, e_ in segs:
+        if x <= e_ - s_: return s_ + x
+        x -= e_ - s_
+    return segs[-1][1]
 vtt = ['WEBVTT', '']
 for i, c in enumerate(cues):
     parts = [p for txt in c['text'] for p in chunks(txt)]
     words = [len(p.split()) for p in parts]; total = sum(words)
-    s0, e0 = marks[i] + 0.15, ends[i] - (TAIL if i == len(cues) - 1 else 0.1)
-    t = s0
+    segs = speech(marks[i], min(ends[i], float(take['duration'])))
+    S = sum(e_ - s_ for s_, e_ in segs); cum = 0; cues_out = []
     for p, wc in zip(parts, words):
-        d = (e0 - s0) * wc / total
-        vtt += [ts(t) + ' --> ' + ts(t + d - 0.05), p, '']; t += d
+        a_, b_ = at(segs, S * cum / total), at(segs, S * (cum + wc) / total); cum += wc
+        cues_out.append([a_, b_, p])
+    # snap each boundary to a nearby pause, ending one caption as the pause starts and the next as speech resumes
+    for k in range(len(cues_out) - 1):
+        bnd = cues_out[k][1]
+        near = [(ps, pe) for ps, pe in pauses if cues_out[k][0] + 0.5 < ps and pe < cues_out[k + 1][1] - 0.5 and min(abs(ps - bnd), abs(pe - bnd)) < 1.2]
+        if near:
+            ps, pe = min(near, key=lambda q: min(abs(q[0] - bnd), abs(q[1] - bnd)))
+            cues_out[k][1], cues_out[k + 1][0] = ps + 0.15, pe - 0.05
+    for a_, b_, p in cues_out:
+        vtt += [ts(a_) + ' --> ' + ts(max(a_ + 0.8, b_)), p, '']
 open(os.path.join(out, 'pa-walkthrough.vtt'), 'w').write('\n'.join(vtt))
 
 chapters = []

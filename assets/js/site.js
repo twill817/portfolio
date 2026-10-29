@@ -500,6 +500,15 @@ function heroPolygon(){
         box.classList.add('started'); if (v.paused) v.play().catch(() => {});
       });
     }
+    // Captions on by default, with a toggle in the bar
+    const cc = box.querySelector('.vid-cc'), tr = v.textTracks && v.textTracks[0];
+    if (cc) {
+      if (!tr) cc.hidden = true;
+      else {
+        const setCC = on => { tr.mode = on ? 'showing' : 'hidden'; cc.setAttribute('aria-pressed', on ? 'true' : 'false'); };
+        setCC(true); cc.addEventListener('click', () => setCC(tr.mode !== 'showing'));
+      }
+    }
     // Pause if the viewer scrolls away mid-play
     if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0 }).observe(box);
   });
@@ -522,8 +531,12 @@ function heroPolygon(){
 /* Visit counts (GoatCounter): video plays and case-study carousel opens */
 (() => {
   const gc = (path, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path, title, event: true }); } catch (e) {} };
-  const v = document.querySelector('.vid video'); let sent = false;
-  if (v) v.addEventListener('play', () => { if (!sent) { sent = true; gc('video-play', 'Played the visualization video'); } });
+  document.querySelectorAll('.vid').forEach(box => {
+    const v = box.querySelector('video'); let sent = false;
+    // the visualization video keeps its original event name so earlier counts still line up
+    const path = box.dataset.gc || 'video-play', title = box.dataset.gcTitle || 'Played the visualization video';
+    if (v) v.addEventListener('play', () => { if (!sent) { sent = true; gc(path, title); } });
+  });
   const seen = new Set();
   document.querySelectorAll('.case').forEach(c => c.querySelectorAll('.car-btn, .car-slide').forEach(el => el.addEventListener('click', () => {
     if (seen.has(c.id)) return; seen.add(c.id); gc('carousel-' + c.id, 'Browsed the ' + c.id + ' carousel');
