@@ -479,3 +479,4 @@ footer a:hover{color:var(--ink)}
 .case-link:hover,.case:has(.case-teaser:hover) .case-link{color:var(--accent); text-decoration-color:currentColor}
 .case:has(.case-link:hover) .case-teaser img{transform:scale(1.015)}
 @media (prefers-reduced-motion: reduce){ .case-link{transition:none} }
+.case > h3:first-child{margin-top:0}
