@@ -580,3 +580,19 @@ document.querySelectorAll('.mswitch').forEach(sw => {
   });
 });
 
+
+/* ---------- Narrow screens: only the nav row stays pinned ---------- */
+/* The header is sticky with a negative offset equal to the name row, so the name scrolls away
+   with the page and the nav row pins at the top. Measured here because the name can wrap. */
+(function(){
+  const top = document.querySelector('.top'), nav = top?.querySelector('nav');
+  if (!top || !nav) return;
+  const root = document.documentElement.style;
+  const measure = () => {
+    const hide = nav.offsetTop - top.offsetTop;
+    root.setProperty('--top-hide', hide + 'px');
+    root.setProperty('--top-pin', (top.offsetHeight - hide) + 'px');
+  };
+  if ('ResizeObserver' in window) new ResizeObserver(measure).observe(top);
+  measure();
+})();

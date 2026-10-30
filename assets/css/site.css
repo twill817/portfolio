@@ -203,9 +203,9 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
 
 /* ---------- Sticky top navigation on narrower screens (the side index is hidden there) ---------- */
 @media (max-width:960px){
-  html{scroll-padding-top:120px}
+  html{scroll-padding-top:calc(var(--top-pin, 96px) + 8px)}
   body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:31; background:var(--bg)}
-  .top{position:sticky; top:env(safe-area-inset-top, 0px); z-index:30; background:var(--bg);
+  .top{position:sticky; top:calc(env(safe-area-inset-top, 0px) - var(--top-hide, 0px)); z-index:30; background:var(--bg);
     margin-left:calc(-1 * max(24px, env(safe-area-inset-left, 0px))); margin-right:calc(-1 * max(24px, env(safe-area-inset-right, 0px)));
     padding-left:max(24px, env(safe-area-inset-left, 0px)); padding-right:max(24px, env(safe-area-inset-right, 0px));
     padding-block:14px 0; flex-direction:column; align-items:stretch; gap:10px; border-bottom:1px solid var(--line)}
