@@ -478,3 +478,4 @@ footer a:hover{color:var(--ink)}
 .case:has(.case-link:hover) .case-teaser img{transform:scale(1.015)}
 @media (prefers-reduced-motion: reduce){ .case-link{transition:none} }
 .case > h3:first-child{margin-top:0}
+#work .case{border-top:0}
