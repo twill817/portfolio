@@ -474,3 +474,4 @@ footer a:hover{color:var(--ink)}
 .hero .hero-copy h1.statement{font-size:clamp(1.75rem, 3vw, 2.5rem); line-height:1.2; letter-spacing:-.022em; font-weight:600; margin:0 0 36px; text-wrap:pretty}
 .hero h1.statement + .proof{margin-top:0}
 @media (max-width:640px){ .hero .hero-copy h1.statement{font-size:1.625rem; line-height:1.22} }
+.case h3 + .case-teaser{margin-top:20px}
