@@ -374,10 +374,10 @@ function heroPolygon(){
   }
   function applyTheme() {
     const cs = getComputedStyle(document.documentElement);
-    const acc = cs.getPropertyValue('--accent').trim() || '#0E6656', mut = cs.getPropertyValue('--muted').trim() || '#5A646B';
+    const acc = cs.getPropertyValue('--accent').trim() || '#1F4A8C', mut = cs.getPropertyValue('--muted').trim() || '#596170';
     dMat.uniforms.uColor.value.set(acc); lMat.uniforms.uColor.value.set(acc); fMat.uniforms.uColor.value.set(acc);
     sMat.uniforms.uColor.value.set(mut);
-    const warm = cs.getPropertyValue('--warm').trim() || '#C08A2E';
+    const warm = cs.getPropertyValue('--warm').trim() || '#A86F2C';
     [dMat, lMat, fMat, sMat].forEach(m => m.uniforms.uColor2.value.set(warm));
     if (reduce) tick();
   }

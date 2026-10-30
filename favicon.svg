@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <style>rect{fill:#0E6656} text{fill:#F1F3F1} @media (prefers-color-scheme: dark){rect{fill:#5DC6AC} text{fill:#0E1213}}</style>
+  <style>rect{fill:#1F4A8C} text{fill:#F1F3F1} @media (prefers-color-scheme: dark){rect{fill:#8FB1E8} text{fill:#0F1216}}</style>
   <rect width="64" height="64" rx="12"/>
   <text x="32" y="42" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="1">TW</text>
 </svg>
