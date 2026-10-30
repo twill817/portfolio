@@ -2,7 +2,7 @@ document.documentElement.classList.add('js');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- Copy email ---------- */
-document.getElementById('copy').addEventListener('click', () => {
+document.getElementById('copy')?.addEventListener('click', () => {
   const text = document.getElementById('email').textContent.trim();
   const status = document.getElementById('status');
   const fallback = () => {
@@ -20,6 +20,7 @@ document.getElementById('copy').addEventListener('click', () => {
   const groups = [...document.querySelectorAll('.client-group')];
   const mq = matchMedia('(max-width:640px)');
   const btn = document.getElementById('toggle-all');
+  if (!btn) return;
   const allOpen = () => groups.every(g => g.open);
   const label = () => {
     const open = allOpen();
@@ -578,3 +579,4 @@ document.querySelectorAll('.mswitch').forEach(sw => {
     });
   });
 });
+
