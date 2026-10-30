@@ -555,3 +555,26 @@ function heroPolygon(){
     if (seen.has(c.id)) return; seen.add(c.id); gc('carousel-' + c.id, 'Browsed the ' + c.id + ' carousel');
   })));
 })();
+
+/* ---------- Case media switch: tabs between the walkthrough video and the screens ---------- */
+document.querySelectorAll('.mswitch').forEach(sw => {
+  const tabs = [...sw.querySelectorAll('[role="tab"]')];
+  const select = (tab, focus) => {
+    tabs.forEach(t => {
+      const on = t === tab, panel = document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
+      panel.hidden = !on;
+      if (!on) panel.querySelectorAll('video').forEach(v => v.pause());
+    });
+    if (focus) tab.focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (k) { e.preventDefault(); select(tabs[(i + k + tabs.length) % tabs.length], true); }
+      if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
+      if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
+    });
+  });
+});

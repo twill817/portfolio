@@ -400,3 +400,19 @@ footer a{color:var(--muted); text-underline-offset:3px}
 .vid-volume:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (hover:none){ .vid-volume{display:none} }
 @media (prefers-reduced-motion: reduce){ .vid-volume{transition:none} }
+
+/* Case media switch: one space, choose the walkthrough video or the screens */
+.mswitch-tabs{display:inline-flex; gap:4px; padding:4px; margin:0 0 14px; border:1px solid var(--line); border-radius:999px; background:var(--surface)}
+.mswitch-tabs button{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; background:none; cursor:pointer; white-space:nowrap;
+  font:500 var(--step--1)/1 var(--body); color:var(--muted); padding:9px 15px; border-radius:999px; transition:background .2s, color .2s}
+.mswitch-tabs button:hover{color:var(--ink)}
+.mswitch-tabs button[aria-selected="true"]{background:var(--ink); color:var(--bg)}
+.mswitch-tabs button:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:999px}
+.mswitch-n{font-variant-numeric:tabular-nums; opacity:.65; font-weight:400}
+.mswitch .case-visual[hidden]{display:none}
+@media (max-width:480px){
+  .mswitch-tabs{display:grid; grid-template-columns:1fr 1fr; width:100%}
+  .mswitch-tabs button{padding:10px 8px}
+  .mswitch-n{display:none}
+}
+@media (prefers-reduced-motion: reduce){ .mswitch-tabs button{transition:none} }

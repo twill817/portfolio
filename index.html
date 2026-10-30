@@ -32,7 +32,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700&family=Roboto:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=20261029g">
+<link rel="stylesheet" href="assets/css/site.css?v=20261029h">
 <link rel="preload" href="assets/js/vendor/three.min.js" as="script" media="(min-width:641px)">
 </head>
 <body>
@@ -109,7 +109,12 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
         <p class="outcome">Sixty-two state sites now share one structure and one search. Agencies could have opted out, and all but a handful didn't.</p>
         <p class="summary">Residents had to know which agency owned their task before they could find it, the opposite of the governor's "No wrong door" commitment.</p>
         <p class="role">Associate Creative Director, Experience · Publicis Sapient</p>
-        <figure class="case-visual case-video">
+        <div class="mswitch">
+        <div class="mswitch-tabs" role="tablist" aria-label="Ways to view the PA.gov work">
+          <button type="button" role="tab" id="pa-tab-video" aria-controls="pa-panel-video" aria-selected="true">Watch the walkthrough<span class="mswitch-n">2:51</span></button>
+          <button type="button" role="tab" id="pa-tab-screens" aria-controls="pa-panel-screens" aria-selected="false" tabindex="-1" data-goatcounter-click="pa-screens-tab" data-goatcounter-title="Switched to PA.gov screens">Browse the screens<span class="mswitch-n">6</span></button>
+        </div>
+        <figure class="case-visual case-video" role="tabpanel" id="pa-panel-video" aria-labelledby="pa-tab-video">
           <div class="vid wide" data-gc="pa-walkthrough" data-gc-title="Played the PA.gov walkthrough">
             <video playsinline preload="metadata" poster="assets/video/pa-walkthrough.webp" width="1920" height="1080" aria-label="Narrated walkthrough of the PA.gov work: the problem, early research, the site structure, search, tagging, the service page pattern, a key trade-off, and the outcome.">
               <source src="assets/video/pa-walkthrough.mp4" type="video/mp4">
@@ -141,7 +146,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
           </ol>
           <figcaption>A three-minute walkthrough in my own words.</figcaption>
         </figure>
-        <figure class="case-visual">
+        <figure class="case-visual" role="tabpanel" id="pa-panel-screens" aria-labelledby="pa-tab-screens" hidden>
           <div class="carousel" aria-roledescription="carousel" aria-label="PA.gov research, structure, and screens">
             <div class="car-stage">
               <div class="car-slide" data-title="Starting from the research" data-desc="We mapped the journeys of two kinds of benefits users. A first-time applicant often arrives after a financial shock, searches, and gets lost in complex terms and unreliable sites."><picture><source media="(max-width:640px)" srcset="assets/img/pa-0a-journey-m.webp?v=3"><img src="assets/img/pa-0a-journey.webp?v=3" width="2400" height="1800" alt="Journey map for a first-time applicant in distress: the full five-stage journey in miniature, beside a close-up of stage one, Shock and Discovery, where the resident searches online, asks friends, and stumbles on unscrupulous websites. Emotions sit on the left and opportunities, led by enhanced search, on the right." loading="lazy" decoding="async"></picture></div>
@@ -165,6 +170,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
           </div>
           <figcaption>Early research, the site structure, and screens from the live site.</figcaption>
         </figure>
+        </div>
         <ul class="points two">
           <li><h4>My part</h4><p>I owned the UX architecture, led four designers, and set direction for the visual design lead, working directly with the governor's digital team. In workshops with each agency, I reorganized their sites around how residents look for content. I also set the content strategy, replacing folders with tags so search could filter the way residents think.</p></li>
           <li><h4>What happened</h4><p>We first planned to organize around life events, but no one on the client side would own that content. So we simplified the recommendations and put the effort into examples and guidance agencies could follow on their own. PA.gov launched in phases on that architecture, completing in January 2025.</p></li>
@@ -396,7 +402,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 
 <button class="to-top" id="to-top" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>Top</button>
 
-<script src="assets/js/site.js?v=20261029b"></script>
+<script src="assets/js/site.js?v=20261029c"></script>
 <script data-goatcounter="https://tuckerwilliams.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
