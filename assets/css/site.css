@@ -39,12 +39,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
 .hero-id{font-family:var(--display); font-weight:600; font-size:var(--step1); line-height:1.25; margin:0 0 14px; flex-direction:column}
 .hero-id span{font-family:var(--body); font-weight:400; font-size:var(--step--1); color:var(--muted)}
 @media (max-width:640px){
-  .mark-full,.mark-sub{display:none}
-  .mark-short{display:inline; font-weight:700; letter-spacing:.02em}
-  .top{flex-direction:row!important; align-items:center!important; gap:20px!important}
-  .top nav{flex:1; min-width:0}
-  .hero-id{display:flex}
-  .hero .hero-copy h1{font-size:min(3.75rem, calc((100vw - 32px) * .142)); line-height:1}
+  .mark{flex-direction:row; align-items:baseline; flex-wrap:wrap; column-gap:10px}
+  .top{gap:6px!important}
+  .top nav{justify-content:space-between; gap:12px!important}
+  .hero .lede{margin-bottom:26px}
 }
 .top nav{display:flex; gap:22px; flex-wrap:wrap}
 .top nav a{font-size:var(--step--1); text-decoration:none; color:var(--muted); white-space:nowrap}
@@ -471,9 +469,9 @@ footer a:hover{color:var(--ink)}
 @media (max-width:960px){ .cs-shot{margin-bottom:40px} .cs-shot figcaption{grid-template-columns:1fr; gap:4px} .cs-work{padding-top:28px} }
 /* Hero as a single statement */
 .hero .hero-copy{max-width:780px}
-.hero .hero-copy h1.statement{font-size:clamp(1.75rem, 3vw, 2.5rem); line-height:1.2; letter-spacing:-.022em; font-weight:600; margin:0 0 36px; text-wrap:pretty}
+.hero .hero-copy h1.statement{font-size:clamp(1.75rem, 3vw, 2.5rem); line-height:1.2; letter-spacing:-.022em; font-weight:600; margin:0 0 16px; text-wrap:pretty}
 .hero h1.statement + .proof{margin-top:0}
-@media (max-width:640px){ .hero .hero-copy h1.statement{font-size:1.625rem; line-height:1.22} }
+@media (max-width:640px){ .hero .hero-copy h1.statement{font-size:1.625rem; line-height:1.22; margin-bottom:12px} }
 .case h3 + .case-teaser{margin-top:20px}
 .case-link{color:inherit; text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:2px; text-underline-offset:.16em; transition:color .2s, text-decoration-color .2s}
 .case-link:hover,.case:has(.case-teaser:hover) .case-link{color:var(--accent); text-decoration-color:currentColor}
