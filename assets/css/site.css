@@ -479,3 +479,8 @@ footer a:hover{color:var(--ink)}
 @media (prefers-reduced-motion: reduce){ .case-link{transition:none} }
 .case > h3:first-child{margin-top:0}
 #work .case{border-top:0}
+
+.cs .role{display:flex; flex-direction:column; gap:4px; max-width:40em}
+.role-summary{color:var(--ink); font-size:1.0625rem; line-height:1.5; text-wrap:pretty}
+.role-title{color:var(--muted); font-size:var(--step--1)}
+.cs-sec .cs-sub{font-family:var(--display); font-weight:600; font-size:1.0625rem; line-height:1.3; letter-spacing:-.005em; color:var(--ink); margin:1.6em 0 6px}
