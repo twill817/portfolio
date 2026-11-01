@@ -42,7 +42,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
   .mark{flex-direction:row; align-items:baseline; flex-wrap:wrap; column-gap:10px}
   .top{gap:6px!important}
   .top nav{justify-content:space-between; gap:12px!important}
-  .hero .lede{margin-bottom:26px}
+  .hero .lede{font-size:.9375rem; line-height:1.55; margin-bottom:26px}
 }
 .top nav{display:flex; gap:22px; flex-wrap:wrap}
 .top nav a{font-size:var(--step--1); text-decoration:none; color:var(--muted); white-space:nowrap}
