@@ -24,23 +24,21 @@ d.rectangle([0, 0, 8 * S, H * S], fill=ACCENT)
 d.text((M * S, 58 * S), 'Tucker Williams', font=font('body', 24, 500), fill=INK)
 d.text((M * S, 92 * S), 'UX & Product Design Leader · tuckerwilliams.info', font=font('body', 17, 400), fill=MUTED)
 
-# Headline, with the first phrase in the accent color. Words are laid out one at a time so color can change mid-line.
-hf = font('display', 46, 600)
-words = [(w, ACCENT) for w in 'concept to delivery,'.split()]
-words = [(w, INK) for w in 'I lead product design from'.split()] + words + \
-        [(w, INK) for w in 'guiding the team through research, direction and craft, most recently for 62 Pennsylvania agency sites and Grupo Coppel’s design practice.'.split()]
-x, y, maxx, lh, sp = M * S, 172 * S, (W - M - 40) * S, 57 * S, d.textlength(' ', font=hf)
+# Headline, with "feel simple" in the accent color as on the site. Words are laid out one at a time so color can change mid-line.
+hf = font('display', 58, 600)
+words = [(w, INK) for w in 'I lead design teams that make large, complicated products'.split()] + \
+        [('feel', ACCENT), ('simple', ACCENT), ('.', INK)]
+x, y, maxx, lh, sp = M * S, 168 * S, (W - M - 40) * S, 70 * S, d.textlength(' ', font=hf)
 for w, col in words:
-    if w == 'delivery,':  # keep the comma in ink, as on the site
-        parts = [('delivery', ACCENT), (',', INK)]
-    else:
-        parts = [(w, col)]
-    wl = sum(d.textlength(t, font=hf) for t, _ in parts)
-    if x + wl > maxx and x > M * S:
+    wl = d.textlength(w, font=hf)
+    if w == '.':  # period sits right against "simple"
+        x -= sp
+    elif x + wl > maxx and x > M * S:
         x, y = M * S, y + lh
-    for t, c in parts:
-        d.text((x, y), t, font=hf, fill=c); x += d.textlength(t, font=hf)
-    x += sp
+    d.text((x, y), w, font=hf, fill=col); x += wl + sp
+
+# Lede, muted, under the headline.
+d.text((M * S, y + 96 * S), 'New products and established ones, from first concept to delivery.', font=font('body', 24, 400), fill=MUTED)
 
 d.rectangle([M * S, 503 * S, (W - M) * S, 504 * S - 1], fill=LINE)
 lf, vf = font('body', 14, 400), font('body', 19, 500)
