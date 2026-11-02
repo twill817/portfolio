@@ -462,6 +462,9 @@ footer a:hover{color:var(--ink)}
 .cs-shot{margin:0 0 56px}
 .cs-shot-img{border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:#fff}
 .cs-shot-img img{display:block; width:100%; height:auto}
+.cs-shot-img.is-tall{background:#F1F2F4; padding:40px 24px}
+.cs-shot-img.is-tall img{max-width:620px; margin-inline:auto; border-radius:4px; box-shadow:0 2px 14px rgba(15,18,22,.12)}
+@media (max-width:960px){ .cs-shot-img.is-tall{padding:20px 14px} }
 .cs-shot figcaption{display:grid; grid-template-columns:200px minmax(0,1fr); gap:56px; margin-top:18px}
 .cs-shot figcaption .node{padding-top:3px}
 .cs-shot h3{font-family:var(--display); font-weight:600; font-size:var(--step1); line-height:1.3; margin:0 0 4px}
