@@ -56,7 +56,7 @@ for f in range(n):
         p = ease((t - marks[i]) / XFADE)
         if cues[i]['slide'] in CARDS or cues[i - 1]['slide'] in CARDS:
             # text cards dip through the page colour so two sets of words never overlap
-            bg = Image.new('RGB', (OW, OH), (244, 242, 238))
+            bg = Image.new('RGB', (OW, OH), (245, 246, 248))
             im = Image.blend(frame(i - 1, t), bg, p * 2) if p < .5 else Image.blend(bg, im, p * 2 - 1)
         else:
             im = Image.blend(frame(i - 1, t), im, p)
