@@ -42,10 +42,11 @@ d.text((M * S, y + 96 * S), 'New products and established ones, from first conce
 
 d.rectangle([M * S, 503 * S, (W - M) * S, 504 * S - 1], fill=LINE)
 lf, vf = font('body', 14, 400), font('body', 19, 500)
-facts = [('Looking for', 'Director or Head of UX'), ('Experience', '15+ years'),
-         ('Most recently', 'Publicis Sapient'), ('Based in', 'Dallas–Fort Worth')]
-for i, (k, v) in enumerate(facts):
-    cx = (M + i * 271) * S
+# Column x offsets from the left margin; "Looking for" gets extra room for the longer role list.
+facts = [(0, 'Looking for', 'Director, Head of UX, or senior design leadership'), (500, 'Experience', '15+ years'),
+         (680, 'Most recently', 'Publicis Sapient'), (880, 'Based in', 'Dallas–Fort Worth')]
+for off, k, v in facts:
+    cx = (M + off) * S
     lx = cx
     for ch in k.upper():  # light letter-spacing on the labels
         d.text((lx, 527 * S), ch, font=lf, fill=MUTED); lx += d.textlength(ch, font=lf) + 0.9 * S
