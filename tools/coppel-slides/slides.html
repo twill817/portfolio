@@ -1,0 +1,133 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- Coppel case-study diagrams, in the site's palette and type (assets/css/site.css). Rendered by render.py. -->
+<style>
+@font-face{font-family:"Schibsted Grotesk";src:url("../pa-video/fonts/SchibstedGrotesk%255Bwght%255D.ttf");font-weight:400 900}
+@font-face{font-family:"Roboto";src:url("../pa-video/fonts/Roboto%255Bwdth,wght%255D.ttf");font-weight:100 900}
+:root{--bg:#FFFFFF;--surface:#F5F6F8;--ink:#111418;--muted:#596170;--line:#E2E5EA;--accent:#1F4A8C;--accent-soft:#E5ECF6;--warm:#A86F2C;--warm-soft:#F4ECE0;
+ --display:"Schibsted Grotesk",sans-serif;--body:"Roboto",sans-serif}
+*{box-sizing:border-box;margin:0}
+body{background:#ccc;font-family:var(--body);color:var(--ink)}
+.slide{width:1600px;height:900px;background:var(--surface);position:relative;padding:96px 100px;overflow:hidden;margin-bottom:20px}
+.eb{font-family:var(--body);font-weight:500;font-size:20px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:16px}
+h1{font-family:var(--display);font-weight:600;font-size:64px;letter-spacing:-.02em;line-height:1.1;margin-top:18px}
+.card{background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:34px 40px}
+.card h2{font-family:var(--display);font-weight:600;font-size:46px;letter-spacing:-.015em;line-height:1.12}
+.card h3{font-family:var(--display);font-weight:600;font-size:38px;letter-spacing:-.01em;line-height:1.15}
+.card p{font-size:26px;color:var(--muted);margin-top:12px;line-height:1.35}
+.note{border-left:4px solid var(--accent);padding:6px 0 6px 30px;font-size:34px;line-height:1.35}
+.cap{font-weight:500;font-size:18px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.pill{display:inline-block;font-weight:600;font-size:16px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:6px 14px}
+.grid{display:grid;gap:30px}
+.abs{position:absolute}
+.n{font-size:20px;color:var(--muted);font-weight:500;letter-spacing:.04em;margin-bottom:8px}
+</style></head><body>
+
+<!-- 1 -->
+<section class="slide" id="s1">
+ <div class="eb">01 — The goal</div>
+ <h1>Design on par with the best tech companies.</h1>
+ <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:110px;width:1400px">
+  <div class="card" style="height:270px"><h2>Craft</h2><p>The skills of the team</p></div>
+  <div class="card" style="height:270px"><h2>Structure</h2><p>How the work was organized</p></div>
+ </div>
+ <div class="note" style="margin-top:70px">Two halves of one gap.</div>
+</section>
+
+<!-- 2 -->
+<section class="slide" id="s2">
+ <div class="eb">02 — Raising the bar</div>
+ <h1>Roles rewritten around craft.</h1>
+ <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:110px">
+  <div class="card" style="height:210px;display:flex;align-items:center"><h3>Craft first</h3></div>
+  <div class="card" style="height:210px;display:flex;align-items:center"><h3>Consultant mindset</h3></div>
+  <div class="card" style="height:210px;display:flex;align-items:center"><h3>Right-sized process</h3></div>
+ </div>
+ <div class="note" style="margin-top:80px">The new criteria were used to hire senior managers.</div>
+</section>
+
+<!-- 3 -->
+<section class="slide" id="s3">
+ <div class="eb">03 — The structural gap</div>
+ <h1>Six pods. No one between them.</h1>
+ <div style="position:relative;margin-top:110px;height:400px">
+  <div class="abs" style="left:-100px;right:-100px;top:0;height:3px;background:var(--ink);opacity:.85"></div>
+  <div id="pods" class="abs" style="left:0;right:0;top:66px;display:grid;grid-template-columns:repeat(6,1fr);gap:52px"></div>
+ </div>
+ <div style="font-size:32px;margin-top:6px">Each pod owned its phase. <span style="color:var(--warm);font-weight:500">No one owned the seams.</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" id="s4">
+ <div class="eb">04 — Who owns what</div>
+ <h1>In the room. Downstream of the decision.</h1>
+ <div style="position:relative;margin-top:96px;height:470px">
+  <div class="abs" style="left:520px;width:360px;top:0;height:470px;background:var(--warm-soft);border:1.5px dashed var(--warm);border-radius:10px"></div>
+  <div class="abs" style="left:520px;width:360px;top:34px;text-align:center;color:var(--warm);font-weight:600;font-size:26px;line-height:1.3">No reporting line<br>crosses here</div>
+  <div class="cap abs" style="left:0;top:20px">Delivery line</div>
+  <div class="cap abs" style="left:920px;top:20px">Outcome line</div>
+  <div class="card abs" style="left:0;top:66px;width:480px;padding:30px 36px"><h3>Delivery director</h3></div>
+  <div class="card abs" style="left:0;top:330px;width:480px;padding:30px 36px"><h3>Design</h3></div>
+  <div class="card abs" style="left:920px;top:66px;width:480px;padding:30px 36px"><h3>Business owners</h3></div>
+  <div class="card abs" style="left:920px;top:330px;width:480px;padding:30px 36px"><h3>Requirements</h3></div>
+  <svg class="abs" style="left:0;top:0" width="1400" height="470" fill="none" stroke="#111418" stroke-width="3">
+   <path d="M60 326 V176"/><path d="M48 190 L60 174 L72 190"/>
+   <path d="M980 176 V318"/><path d="M968 304 L980 320 L992 304"/>
+   <path d="M918 395 H486"/><path d="M502 383 L484 395 L502 407"/>
+  </svg>
+  <div class="abs" style="left:520px;width:360px;top:342px;text-align:center;font-size:24px;font-weight:500">Arrive as decisions</div>
+ </div>
+</section>
+
+<!-- 5 -->
+<section class="slide" id="s5">
+ <div class="eb">05 — The method</div>
+ <h1>Validate sideways before walking it up.</h1>
+ <div style="position:relative;margin-top:60px;height:520px">
+  <div class="card abs" style="left:0;top:300px;width:300px;padding:24px 30px"><div class="n">01</div><h3 style="font-size:34px">Surface the gap</h3></div>
+  <div class="card abs" style="left:370px;top:300px;width:300px;padding:24px 30px;background:var(--accent-soft);border-color:#C9D6EA"><div class="n" style="color:var(--accent)">02</div><h3 style="font-size:34px">Validate sideways</h3></div>
+  <div class="card abs" style="left:740px;top:300px;width:300px;padding:24px 30px"><div class="n">03</div><h3 style="font-size:34px">Reframe it</h3></div>
+  <div class="card abs" style="left:1090px;top:40px;width:310px;padding:24px 30px;border-color:var(--accent);border-width:2px"><div class="n">04</div><h3 style="font-size:34px">Walk it up</h3></div>
+  <svg class="abs" style="left:0;top:0" width="1400" height="520" fill="none" stroke="#111418" stroke-width="3">
+   <path d="M306 375 H362"/><path d="M350 365 L364 375 L350 385"/>
+   <path d="M676 375 H732"/><path d="M720 365 L734 375 L720 385"/>
+   <path d="M1046 375 H1245 V170"/><path d="M1235 182 L1245 166 L1255 182"/>
+  </svg>
+  <div class="cap abs" style="left:1268px;top:250px;line-height:1.4">Up to<br>leadership</div>
+  <div class="cap abs" style="left:0;top:470px;color:var(--accent)">Across functions →</div>
+ </div>
+</section>
+
+<!-- 6 -->
+<section class="slide" id="s6">
+ <div class="eb">06 — The recommendation <span class="pill" style="background:var(--warm-soft);color:var(--warm);letter-spacing:.08em">Accepted · Deferred</span></div>
+ <h1>Own the channel. Govern the journey.</h1>
+ <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:100px">
+  <div class="card" style="height:250px"><h2 style="font-size:42px">Mobile</h2><p>Product + design co-lead</p><span class="pill" style="background:var(--accent);color:#fff;margin-top:20px">Pilot first</span></div>
+  <div class="card" style="height:250px"><h2 style="font-size:42px">Web</h2><p>Product + design co-lead</p></div>
+  <div class="card" style="height:250px"><h2 style="font-size:42px">In-store kiosk</h2><p>Product + design co-lead</p></div>
+ </div>
+ <div style="margin-top:30px;background:var(--accent-soft);border:1.5px solid #C9D6EA;border-radius:10px;padding:30px 40px;font-family:var(--display);font-weight:600;font-size:36px;color:var(--accent)">Cross-channel guild owns the end-to-end journey</div>
+</section>
+
+<!-- 7 -->
+<section class="slide" id="s7">
+ <div class="eb">07 — What lasted</div>
+ <h1>Principles the team wrote for itself.</h1>
+ <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:110px">
+  <div class="card" style="height:270px"><h2>1.5 days</h2><p>Workshop, on site then remote</p></div>
+  <div class="card" style="height:270px"><h2>5 principles</h2><p>Worded by the team</p></div>
+  <div class="card" style="height:270px"><h2>Beyond retail</h2><p>Shared with the wider org</p></div>
+ </div>
+ <div class="note" style="margin-top:70px">Still in the design system, with a credit to me.</div>
+</section>
+
+<script>
+const pods=['Onboard','Discover','Product','Checkout','Account','Retain'], P=document.getElementById('pods');
+pods.forEach(p=>{const d=document.createElement('div');d.className='card';d.style.cssText='height:270px;display:flex;align-items:center;justify-content:center;padding:0';d.innerHTML='<h3 style="font-size:32px">'+p+'</h3>';P.appendChild(d)});
+// dots on the journey line: solid over each pod, hollow warm ring at each seam, dashed warm seam lines
+const wrap=P.parentElement, colW=(1400-5*52)/6;
+for(let i=0;i<6;i++){const x=i*(colW+52)+colW/2;const dot=document.createElement('div');dot.className='abs';dot.style.cssText=`left:${x-11}px;top:-10px;width:22px;height:22px;border-radius:50%;background:var(--ink)`;wrap.appendChild(dot)}
+for(let i=1;i<6;i++){const x=i*(colW+52)-26;const r=document.createElement('div');r.className='abs';r.style.cssText=`left:${x-13}px;top:-12px;width:26px;height:26px;border-radius:50%;background:var(--surface);border:3.5px solid var(--warm)`;wrap.appendChild(r);
+ const s=document.createElement('div');s.className='abs';s.style.cssText=`left:${x-1.5}px;top:30px;height:296px;border-left:3px dashed var(--warm)`;wrap.appendChild(s)}
+</script>
+</body></html>
