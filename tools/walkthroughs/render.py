@@ -1,17 +1,20 @@
-"""Render the PA.gov walkthrough from a saved take.
+"""Render a case-study walkthrough from a saved voice-over take.
 
-usage: python3 render.py take.json audio_file out_dir
-take.json holds {"marks": [...seconds per cue...], "duration": seconds}
-Writes pa-walkthrough.mp4, pa-walkthrough.vtt, pa-walkthrough-poster.webp, chapters.json
+usage: python3 render.py <case-study folder> take.json audio_file out_dir
+  <case-study folder>  e.g. pa-gov: holds cues.json (slides, chapters, motion) and slides/ from build_slides.py
+  take.json            the take row from the studio: {"marks": [...], "duration": s, "script": {...}}
+The script saved with the take (what was actually read) drives the captions; cues.json supplies
+slides, motion and which slides are text cards. Writes <name>.mp4, <name>.vtt, <name>-poster.webp
+and chapters.json, where <name> comes from cues.json.
 """
 import json, os, re, subprocess, sys
 from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FPS, OW, OH, XFADE, TAIL = 30, 1920, 1080, 0.5, 0.8
-CARDS = {'s01-title', 's02-scale', 's10-hardcall', 's11-outcome', 's12-close'}
 
-take = json.load(open(sys.argv[1])); audio = sys.argv[2]; out = sys.argv[3]
+PROJ = os.path.join(HERE, sys.argv[1])
+take = json.load(open(sys.argv[2])); audio = sys.argv[3]; out = sys.argv[4]
 os.makedirs(out, exist_ok=True)
 # Large takes are stored by the studio as base64 text of a mono WAV; turn that back into audio.
 with open(audio, 'rb') as fh:
@@ -21,12 +24,20 @@ if head == b'UklGR':
     wav = os.path.join(out, '_take.wav')
     open(wav, 'wb').write(base64.b64decode(open(audio, 'rb').read()))
     audio = wav
-data = json.load(open(os.path.join(HERE, 'cues.json'))); cues = data['cues']
+data = json.load(open(os.path.join(PROJ, 'cues.json'))); cues = data['cues']; NAME = data['name']
+CARDS = {c['slide'] for c in cues if c.get('card')}
+# Captions follow the script as it was read, when the take carries one.
+script = take.get('script')
+if script:
+    said = {c['id']: c['text'] for c in script['cues']}
+    assert [c['id'] for c in script['cues']] == [c['id'] for c in cues], 'the take was read from a different slide list'
+    for c in cues: c['text'] = said[c['id']]
+    data['chapters'] = script.get('chapters', data['chapters'])
 marks = [float(m) for m in take['marks']]
 assert len(marks) == len(cues) and marks[0] == 0 and all(b > a for a, b in zip(marks, marks[1:])), 'marks must be one per cue, rising, starting at 0'
 dur = float(take['duration']) + TAIL
 ends = marks[1:] + [dur]
-slides = [Image.open(os.path.join(HERE, 'slides', c['slide'] + '.png')).convert('RGB') for c in cues]
+slides = [Image.open(os.path.join(PROJ, 'slides', c['slide'] + '.png')).convert('RGB') for c in cues]
 SW, SH = slides[0].size
 
 def ease(p): return p * p * (3 - 2 * p)
@@ -61,10 +72,10 @@ for f in range(n):
         else:
             im = Image.blend(frame(i - 1, t), im, p)
     enc.stdin.write(im.tobytes())
-    if f == int(0.5 * FPS): im.save(os.path.join(out, 'pa-walkthrough-poster.webp'), quality=85)
+    if f == int(0.5 * FPS): im.save(os.path.join(out, NAME + '-poster.webp'), quality=85)
 enc.stdin.close(); enc.wait()
 
-final = os.path.join(out, 'pa-walkthrough.mp4')
+final = os.path.join(out, NAME + '.mp4')
 subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', tmp, '-i', audio, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
                 '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-c:a', 'aac', '-b:a', '128k', '-ar', '48000', '-t', f'{dur:.2f}',
                 '-movflags', '+faststart', final], check=True)
@@ -122,7 +133,7 @@ for i, c in enumerate(cues):
             cues_out[k][1], cues_out[k + 1][0] = ps + 0.15, pe - 0.05
     for a_, b_, p in cues_out:
         vtt += [ts(a_) + ' --> ' + ts(max(a_ + 0.8, b_)), p, '']
-open(os.path.join(out, 'pa-walkthrough.vtt'), 'w').write('\n'.join(vtt))
+open(os.path.join(out, NAME + '.vtt'), 'w').write('\n'.join(vtt))
 
 chapters = []
 for i, c in enumerate(cues):

@@ -30,7 +30,8 @@
    "text": [
     "Hi, I'm Tucker. This is a short walk through PA.gov, the Commonwealth of Pennsylvania's website, and the part I played in it.",
     "I owned the UX architecture and led a team of four designers. I also set direction for our visual design lead, a fellow associate creative director. We worked closely with the governor's digital team."
-   ]
+   ],
+   "card": true
   },
   {
    "id": "scale",
@@ -50,7 +51,8 @@
    ],
    "text": [
     "The program covered sixty-two websites across forty-three agencies, each organized around the agency that ran it. The governor had committed to \"no wrong door.\" The sites were doing the opposite."
-   ]
+   ],
+   "card": true
   },
   {
    "id": "journey1",
@@ -70,7 +72,8 @@
    ],
    "text": [
     "Our early research showed what that meant for people. Someone applying for benefits for the first time is often coming off a financial shock. They search, get overwhelmed by complex information, and sometimes land on unscrupulous sites before they find the right one."
-   ]
+   ],
+   "card": false
   },
   {
    "id": "journey2",
@@ -90,7 +93,8 @@
    ],
    "text": [
     "For people already receiving benefits, the hard part was keeping them, with renewals that were easy to miss. Both pointed to the same starting point: help people find the right service quickly, without knowing which agency owns it."
-   ]
+   ],
+   "card": false
   },
   {
    "id": "sitemap",
@@ -111,7 +115,8 @@
    "text": [
     "Here's the structure, simplified. Services come first, as task-based entry points, with the content supplied by each agency.",
     "Then every agency gets the same landing page, with the same seven sections. Visitors learn the pattern once, and it works on every agency's site."
-   ]
+   ],
+   "card": false
   },
   {
    "id": "search",
@@ -132,7 +137,8 @@
    "text": [
     "The core idea was to start from the resident, not the org chart. This is the Find Services page. Next to agency and service type, there are life-event filters.",
     "Choose \"Navigating Unemployment,\" and you see services from every agency at once, not just one department."
-   ]
+   ],
+   "card": false
   },
   {
    "id": "tags",
@@ -153,7 +159,8 @@
    "text": [
     "That works because of a change underneath. Content used to live in folders, one tree per agency. We moved it to tags for agency, topic, and life event.",
     "Now one service page can show up wherever a resident might look for it."
-   ]
+   ],
+   "card": false
   },
   {
    "id": "service",
@@ -173,7 +180,8 @@
    ],
    "text": [
     "We also gave every service the same shape. It opens with what the service is and how to start, then an on-page guide to eligibility, filing, and next steps."
-   ]
+   ],
+   "card": false
   },
   {
    "id": "apply",
@@ -193,7 +201,8 @@
    ],
    "text": [
     "The ways to act sit side by side: online, by phone, or by videophone for people who use sign language."
-   ]
+   ],
+   "card": false
   },
   {
    "id": "hardcall",
@@ -214,7 +223,8 @@
    "text": [
     "One decision is worth mentioning. We first planned to organize around life events, but no one on the client side was going to own that content.",
     "So we kept our recommendations simpler, and put the effort into examples and guidance agencies could follow on their own."
-   ]
+   ],
+   "card": true
   },
   {
    "id": "outcome",
@@ -235,7 +245,8 @@
    "text": [
     "That turned out to matter. Agencies weren't required to adopt the new structure, and all but a handful did.",
     "Across the program, the accessibility audit score went from 37 to 95 percent. Those numbers come from a lot of people's work. My part was the structure underneath, and the team that designed it."
-   ]
+   ],
+   "card": true
   },
   {
    "id": "close",
@@ -255,7 +266,9 @@
    ],
    "text": [
     "Thanks for watching."
-   ]
+   ],
+   "card": true
   }
- ]
+ ],
+ "name": "pa-walkthrough"
 }

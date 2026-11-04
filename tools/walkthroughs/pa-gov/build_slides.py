@@ -17,11 +17,11 @@ SHADOW = (17, 20, 24)
 SOURCE_BG = 250               # the neutral grey the Figma exports sit on
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-IMG = os.path.join(HERE, '..', '..', 'assets', 'img')
+IMG = os.path.join(HERE, '..', '..', '..', 'assets', 'img')
 OUT = os.path.join(HERE, 'slides'); os.makedirs(OUT, exist_ok=True)
 
 def font(kind, size, weight):
-    path = os.path.join(HERE, 'fonts', 'SchibstedGrotesk%5Bwght%5D.ttf' if kind == 'display' else 'Roboto%5Bwdth,wght%5D.ttf')
+    path = os.path.join(HERE, '..', 'fonts', 'SchibstedGrotesk%5Bwght%5D.ttf' if kind == 'display' else 'Roboto%5Bwdth,wght%5D.ttf')
     f = ImageFont.truetype(path, size)
     try:
         axes = f.get_variation_axes()
