@@ -119,13 +119,10 @@ for i in range(240):
 c.paste(canvas(), (0, 0), fade)
 d = ImageDraw.Draw(c)
 d.rectangle((0, 0, 1180, H), fill=BG)
-eyebrow(d, (M, 560), 'Case study walkthrough')
-d.text((M - 8, 640), 'PA.gov', font=font('display', 300, 700), fill=INK)
-d.text((M, 1010), 'Commonwealth of Pennsylvania', font=font('body', 58, 400), fill=MUTED)
-d.text((M, 1086), '2023–2024', font=font('body', 58, 400), fill=MUTED)
-d.line((M, 1230, 1060, 1230), fill=LINE, width=4)
-d.text((M, 1280), 'Tucker Williams', font=font('display', 66, 600), fill=INK)
-d.text((M, 1368), 'UX & Product Design Leader', font=font('body', 52, 400), fill=MUTED)
+# Name and title live in the page header, so the slide carries only the case itself
+d.text((M - 8, 620), 'PA.gov', font=font('display', 300, 700), fill=INK)
+d.text((M, 990), 'Commonwealth of Pennsylvania', font=font('body', 58, 400), fill=MUTED)
+d.text((M, 1066), '2023–2024', font=font('body', 58, 400), fill=MUTED)
 save(c, 's01-title')
 
 # s02 scale
