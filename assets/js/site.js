@@ -301,6 +301,24 @@ const initVid = (() => {
         setCC(true); cc.addEventListener('click', () => setCC(tr.mode !== 'showing'));
       }
     }
+    // Controls sit inside the frame: shown when paused, on pointer movement, touch or keyboard focus; fade after a few idle seconds of play
+    let idleTimer = 0, lastTouch = 0;
+    const bar = box.querySelector('.vid-bar');
+    const kbd = () => { const a = document.activeElement; try { return box.contains(a) && a.matches(':focus-visible'); } catch (e) { return false; } };
+    const lift = up => { const t = v.textTracks && v.textTracks[0]; if (!t || !t.cues) return; [...t.cues].forEach(c => { try { c.line = up ? -4 : 'auto'; } catch (e) {} }); };
+    const show = () => {
+      box.classList.remove('idle'); lift(true); clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => { if (!v.paused && !v.ended && !kbd() && !dragging) { box.classList.add('idle'); lift(false); } }, 2600);
+    };
+    ['pointermove', 'pointerdown', 'keydown', 'focusin'].forEach(e => box.addEventListener(e, show));
+    box.addEventListener('pointerleave', () => { if (!v.paused && !v.ended) { clearTimeout(idleTimer); idleTimer = setTimeout(() => { if (!kbd()) { box.classList.add('idle'); lift(false); } }, 700); } });
+    box.addEventListener('focusout', () => setTimeout(show, 0));
+    v.addEventListener('play', show); ['pause', 'ended'].forEach(e => v.addEventListener(e, () => { clearTimeout(idleTimer); box.classList.remove('idle'); lift(true); }));
+    v.addEventListener('loadedmetadata', () => lift(!box.classList.contains('idle')));
+    if (v.textTracks && v.textTracks[0]) v.textTracks[0].addEventListener('cuechange', () => lift(!box.classList.contains('idle')));
+    // On touch, a tap on the picture while the controls are hidden brings them back instead of pausing
+    v.addEventListener('pointerdown', e => { if (e.pointerType === 'touch' && box.classList.contains('idle')) lastTouch = Date.now(); }, true);
+    v.addEventListener('click', e => { if (Date.now() - lastTouch < 600) { e.stopImmediatePropagation(); show(); } }, true);
     // Pause if the viewer scrolls away mid-play
     if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0 }).observe(box);
   };
