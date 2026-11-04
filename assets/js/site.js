@@ -407,3 +407,15 @@ document.querySelectorAll('.mswitch').forEach(sw => {
   if ('ResizeObserver' in window) new ResizeObserver(measure).observe(top);
   measure();
 })();
+
+/* ---------- Copy email (footer buttons) ---------- */
+document.querySelectorAll('[data-copy-email]').forEach(btn => {
+  const label = btn.textContent;
+  const status = btn.nextElementSibling;
+  const done = msg => { btn.textContent = msg; if (status) status.textContent = msg; setTimeout(() => { btn.textContent = label; }, 2200); };
+  btn.addEventListener('click', () => {
+    const text = btn.dataset.copyEmail;
+    try { navigator.clipboard.writeText(text).then(() => done('Copied'), () => done(text)); }
+    catch (e) { done(text); }
+  });
+});

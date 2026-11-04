@@ -536,3 +536,24 @@ footer a:hover{text-decoration-color:currentColor}
 .vid-big{top:50%}
 @media (max-width:480px){ .vid-big{top:50%} .vid-bar{padding:22px 8px 4px 4px} }
 @media (prefers-reduced-motion: reduce){ .vid-bar{transition:none; transform:none!important} }
+
+/* ---------- Recruiter-feedback pass (Nov 2026) ---------- */
+.hero{padding-block:52px 34px}
+.hero-xp strong{color:var(--ink); font-weight:600}
+.work-start .section-head{margin-bottom:12px}
+.tz-stats{list-style:none; display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0; padding:0}
+.tz-stats li{font-size:.8125rem; font-weight:600; color:var(--accent); background:var(--accent-soft); border-radius:999px; padding:4px 11px; font-variant-numeric:tabular-nums}
+.case h3 + .tz-outcome + .tz-stats + .case-teaser{margin-top:20px}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; margin:0 0 26px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; max-width:46em}
+.stats .stat{background:var(--surface); padding:18px 18px 16px; display:flex; flex-direction:column-reverse; gap:4px}
+.stats dd{margin:0; font-family:var(--display); font-weight:700; font-size:clamp(1.6rem,2.6vw,2.125rem); line-height:1.05; letter-spacing:-.02em; color:var(--accent); font-variant-numeric:tabular-nums}
+.stats dt{font-size:.875rem; line-height:1.35; color:var(--muted)}
+.foot-copy{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px}
+.sr-status{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+@media (max-width:640px){ .hero{padding-block:24px 22px} .stats{grid-template-columns:1fr 1fr} .stats .stat{padding:14px} }
+.layout{padding-top:32px}
+#work .case:first-of-type{padding-top:4px}
+@media (min-width:961px){ .case-teaser{aspect-ratio:16/9} }
+.stats dd{white-space:nowrap; font-size:clamp(1.4rem,2.2vw,1.875rem)}
+.stats .stat{flex-direction:column; justify-content:flex-start}
+.stats dd{order:-1}
