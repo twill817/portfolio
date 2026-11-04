@@ -32,7 +32,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700&family=Roboto:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=20261104a">
+<link rel="stylesheet" href="assets/css/site.css?v=20261104b">
 </head>
 <body>
 
@@ -79,10 +79,32 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
       <article class="case settle" id="pa">
         <h3><a class="case-link" href="work/pa-gov/" data-goatcounter-click="pa-heading" data-goatcounter-title="Opened the PA.gov case study from the heading"><span style="white-space:nowrap">No wrong door</span> at PA.gov</a></h3>
         <p class="tz-outcome">Sixty-two state sites now share one structure and one search. Agencies could have opted out, and all but a handful didn’t.</p>
-        <a class="case-teaser" href="work/pa-gov/" tabindex="-1" aria-hidden="true" data-goatcounter-click="pa-teaser" data-goatcounter-title="Opened the PA.gov case study from the image">
-          <span class="tz-screen"><img src="assets/img/tz-pa.webp" srcset="assets/img/tz-pa-s.webp 800w, assets/img/tz-pa.webp 1600w" sizes="(max-width:960px) 92vw, 760px" width="1600" height="1067" alt="The PA.gov service page for unemployment benefits, with an on-this-page menu, eligibility details and related resources." loading="lazy" decoding="async"></span>
-          <span class="tz-tag"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>Includes a 3-minute walkthrough</span>
-        </a>
+        <div class="case-teaser has-video">
+          <a class="tz-link" href="work/pa-gov/" tabindex="-1" aria-hidden="true" data-goatcounter-click="pa-teaser" data-goatcounter-title="Opened the PA.gov case study from the image"><span class="tz-screen"><img src="assets/img/tz-pa.webp" srcset="assets/img/tz-pa-s.webp 800w, assets/img/tz-pa.webp 1600w" sizes="(max-width:960px) 92vw, 760px" width="1600" height="1067" alt="The PA.gov service page for unemployment benefits, with an on-this-page menu, eligibility details and related resources." loading="lazy" decoding="async"></span></a>
+          <button type="button" class="tz-play" aria-label="Play the 3-minute PA.gov walkthrough" data-goatcounter-click="pa-walkthrough-home" data-goatcounter-title="Played the PA.gov walkthrough on the homepage"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg></button>
+          <span class="tz-tag">Includes a 3-minute walkthrough</span>
+          <template><figure class="case-visual tz-video">
+          <div class="vid wide">
+            <video playsinline preload="metadata" poster="assets/video/pa-walkthrough.webp?v=2" width="1920" height="1080" aria-label="Narrated walkthrough of the PA.gov work: the problem, early research, the site structure, search, tagging, the service page pattern, a key trade-off, and the outcome.">
+              <source src="assets/video/pa-walkthrough.mp4?v=2" type="video/mp4">
+              <track kind="captions" src="assets/video/pa-walkthrough.vtt?v=2" srclang="en" label="English" default>
+            </video>
+            <button type="button" class="vid-big" aria-label="Play video"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg></button>
+            <div class="vid-bar">
+              <button type="button" class="vid-ctl vid-play" aria-label="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-play" d="M5 3.5v9l7-4.5z"/><path class="i-pause" d="M4.5 3.5h2.2v9H4.5zM9.3 3.5h2.2v9H9.3z"/></svg></button>
+              <button type="button" class="vid-ctl vid-replay" aria-label="Replay from the start"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 6.5A5 5 0 1 1 3 9.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2.4 2.8v4.4h4.4z"/></svg></button>
+              <input type="range" class="vid-seek" min="0" max="1000" step="1" value="0" aria-label="Video progress">
+              <span class="vid-time">0:00 / 2:51</span>
+              <div class="vid-audio">
+                <button type="button" class="vid-ctl vid-mute" aria-label="Mute" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 6h2.4L8.5 3v10L4.9 10H2.5z"/><path class="i-waves" d="M10.6 5.6a3.4 3.4 0 0 1 0 4.8M12.3 3.8a6 6 0 0 1 0 8.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path class="i-x" d="M10.8 6.2l3.6 3.6M14.4 6.2l-3.6 3.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+                <input type="range" class="vid-volume" min="0" max="1" step="0.05" value="1" aria-label="Volume">
+              </div>
+              <button type="button" class="vid-ctl vid-cc" aria-label="Captions" aria-pressed="true"><span class="cc-label">CC</span></button>
+              <button type="button" class="vid-ctl vid-full" aria-label="Full screen"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </figure></template>
+        </div>
       </article>
 
       <article class="case settle" id="coppel">
@@ -96,10 +118,27 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
       <article class="case settle" id="visualizer">
         <h3><a class="case-link" href="work/visualization-tool/" data-goatcounter-click="visualizer-heading" data-goatcounter-title="Opened the visualization tool case study from the heading">Helping contractors show homeowners the finished house</a></h3>
         <p class="tz-outcome">A new product for contractors, designed through to the order. Prototyping it with AI took a day or two off every sprint review.</p>
-        <a class="case-teaser" href="work/visualization-tool/" tabindex="-1" aria-hidden="true" data-goatcounter-click="visualizer-teaser" data-goatcounter-title="Opened the visualization tool case study from the image">
-          <span class="tz-screen"><img src="assets/img/tz-visualizer.webp" srcset="assets/img/tz-visualizer-s.webp 800w, assets/img/tz-visualizer.webp 1280w" sizes="(max-width:960px) 92vw, 760px" width="1280" height="853" alt="The visualization tool, rebuilt with a fictional brand: a house rendered with the chosen roofing, and shingle colors to try." loading="lazy" decoding="async"></span>
-          <span class="tz-tag"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>Includes a 40-second flow video</span>
-        </a>
+        <div class="case-teaser has-video">
+          <a class="tz-link" href="work/visualization-tool/" tabindex="-1" aria-hidden="true" data-goatcounter-click="visualizer-teaser" data-goatcounter-title="Opened the visualization tool case study from the image"><span class="tz-screen"><img src="assets/img/tz-visualizer.webp" srcset="assets/img/tz-visualizer-s.webp 800w, assets/img/tz-visualizer.webp 1280w" sizes="(max-width:960px) 92vw, 760px" width="1280" height="853" alt="The visualization tool, rebuilt with a fictional brand: a house rendered with the chosen roofing, and shingle colors to try." loading="lazy" decoding="async"></span></a>
+          <button type="button" class="tz-play" aria-label="Play the 40-second flow video" data-goatcounter-click="visualizer-flow-home" data-goatcounter-title="Played the visualization flow on the homepage"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg></button>
+          <span class="tz-tag">Includes a 40-second flow video</span>
+          <template><figure class="case-visual tz-video">
+          <div class="vid">
+            <video playsinline muted preload="metadata" poster="assets/video/visualizer-flow.webp" width="1280" height="974" aria-label="Walkthrough of the flow: a contractor creates a project, tries roof and siding materials on a photo of the house, the homeowner approves a design, and it becomes an order.">
+              <source src="assets/video/visualizer-flow.webm" type="video/webm">
+              <source src="assets/video/visualizer-flow.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="vid-big" aria-label="Play video"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg></button>
+            <div class="vid-bar">
+              <button type="button" class="vid-ctl vid-play" aria-label="Play"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-play" d="M5 3.5v9l7-4.5z"/><path class="i-pause" d="M4.5 3.5h2.2v9H4.5zM9.3 3.5h2.2v9H9.3z"/></svg></button>
+              <button type="button" class="vid-ctl vid-replay" aria-label="Replay from the start"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 6.5A5 5 0 1 1 3 9.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2.4 2.8v4.4h4.4z"/></svg></button>
+              <input type="range" class="vid-seek" min="0" max="1000" step="1" value="0" aria-label="Video progress">
+              <span class="vid-time">0:00 / 0:40</span>
+              <button type="button" class="vid-ctl vid-full" aria-label="Full screen"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </figure></template>
+        </div>
       </article>
 
       <article class="case settle" id="more">
@@ -268,7 +307,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 
 <button class="to-top" id="to-top" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>Top</button>
 
-<script src="assets/js/site.js?v=20261104a"></script>
+<script src="assets/js/site.js?v=20261104b"></script>
 <script data-goatcounter="https://tuckerwilliams.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

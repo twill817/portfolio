@@ -239,10 +239,11 @@ if ('IntersectionObserver' in window) {
   map.forEach((_, id) => { const el = document.getElementById(id); if (el) spy.observe(el); });
 }
 
-/* Case-study video: plays only when asked, with play/pause, replay and a seek bar */
-(() => {
+/* Case-study video: plays only when asked, with play/pause, replay and a seek bar.
+   initVid also wires players added later, such as the homepage teasers that turn into video. */
+const initVid = (() => {
   const fmt = s => { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
-  document.querySelectorAll('.vid').forEach(box => {
+  const init = box => {
     const v = box.querySelector('video'), big = box.querySelector('.vid-big'), play = box.querySelector('.vid-play'),
           replay = box.querySelector('.vid-replay'), seek = box.querySelector('.vid-seek'), time = box.querySelector('.vid-time');
     let dragging = false;
@@ -302,8 +303,23 @@ if ('IntersectionObserver' in window) {
     }
     // Pause if the viewer scrolls away mid-play
     if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0 }).observe(box);
-  });
+  };
+  document.querySelectorAll('.vid').forEach(init);
+  return init;
 })();
+
+/* Homepage teasers: the play button swaps the thumbnail for the video, in place, and starts it */
+document.querySelectorAll('.tz-play').forEach(btn => btn.addEventListener('click', () => {
+  const tz = btn.closest('.case-teaser'), tpl = tz && tz.querySelector('template');
+  if (!tpl) return;
+  const fig = tpl.content.firstElementChild.cloneNode(true);
+  tz.replaceWith(fig);
+  const box = fig.querySelector('.vid'), v = box.querySelector('video');
+  initVid(box);
+  box.classList.add('started');
+  v.play().catch(() => box.classList.remove('started'));
+  const ctl = box.querySelector('.vid-play'); if (ctl) ctl.focus({ preventScroll: true });
+}));
 
 /* Private theme toggle: only appears once a theme has been pinned with ?theme=dark or ?theme=light */
 (() => {
