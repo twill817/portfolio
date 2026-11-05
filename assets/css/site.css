@@ -569,5 +569,12 @@ footer a:hover{text-decoration-color:currentColor}
 .vid.docked video{cursor:pointer}
 body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inset-bottom, 0px))}
 @keyframes vid-dock-in{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none}}
-@media (max-width:480px){ .vid.docked{width:min(300px, calc(100vw - 32px)); right:calc(16px + env(safe-area-inset-right, 0px)); bottom:calc(16px + env(safe-area-inset-bottom, 0px))} }
+/* Phones: the mini player is just a control bar; the video keeps playing out of sight */
+@media (max-width:480px){
+  .vid.docked{left:calc(16px + env(safe-area-inset-left, 0px)); right:calc(16px + env(safe-area-inset-right, 0px)); bottom:calc(16px + env(safe-area-inset-bottom, 0px)); width:auto; border-radius:999px; border-color:#12181E}
+  .vid.docked video{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none}
+  .vid.docked .vid-bar{position:static; background:#12181E; padding:4px 6px}
+  .vid.docked .vid-seek{display:none}
+  .vid.docked .vid-time{display:block; flex:1; padding-left:4px}
+}
 @media (prefers-reduced-motion: reduce){ .vid.docked{animation:none} }
