@@ -319,8 +319,39 @@ const initVid = (() => {
     // On touch, a tap on the picture while the controls are hidden brings them back instead of pausing
     v.addEventListener('pointerdown', e => { if (e.pointerType === 'touch' && box.classList.contains('idle')) lastTouch = Date.now(); }, true);
     v.addEventListener('click', e => { if (Date.now() - lastTouch < 600) { e.stopImmediatePropagation(); show(); } }, true);
-    // Pause if the viewer scrolls away mid-play
-    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0 }).observe(box);
+    // Scrolling away mid-play: narrated walkthroughs (.wide) shrink into a mini player in the corner and keep playing;
+    // other videos pause. Scrolling back, or the return button, puts the player back in place.
+    if ('IntersectionObserver' in window) {
+      if (!box.classList.contains('wide')) {
+        new IntersectionObserver(([e]) => { if (!e.isIntersecting && !v.paused) v.pause(); }, { threshold: 0 }).observe(box);
+      } else {
+        const slot = document.createElement('div'); slot.className = 'vid-slot';
+        box.parentNode.insertBefore(slot, box); slot.appendChild(box);
+        const mk = (cls, label, path) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'vid-ctl vid-dockctl ' + cls; b.setAttribute('aria-label', label);
+          b.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="' + path + '" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'; bar.appendChild(b); return b; };
+        const back = mk('vid-return', 'Return the video to the page', 'M9.5 2.5h4v4M13.5 2.5 8.5 7.5M6.5 13.5h-4v-4M2.5 13.5l5-5');
+        const close = mk('vid-close', 'Stop and close the mini player', 'M4 4l8 8M12 4l-8 8');
+        let docked = false, inView = true, ccWas = null;
+        const track = v.textTracks && v.textTracks[0];
+        const fs = () => document.fullscreenElement || document.webkitFullscreenElement;
+        const dock = () => {
+          if (docked || fs()) return; docked = true;
+          slot.style.height = slot.offsetHeight + 'px'; box.classList.add('docked');
+          if (track) { ccWas = track.mode; track.mode = 'hidden'; } // too small to read in the corner
+          document.body.classList.add('has-mini'); document.body.style.setProperty('--mini-h', box.offsetHeight + 'px'); show();
+        };
+        const undock = () => {
+          if (!docked) return; docked = false;
+          box.classList.remove('docked'); slot.style.height = '';
+          if (track && ccWas) { track.mode = ccWas; ccWas = null; } document.body.classList.remove('has-mini'); show();
+        };
+        new IntersectionObserver(([e]) => { inView = e.isIntersecting; if (inView) undock(); else if (!v.paused && !v.ended) dock(); }, { threshold: 0 }).observe(slot);
+        v.addEventListener('play', () => { if (!inView) dock(); });
+        v.addEventListener('ended', undock);
+        back.addEventListener('click', () => { undock(); slot.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); });
+        close.addEventListener('click', () => { v.pause(); undock(); });
+      }
+    }
   };
   document.querySelectorAll('.vid').forEach(init);
   return init;

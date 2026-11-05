@@ -557,3 +557,17 @@ footer a:hover{text-decoration-color:currentColor}
 .stats dd{white-space:nowrap; font-size:clamp(1.4rem,2.2vw,1.875rem)}
 .stats .stat{flex-direction:column; justify-content:flex-start}
 .stats dd{order:-1}
+
+/* ---------- Mini player: a narrated walkthrough keeps playing in the corner after the viewer scrolls past it ---------- */
+.vid-dockctl{display:none}
+.vid.docked{position:fixed; z-index:30; right:calc(20px + env(safe-area-inset-right, 0px)); bottom:calc(20px + env(safe-area-inset-bottom, 0px));
+  width:min(360px, calc(100vw - 32px)); box-shadow:0 12px 32px rgba(10,13,17,.28), 0 2px 6px rgba(10,13,17,.18); animation:vid-dock-in .25s ease}
+.vid.docked .vid-bar{opacity:1; transform:none; pointer-events:auto; padding:20px 6px 4px 4px; gap:2px}
+.vid.docked .vid-seek{visibility:hidden}
+.vid.docked .vid-replay, .vid.docked .vid-time, .vid.docked .vid-full, .vid.docked .vid-volume, .vid.docked .vid-cc{display:none}
+.vid.docked .vid-dockctl{display:grid}
+.vid.docked video{cursor:pointer}
+body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inset-bottom, 0px))}
+@keyframes vid-dock-in{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none}}
+@media (max-width:480px){ .vid.docked{width:min(300px, calc(100vw - 32px)); right:calc(16px + env(safe-area-inset-right, 0px)); bottom:calc(16px + env(safe-area-inset-bottom, 0px))} }
+@media (prefers-reduced-motion: reduce){ .vid.docked{animation:none} }
