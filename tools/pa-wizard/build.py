@@ -7,12 +7,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(HERE, '..'
 BG, LINE, SHADOW = (245, 246, 248), (226, 229, 234), (17, 20, 24)
 src = lambda n: Image.open(os.path.join(HERE, 'src', n + '.png')).convert('RGB')
 
-# Step 1: skip the placeholder hero (lorem ipsum) and go straight from the header to the stepper and start cards.
-s1 = src('step1'); top = s1.crop((0, 0, 780, 376)); rest = s1.crop((0, 1024, 780, s1.height))
-# The second start card (Business Services) is still placeholder copy, so the screen ends after the first card.
-rest = rest.crop((0, 0, 780, 1184 - top.height))  # ends in the gap below the first card
-step1 = Image.new('RGB', (780, top.height + rest.height + 48), (250, 250, 250)); step1.paste(top, (0, 0)); step1.paste(rest, (0, top.height))
-screens = [step1, src('step2'), src('step3')]
+screens = [src('step1'), src('step2'), src('step3')]
 
 def phone(base, img, x, y, w, radius):
     """Paste a screen as a rounded card with a soft shadow; anything past the canvas bleeds off the bottom edge."""
