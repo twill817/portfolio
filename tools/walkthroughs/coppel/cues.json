@@ -1,0 +1,312 @@
+{
+ "title": "Grupo Coppel walkthrough",
+ "name": "coppel-walkthrough",
+ "chapters": [
+  "Introduction",
+  "First weeks",
+  "The goal",
+  "Beyond the buyer",
+  "Raising the bar",
+  "Six pods, no one between them",
+  "The recommendation",
+  "What lasted",
+  "AI, ahead of the tools",
+  "What I learned"
+ ],
+ "cues": [
+  {
+   "id": "intro",
+   "chapter": 0,
+   "slide": "s01-title",
+   "motion": [
+    [
+     0.02,
+     0.02,
+     0.96
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "Hi, I'm Tucker. This is a short walk through my fourteen months with Grupo Coppel, one of Mexico's largest retailers, as a founding member of their Digital Center of Excellence."
+   ],
+   "card": true
+  },
+  {
+   "id": "handoff",
+   "chapter": 1,
+   "slide": "s02-handoff",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "When I joined, the design team was handing work to a development partner, a team from my own company. They were reviewing it from a single screenshot in Jira, not the full set of states and components the designers had built.",
+    "In that role I was there for Coppel and for that team, so I made it clear the work gets reviewed in full."
+   ],
+   "card": true
+  },
+  {
+   "id": "goal",
+   "chapter": 2,
+   "slide": "s03-goal",
+   "motion": [
+    [
+     0.02,
+     0.02,
+     0.96
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "Leadership wanted design on par with the best tech companies. The more I looked, the more I saw each group only seeing its own piece of the customer."
+   ],
+   "card": true
+  },
+  {
+   "id": "personas",
+   "chapter": 3,
+   "slide": "s04-personas",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "Product was a good example. Their personas were really buyer personas, built around spending and financing.",
+    "My product counterpart and I brought product managers, some of our UX designers and someone from development together to rebuild them around needs, the jobs people were trying to get done, and how they felt."
+   ],
+   "card": true
+  },
+  {
+   "id": "journey",
+   "chapter": 3,
+   "slide": "s05-journey",
+   "motion": [
+    [
+     0.02,
+     0.02,
+     0.96
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "Then we walked those personas through a journey workshop. By the end, everyone in the room really saw the value, and they'd found gaps they'd never looked for.",
+    "There's no metric on it, but the product one-pagers that came after were noticeably better."
+   ],
+   "card": true
+  },
+  {
+   "id": "bar",
+   "chapter": 4,
+   "slide": "s06-bar",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "On the design side, a skills-gap assessment showed how much room there was to grow. I rewrote most of the job descriptions so leaders were craft experts with time to mentor, and I sat on the panel that hired senior managers against them."
+   ],
+   "card": true
+  },
+  {
+   "id": "pods",
+   "chapter": 5,
+   "slide": "s07-pods",
+   "motion": [
+    [
+     0.02,
+     0.02,
+     0.96
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "The assessment also showed a structural problem. Six pods each owned one phase, and nobody owned the handoffs between them."
+   ],
+   "card": true
+  },
+  {
+   "id": "owns",
+   "chapter": 5,
+   "slide": "s08-owns",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "And design reported to delivery, not outcomes, so requirements showed up as decisions already made."
+   ],
+   "card": true
+  },
+  {
+   "id": "rec",
+   "chapter": 6,
+   "slide": "s09-recommendation",
+   "motion": [
+    [
+     0.02,
+     0.02,
+     0.96
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "I talked it through with product and technology first, then recommended organizing by channel, the way engineering already was, with a guild owning the whole experience.",
+    "Leadership agreed, and then it was put on hold behind a CEO-led redesign."
+   ],
+   "card": true
+  },
+  {
+   "id": "lasted",
+   "chapter": 7,
+   "slide": "s10-lasted",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "What lasted came from the team. In a day-and-a-half workshop, they wrote their own five design principles, and those are still in Coppel's design system."
+   ],
+   "card": true
+  },
+  {
+   "id": "ai",
+   "chapter": 8,
+   "slide": "s11-ai",
+   "motion": [
+    [
+     0.02,
+     0.02,
+     0.96
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "I also made the case for a human-in-the-loop process with AI, from product to design.",
+    "Honestly, the tools weren't good enough yet for me to prove it out, but I was confident they'd get there quickly, and they did."
+   ],
+   "card": true
+  },
+  {
+   "id": "learned",
+   "chapter": 9,
+   "slide": "s12-learned",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "text": [
+    "Looking back, I think it was the same problem at every level. Each group only saw its own piece, and getting people to see the whole moved things fastest.",
+    "I used AI to write the team's mobile guidelines, and looking at them now, they'd make a great set of files for an AI coding process."
+   ],
+   "card": true
+  },
+  {
+   "id": "close",
+   "chapter": 9,
+   "slide": "s13-close",
+   "motion": [
+    [
+     0.02,
+     0.02,
+     0.96
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "text": [
+    "Thanks for watching."
+   ],
+   "card": true
+  }
+ ],
+ "sections": {
+  "s01-title": "s10",
+  "s02-handoff": "s11",
+  "s03-goal": "s1",
+  "s04-personas": "s8",
+  "s05-journey": "s12",
+  "s06-bar": "s2",
+  "s07-pods": "s3",
+  "s08-owns": "s4",
+  "s09-recommendation": "s6",
+  "s10-lasted": "s7",
+  "s11-ai": "s9",
+  "s12-learned": "s13",
+  "s13-close": "s14"
+ }
+}
