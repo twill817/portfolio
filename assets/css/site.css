@@ -2,9 +2,9 @@
 :root{
   --bg:#FFFFFF; --surface:#F5F6F8; --ink:#111418; --muted:#596170; --line:#E2E5EA;
   --accent:#1F4A8C; --accent-soft:#E5ECF6; --warm:#A86F2C; --warm-soft:#F4ECE0;
-  --display:"Schibsted Grotesk", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --body:"Roboto", "Helvetica Neue", Arial, system-ui, sans-serif;
-  --mono:"Roboto", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --display:"Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
+  --mono:"Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
   --step--1:.8125rem; --step0:1rem; --step1:1.1875rem; --step2:1.5rem; --step3:2.125rem; --step4:clamp(2.5rem, 5.4vw, 4.25rem);
   --radius:6px;
   color-scheme:light;
@@ -607,3 +607,9 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 /* Work sections: no numbering, captions aligned left under each screen */
 .cs-shot figcaption{display:block; margin-top:16px}
 @media (max-width:960px){ .cs-people:has(> li:nth-child(2):last-child){grid-template-columns:1fr} }
+
+/* ---------- Atkinson Hyperlegible Next (Nov 2026): looser tracking than the old grotesk, so headings aren't squeezed ---------- */
+.hero h1,.contact h2,.cs-title{letter-spacing:-.02em}
+.hero .hero-copy h1.statement,.case h3,.cs-lead,.cs-next a{letter-spacing:-.012em}
+.xp-list h3,.approach h3,.stats dd,.case.cs .outcome{letter-spacing:-.008em}
+.mark,.points h4,.cs-sec .cs-sub{letter-spacing:0}
