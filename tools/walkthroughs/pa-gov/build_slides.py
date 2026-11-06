@@ -202,7 +202,20 @@ save(c, 's07b-labels')
 # s09b the wizard, pitched and tested
 c = canvas(); d = ImageDraw.Draw(c)
 eyebrow(d, (M, 150), 'A guided search, pitched and tested')
-save(fit_card(c, src('pa-5-wizard.webp'), (M, 260, W - 2 * M, H - 380)), 's09b-wizard')
+# the three prototype screens straight on the slide, larger, running off the bottom edge like a scroll
+WIZ = os.path.join(HERE, '..', '..', 'pa-wizard', 'src')
+pw, gap = 820, 110; x0 = (W - 3 * pw - 2 * gap) // 2; top = 270; rad = 52
+for i, n in enumerate(['step1', 'step2', 'step3']):
+    im = Image.open(os.path.join(WIZ, n + '.png')).convert('RGB')
+    im = im.resize((pw, round(im.height * pw / im.width)), Image.LANCZOS).crop((0, 0, pw, H - top + rad))
+    x = x0 + i * (pw + gap)
+    sh = Image.new('L', (W, H), 0)
+    ImageDraw.Draw(sh).rounded_rectangle((x + 8, top + 30, x + pw - 8, top + im.height + 30), rad, fill=95)
+    c.paste(Image.new('RGB', (W, H), SHADOW), (0, 0), sh.filter(ImageFilter.GaussianBlur(56)))
+    m = Image.new('L', im.size, 0); ImageDraw.Draw(m).rounded_rectangle((0, 0, pw - 1, im.height - 1), rad, fill=255)
+    c.paste(im, (x, top), m)
+    ImageDraw.Draw(c).rounded_rectangle((x, top, x + pw - 1, top + im.height - 1), rad, outline=LINE, width=3)
+save(c, 's09b-wizard')
 
 # s10 hard call
 c = canvas(); d = ImageDraw.Draw(c)

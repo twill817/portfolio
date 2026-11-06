@@ -586,3 +586,6 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 .cs-table td{padding:12px 16px 12px 0; border-bottom:1px solid var(--line); vertical-align:top}
 .cs-table td:first-child{color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line); width:40%}
 .cs-table td:last-child{color:var(--ink); font-weight:500}
+
+/* Ten chapters sit in two even rows of five on wide screens */
+@media (min-width:961px){ .vid-chapters.five{grid-template-columns:repeat(5,minmax(0,1fr))} }

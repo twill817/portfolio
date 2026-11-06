@@ -127,7 +127,7 @@ document.getElementById('copy')?.addEventListener('click', () => {
           el.style.transform = el.style.opacity = el.style.filter = el.style.zIndex = el.style.pointerEvents = '';
           el.classList.toggle('is-active', i === index);
           el.removeAttribute('aria-hidden'); el.tabIndex = 0;
-          el.setAttribute('aria-label', 'View larger: ' + el.dataset.title);
+          el.setAttribute('aria-label', 'Enlarge: ' + el.dataset.title);
           return;
         }
         let d = ((i - index) % n + n) % n; if (d > n / 2) d -= n;
@@ -140,7 +140,7 @@ document.getElementById('copy')?.addEventListener('click', () => {
         el.classList.toggle('is-active', a === 0);
         el.setAttribute('aria-hidden', a ? 'true' : 'false');
         el.tabIndex = a ? -1 : 0;
-        if (a) el.removeAttribute('aria-label'); else el.setAttribute('aria-label', 'View larger: ' + el.dataset.title);
+        if (a) el.removeAttribute('aria-label'); else el.setAttribute('aria-label', 'Enlarge: ' + el.dataset.title);
       });
       caption();
     }
