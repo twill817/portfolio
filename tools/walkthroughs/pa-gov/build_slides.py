@@ -163,6 +163,47 @@ for name, f, label in [('s06-search', 'pa-1-search.webp', 'Find Services, with l
 save(fullbleed(src('pa-3-service.webp')), 's08-service')
 save(fullbleed(src('pa-4-apply.webp')), 's09-apply')
 
+# s04b research scale
+c = canvas(); d = ImageDraw.Draw(c)
+eyebrow(d, (M, 300), 'The research')
+stats = [('10', 'months'), ('566', 'residents'), ('44', 'hours of interviews'), ('333', 'unmoderated tests')]
+colw = (W - 2 * M) // 4
+for i, (n, lab) in enumerate(stats):
+    x = M + i * colw
+    d.text((x - 6, 420), n, font=font('display', 210, 700), fill=INK)
+    d.text((x, 700), lab, font=font('body', 64, 500), fill=MUTED)
+d.line((M, 900, W - M, 900), fill=LINE, width=4)
+para(d, (M, 970), 'Three life events: a financial shock, health and aging, and starting a business.', font('body', 72, 400), INK, W - 2 * M, 96)
+d.rounded_rectangle((M, 1200, M + 1900, 1330), 65, fill=ACCENT_SOFT)
+d.text((M + 60, 1228), 'Including screen reader users and residents with cognitive disabilities', font=font('body', 56, 500), fill=ACCENT)
+save(c, 's04b-research')
+
+# s07b plain-language labels
+c = canvas(); d = ImageDraw.Draw(c)
+eyebrow(d, (M, 200), 'Words residents actually use')
+d.text((M - 4, 290), '50%', font=font('display', 200, 700), fill=ACCENT)
+para(d, (M + 520, 330), 'of patients and caregivers couldn’t tell what “ECM” meant. 54% were lost on “OCDEL Announcements.”', font('body', 64, 400), INK, W - 2 * M - 520, 84)
+rows = [('Our Programs', 'Programs, Services, and Benefits'), ('Resources', 'Documents, Forms, and Guidelines'),
+        ('Medicaid', 'Health Insurance for Low Income Residents (Medicaid)'), ('Industrial and Occupational Safety', 'Construction Safety')]
+y = 640; cx = M + 1060
+tracked(d, (M, y), 'BEFORE', font('body', 42, 600), MUTED, 5); tracked(d, (cx, y), 'AFTER', font('body', 42, 600), ACCENT, 5)
+y += 80
+fb, fa = font('body', 60, 400), font('body', 60, 600)
+for b, a in rows:
+    d.line((M, y, W - M, y), fill=LINE, width=3); y += 38
+    d.text((M, y), b, font=fb, fill=MUTED)
+    w = d.textlength(b, font=fb); d.line((M, y + 40, M + w, y + 40), fill=MUTED, width=4)
+    d.polygon([(cx - 90, y + 22), (cx - 50, y + 42), (cx - 90, y + 62)], fill=ACCENT)
+    d.text((cx, y), a, font=fa, fill=INK); y += 120
+d.line((M, y, W - M, y), fill=LINE, width=3)
+para(d, (M, y + 60), 'The rule: name what a resident is looking for, not the office that owns it.', font('body', 60, 400), INK, W - 2 * M, 80)
+save(c, 's07b-labels')
+
+# s09b the wizard, pitched and tested
+c = canvas(); d = ImageDraw.Draw(c)
+eyebrow(d, (M, 150), 'A guided search, pitched and tested')
+save(fit_card(c, src('pa-5-wizard.webp'), (M, 260, W - 2 * M, H - 380)), 's09b-wizard')
+
 # s10 hard call
 c = canvas(); d = ImageDraw.Draw(c)
 eyebrow(d, (M, 300), 'The hard call')

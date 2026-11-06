@@ -6,7 +6,9 @@
   "The structure underneath",
   "Search that starts from the resident",
   "Tags instead of folders",
+  "Words residents actually use",
   "One pattern for every service",
+  "A guided search, pitched and tested",
   "The hard call",
   "Outcome"
  ],
@@ -55,6 +57,27 @@
    "card": true
   },
   {
+   "id": "research",
+   "chapter": 1,
+   "slide": "s04b-research",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.02,
+     0.96
+    ]
+   ],
+   "card": true,
+   "text": [
+    "We didn't guess at this. Over ten months, we talked with and tested with 566 residents across three life events, including screen reader users and people living with cognitive disabilities."
+   ]
+  },
+  {
    "id": "journey1",
    "chapter": 1,
    "slide": "s03-journey-first",
@@ -71,7 +94,7 @@
     ]
    ],
    "text": [
-    "Our early research showed what that meant for people. Someone applying for benefits for the first time is often coming off a financial shock. They search, get overwhelmed by complex information, and sometimes land on unscrupulous sites before they find the right one."
+    "Here's what that meant for people. Someone applying for benefits for the first time is often coming off a financial shock. They search, get overwhelmed by complex information, and sometimes land on unscrupulous sites before they find the right one."
    ],
    "card": false
   },
@@ -163,8 +186,30 @@
    "card": false
   },
   {
-   "id": "service",
+   "id": "labels",
    "chapter": 5,
+   "slide": "s07b-labels",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.25,
+     0.75
+    ]
+   ],
+   "card": true,
+   "text": [
+    "The tree tests told us the structure mostly worked, but the words didn't. Half of the patients and caregivers we tested didn't know what \"ECM\" meant.",
+    "I worked through the results with our researcher and made the final call on the labels. The rule was simple: name what a resident is looking for, not the office that owns it."
+   ]
+  },
+  {
+   "id": "service",
+   "chapter": 6,
    "slide": "s08-service",
    "motion": [
     [
@@ -185,7 +230,7 @@
   },
   {
    "id": "apply",
-   "chapter": 5,
+   "chapter": 6,
    "slide": "s09-apply",
    "motion": [
     [
@@ -205,8 +250,29 @@
    "card": false
   },
   {
+   "id": "wizard",
+   "chapter": 7,
+   "slide": "s09b-wizard",
+   "motion": [
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0.2,
+     0.12,
+     0.7
+    ]
+   ],
+   "card": false,
+   "text": [
+    "I also pitched a guided search: a few simple questions that lead to the services you may be eligible for. Residents had asked for exactly that in our survey, and it tested well. It wasn't in scope, and it wasn't built."
+   ]
+  },
+  {
    "id": "hardcall",
-   "chapter": 6,
+   "chapter": 8,
    "slide": "s10-hardcall",
    "motion": [
     [
@@ -228,7 +294,7 @@
   },
   {
    "id": "outcome",
-   "chapter": 7,
+   "chapter": 9,
    "slide": "s11-outcome",
    "motion": [
     [
@@ -244,13 +310,13 @@
    ],
    "text": [
     "That turned out to matter. Agencies weren't required to adopt the new structure, and all but a handful did.",
-    "Across the program, the accessibility audit score went from 37 to 95 percent. Those numbers come from a lot of people's work. My part was the structure underneath, and the team that designed it."
+    "Across the program, the accessibility audit score went from 37 to 95 percent. Those numbers come from a lot of people's work. My part was the structure underneath, the words on it, and the team that designed it."
    ],
    "card": true
   },
   {
    "id": "close",
-   "chapter": 7,
+   "chapter": 9,
    "slide": "s12-close",
    "motion": [
     [
