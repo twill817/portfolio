@@ -236,4 +236,34 @@ d.line((M, 960, W - M, 960), fill=LINE, width=4)
 d.text((M, 1010), 'Tucker Williams', font=font('display', 72, 600), fill=INK)
 d.text((M, 1105), 'tuckerwilliams.info', font=font('body', 60, 400), fill=ACCENT)
 save(c, 's12-close')
+# --- 10-slide cut: composites so each chapter is one slide ---
+
+# research: the numbers on the left, the first-time applicant journey on the right
+c = canvas(); d = ImageDraw.Draw(c)
+eyebrow(d, (M, 260), 'The research')
+for i, (n, lab) in enumerate([('566', 'residents'), ('10', 'months'), ('44', 'hours of interviews'), ('333', 'unmoderated tests')]):
+    x = M + (i % 2) * 520; y = 380 + (i // 2) * 420
+    d.text((x - 6, y), n, font=font('display', 190, 700), fill=INK)
+    d.text((x, y + 230), lab, font=font('body', 54, 500), fill=MUTED)
+para(d, (M, 1260), 'Three life events: a financial shock, health and aging, and starting a business.', font('body', 54, 400), INK, 980, 72)
+jm = recolor(src('pa-0a-journey.webp'), WHITE)
+fit_card(c, jm, (1420, 200, W - 1420 - 140, H - 400))
+save(c, 's03-research')
+
+# search and tags: Find Services in front, tagged results behind
+c = canvas(); d = ImageDraw.Draw(c)
+eyebrow(d, (M, 150), 'Search that starts from the resident')
+tg = src('pa-2-tags.webp'); card(c, tg, (1500, 330), (1560, round(1560 * tg.height / tg.width)), radius=20)
+fs = src('pa-1-search.webp'); card(c, fs, (M, 300), (1500, round(1500 * fs.height / fs.width)), radius=20, shadow=140)
+save(c, 's05-search-tags')
+
+# service pattern and ways to apply, side by side
+c = canvas(); d = ImageDraw.Draw(c)
+eyebrow(d, (M, 150), 'One pattern for every service')
+gap = 100; bw = (W - 2 * M - gap) // 2
+for i, (f, x0, y0) in enumerate([('pa-3-service.webp', 0.335, 0.1), ('pa-4-apply.webp', 0.4, 0.2)]):
+    im = src(f); im = im.crop((round(im.width * x0), round(im.height * y0), round(im.width * (x0 + 0.55)), round(im.height * (y0 + 0.54))))
+    fit_card(c, im, (M + i * (bw + gap), 260, bw, H - 360))
+save(c, 's07-service-apply')
+
 print('built', len([f for f in os.listdir(OUT) if f.endswith('.png')]), 'slides')

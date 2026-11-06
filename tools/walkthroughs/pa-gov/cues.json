@@ -3,9 +3,9 @@
  "chapters": [
   "Introduction",
   "The problem",
+  "The research",
   "The structure underneath",
   "Search that starts from the resident",
-  "Tags instead of folders",
   "Words residents actually use",
   "One pattern for every service",
   "A guided search, pitched and tested",
@@ -58,8 +58,8 @@
   },
   {
    "id": "research",
-   "chapter": 1,
-   "slide": "s04b-research",
+   "chapter": 2,
+   "slide": "s03-research",
    "motion": [
     [
      0,
@@ -67,61 +67,20 @@
      1
     ],
     [
-     0.02,
-     0.02,
-     0.96
-    ]
-   ],
-   "card": true,
-   "text": [
-    "We didn't guess at this. Over ten months, we talked with and tested with 566 residents across three life events, including screen reader users and people living with cognitive disabilities."
-   ]
-  },
-  {
-   "id": "journey1",
-   "chapter": 1,
-   "slide": "s03-journey-first",
-   "motion": [
-    [
-     0,
-     0,
-     1
-    ],
-    [
-     0.3,
-     0.1,
-     0.62
+     0.4,
+     0.08,
+     0.58
     ]
    ],
    "text": [
-    "Here's what that meant for people. Someone applying for benefits for the first time is often coming off a financial shock. They search, get overwhelmed by complex information, and sometimes land on unscrupulous sites before they find the right one."
-   ],
-   "card": false
-  },
-  {
-   "id": "journey2",
-   "chapter": 1,
-   "slide": "s04-journey-renewal",
-   "motion": [
-    [
-     0,
-     0,
-     1
-    ],
-    [
-     0.22,
-     0.12,
-     0.7
-    ]
-   ],
-   "text": [
-    "For people already receiving benefits, the hard part was keeping them, with renewals that were easy to miss. Both pointed to the same starting point: help people find the right service quickly, without knowing which agency owns it."
+    "We didn't guess at this. Over ten months, we talked with and tested with 566 residents across three life events, including screen reader users and people living with cognitive disabilities.",
+    "A first-time applicant is often coming off a financial shock, and gets lost in complex terms and unreliable sites. People already on benefits struggle to keep them, with renewals that are easy to miss. Both pointed to one starting point: help people find the right service without knowing which agency owns it."
    ],
    "card": false
   },
   {
    "id": "sitemap",
-   "chapter": 2,
+   "chapter": 3,
    "slide": "s05-sitemap",
    "motion": [
     [
@@ -143,30 +102,8 @@
   },
   {
    "id": "search",
-   "chapter": 3,
-   "slide": "s06-search",
-   "motion": [
-    [
-     0,
-     0,
-     1
-    ],
-    [
-     0.05,
-     0.13,
-     0.62
-    ]
-   ],
-   "text": [
-    "The core idea was to start from the resident, not the org chart. This is the Find Services page. Next to agency and service type, there are life-event filters.",
-    "Choose \"Navigating Unemployment,\" and you see services from every agency at once, not just one department."
-   ],
-   "card": false
-  },
-  {
-   "id": "tags",
    "chapter": 4,
-   "slide": "s07-tags",
+   "slide": "s05-search-tags",
    "motion": [
     [
      0,
@@ -174,14 +111,14 @@
      1
     ],
     [
-     0.2,
-     0.15,
+     0.04,
+     0.1,
      0.6
     ]
    ],
    "text": [
-    "That works because of a change underneath. Content used to live in folders, one tree per agency. We moved it to tags for agency, topic, and life event.",
-    "Now one service page can show up wherever a resident might look for it."
+    "The core idea was to start from the resident, not the org chart. On Find Services, life-event filters sit next to agency and service type. Choose \"Navigating Unemployment,\" and you see services from every agency at once.",
+    "That works because we moved content from folders, one tree per agency, to tags for agency, topic, and life event. So one service page shows up wherever a resident might look for it."
    ],
    "card": false
   },
@@ -201,16 +138,16 @@
      0.75
     ]
    ],
-   "card": true,
    "text": [
     "The tree tests told us the structure mostly worked, but the words didn't. Half of the patients and caregivers we tested didn't know what \"ECM\" meant.",
     "I worked through the results with our researcher and made the final call on the labels. The rule was simple: name what a resident is looking for, not the office that owns it."
-   ]
+   ],
+   "card": true
   },
   {
    "id": "service",
    "chapter": 6,
-   "slide": "s08-service",
+   "slide": "s07-service-apply",
    "motion": [
     [
      0,
@@ -218,33 +155,13 @@
      1
     ],
     [
-     0.3,
-     0.04,
-     0.62
+     0.48,
+     0.12,
+     0.5
     ]
    ],
    "text": [
-    "We also gave every service the same shape. It opens with what the service is and how to start, then an on-page guide to eligibility, filing, and next steps."
-   ],
-   "card": false
-  },
-  {
-   "id": "apply",
-   "chapter": 6,
-   "slide": "s09-apply",
-   "motion": [
-    [
-     0,
-     0,
-     1
-    ],
-    [
-     0.45,
-     0.3,
-     0.42
-    ]
-   ],
-   "text": [
+    "We also gave every service the same shape. It opens with what the service is and how to start, then an on-page guide to eligibility, filing, and next steps.",
     "The ways to act sit side by side: online, by phone, or by videophone for people who use sign language."
    ],
    "card": false
@@ -265,10 +182,10 @@
      0.7
     ]
    ],
-   "card": false,
    "text": [
     "I also pitched a guided search: a few simple questions that lead to the services you may be eligible for. Residents had asked for exactly that in our survey, and it tested well. It wasn't in scope, and it wasn't built."
-   ]
+   ],
+   "card": false
   },
   {
    "id": "hardcall",
@@ -287,7 +204,7 @@
     ]
    ],
    "text": [
-    "One decision is worth mentioning. We first planned to organize around life events, but no one on the client side was going to own that content.",
+    "One more decision: we first planned to organize around life events, but no one on the client side was going to own that content.",
     "So we kept our recommendations simpler, and put the effort into examples and guidance agencies could follow on their own."
    ],
    "card": true
@@ -310,27 +227,7 @@
    ],
    "text": [
     "That turned out to matter. Agencies weren't required to adopt the new structure, and all but a handful did.",
-    "Across the program, the accessibility audit score went from 37 to 95 percent. Those numbers come from a lot of people's work. My part was the structure underneath, the words on it, and the team that designed it."
-   ],
-   "card": true
-  },
-  {
-   "id": "close",
-   "chapter": 9,
-   "slide": "s12-close",
-   "motion": [
-    [
-     0,
-     0,
-     1
-    ],
-    [
-     0,
-     0,
-     1
-    ]
-   ],
-   "text": [
+    "Across the program, the accessibility audit score went from 37 to 95 percent. Those numbers come from a lot of people's work. My part was the structure underneath, the words on it, and the team that designed it.",
     "Thanks for watching."
    ],
    "card": true
