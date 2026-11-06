@@ -523,7 +523,7 @@ footer a:hover{text-decoration-color:currentColor}
 .tz-play:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:999px}
 .case-teaser .tz-tag{pointer-events:none}
 .tz-video{margin:0 0 26px}
-.case h3 + .tz-outcome + .tz-video{margin-top:20px}
+.case h3 + .tz-outcome + .tz-video, .case .tz-stats + .tz-video{margin-top:20px}
 @media (max-width:480px){ .tz-play{width:56px; height:56px; top:40%} .tz-play svg{width:22px; height:22px} }
 @media (prefers-reduced-motion: reduce){ .tz-play{transition:none} }
 
