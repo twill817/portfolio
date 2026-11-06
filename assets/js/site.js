@@ -417,7 +417,9 @@ document.querySelectorAll('.mswitch').forEach(sw => {
   if (!top || !nav) return;
   const root = document.documentElement.style;
   const measure = () => {
-    const hide = nav.offsetTop - top.offsetTop;
+    const stacked = getComputedStyle(top).flexDirection === 'column';
+    /* Measure inside the header, so the result doesn't depend on how far the page is scrolled */
+    const hide = stacked ? Math.round(nav.getBoundingClientRect().top - top.getBoundingClientRect().top) : 0;
     root.setProperty('--top-hide', hide + 'px');
     root.setProperty('--top-pin', (top.offsetHeight - hide) + 'px');
   };
