@@ -1,20 +1,6 @@
 document.documentElement.classList.add('js');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- Copy email ---------- */
-document.getElementById('copy')?.addEventListener('click', () => {
-  const text = document.getElementById('email').textContent.trim();
-  const status = document.getElementById('status');
-  const fallback = () => {
-    const r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
-    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
-    status.textContent = 'Selected. Press Ctrl+C or ⌘C to copy.';
-  };
-  try {
-    navigator.clipboard.writeText(text).then(() => { status.textContent = 'Copied to clipboard'; }, fallback);
-  } catch (e) { fallback(); }
-});
-
 /* ---------- Clients: accordion on phones, open grid elsewhere ---------- */
 (function(){
   const groups = [...document.querySelectorAll('.client-group')];
@@ -439,14 +425,20 @@ document.querySelectorAll('.mswitch').forEach(sw => {
   measure();
 })();
 
-/* ---------- Copy email (footer buttons) ---------- */
+/* ---------- Copy email: icon buttons with a visible "Copied" note ---------- */
 document.querySelectorAll('[data-copy-email]').forEach(btn => {
-  const label = btn.textContent;
-  const status = btn.nextElementSibling;
-  const done = msg => { btn.textContent = msg; if (status) status.textContent = msg; setTimeout(() => { btn.textContent = label; }, 2200); };
+  const note = btn.nextElementSibling;
+  let t;
+  const show = (msg, ok) => {
+    clearTimeout(t);
+    btn.classList.toggle('copied', ok);
+    if (note) note.textContent = msg;
+    t = setTimeout(() => { btn.classList.remove('copied'); if (note) note.textContent = ''; }, ok ? 2200 : 6000);
+  };
   btn.addEventListener('click', () => {
     const text = btn.dataset.copyEmail;
-    try { navigator.clipboard.writeText(text).then(() => done('Copied'), () => done(text)); }
-    catch (e) { done(text); }
+    const fail = () => show('Press Ctrl+C or ⌘C to copy', false);
+    try { navigator.clipboard.writeText(text).then(() => show('Copied', true), fail); }
+    catch (e) { fail(); }
   });
 });

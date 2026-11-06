@@ -623,3 +623,26 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 .tz-stats{gap:0 4px; margin-top:10px}
 .tz-stats li{background:none; border-radius:0; padding:0; font-size:.9375rem; font-weight:600; color:var(--accent)}
 .tz-stats li:not(:last-child)::after{content:"·"; margin-left:5px; color:var(--muted); font-weight:400}
+
+/* ---------- Contact cleanup (Nov 2026): résumé with Experience, secondary links in the footer, copy as an icon ---------- */
+.sec-action{margin-left:auto; align-self:center; font-weight:600; font-size:var(--step--1); color:var(--accent); text-decoration:underline; text-underline-offset:3px}
+.sec-action:hover{text-decoration-thickness:2px}
+.copy-icon{width:44px; height:44px; flex:none; display:inline-grid; place-items:center; padding:0; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--ink); cursor:pointer; transition:border-color .2s, color .2s}
+.copy-icon:hover{border-color:var(--ink)}
+.copy-icon svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
+.copy-icon .i-check{display:none}
+.copy-icon.copied{color:var(--accent); border-color:var(--accent)}
+.copy-icon.copied .i-check{display:block}
+.copy-icon.copied .i-copy{display:none}
+.copy-icon:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:999px}
+.copy-note{font-size:var(--step--1); font-weight:600; color:var(--accent); min-width:5.5em}
+.email{gap:12px; flex-wrap:nowrap}
+.email code{word-break:normal}
+.foot-email{display:inline-flex; align-items:center; gap:8px}
+.foot-email .copy-icon{width:36px; height:36px; position:relative}
+.foot-email .copy-icon::after{content:""; position:absolute; inset:-4px}
+.foot-email .copy-icon svg{width:16px; height:16px}
+.foot-email .copy-note{min-width:0}
+.foot-links{align-items:center}
+@media (max-width:480px){ .email{flex-wrap:wrap} .email code{font-size:1.0625rem} }
+@media (prefers-reduced-motion: reduce){ .copy-icon{transition:none} }
