@@ -32,7 +32,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700&family=Roboto:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="/assets/css/site.css?v=20261105b">
+<link rel="stylesheet" href="/assets/css/site.css?v=20261106a">
 </head>
 <body>
 
@@ -114,6 +114,25 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
             <p>Early on, we planned to build the experience around life events, but no one on the client side would own that content. So we kept the recommendations simpler and put the effort into examples and guidance agencies could follow on their own.</p><p>The people we worked with at the agencies were mostly site managers, not designers or writers. They knew their sites had grown messy over time, so they welcomed a better approach, and once they had the pattern, they didn't have to think about it.</p>
           </div>
         </section>
+        <section class="cs-sec" aria-labelledby="cs-research">
+          <h2 id="cs-research">Research</h2>
+          <div>
+            <dl class="stats"><div class="stat"><dt>months of research</dt><dd>10</dd></div><div class="stat"><dt>residents took part</dt><dd>566</dd></div><div class="stat"><dt>hours of interviews</dt><dd>44</dd></div><div class="stat"><dt>unmoderated tests</dt><dd>333</dd></div></dl>
+            <p>We ran the research across three life events: a financial shock, health and aging, and starting a business. That included interviews, card sorts, tree tests, and prototype tests, and we recruited screen reader users and residents living with cognitive and learning disabilities.</p>
+            <h3 class="cs-sub">Words residents actually use</h3>
+            <p>The tree tests showed the structure mostly worked, but the words didn't. Half of the patients and caregivers we tested couldn't tell what "ECM" meant, and more than half were lost on "OCDEL Announcements." I worked through the results with our researcher and made the final call on the labels, and the rule was simple: name the thing a resident is looking for, not the program or office that owns it.</p>
+            <table class="cs-table">
+              <caption class="sr-only">Navigation labels before and after testing</caption>
+              <thead><tr><th scope="col">Before</th><th scope="col">After</th></tr></thead>
+              <tbody>
+                <tr><td>Our Programs</td><td>Programs, Services, and Benefits</td></tr>
+                <tr><td>Resources</td><td>Documents, Forms, and Guidelines</td></tr>
+                <tr><td>Medicaid</td><td>Health Insurance for Low Income Residents (Medicaid)</td></tr>
+                <tr><td>Industrial and Occupational Safety</td><td>Construction Safety</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
         <section class="cs-work" aria-labelledby="cs-work">
           <h2 id="cs-work" class="cs-work-h">The work</h2>
           <figure class="cs-shot">
@@ -142,8 +161,16 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
           </figure>
           <figure class="cs-shot">
             <div class="cs-shot-img"><picture><source media="(max-width:640px)" srcset="/assets/img/pa-5-wizard-m.webp?v=2"><img src="/assets/img/pa-5-wizard.webp?v=2" width="2400" height="1800" alt="Three phone screens of the life-event wizard prototype: choose how to start, answer a few questions about yourself, then a list of recommended services such as CHIP." loading="lazy" decoding="async"></picture></div>
-            <figcaption><span class="node">07</span><div><h3>A guided search, pitched and tested</h3><p>I pitched a life-event wizard: a few simple questions that lead residents to the services they may be eligible for. It tested well, but it wasn&#x27;t in scope, and it wasn&#x27;t built.</p></div></figcaption>
+            <figcaption><span class="node">07</span><div><h3>A guided search, pitched and tested</h3><p>I pitched a life-event wizard: a few simple questions that lead residents to the services they may be eligible for. Residents had already asked for it: in our survey, guided recommendations were the top-ranked way to get help for most age groups. Earlier testing showed what to avoid: too many questions, anything that felt invasive, and an account before an answer. It tested well, but it wasn&#x27;t in scope, and it wasn&#x27;t built.</p></div></figcaption>
           </figure>
+        </section>
+        <section class="cs-sec" aria-labelledby="cs-business">
+          <h2 id="cs-business">Business in PA</h2>
+          <div>
+            <p>Business owners were the hardest audience to serve. The governor wanted a one-stop shop that cut through red tape, and the reality was five separate sites with different menus, different terms for the same things, and a checklist that asked a frozen-treat shop whether it sells tires. I reviewed all five sites and their analytics, compared them with Hawaii's and Maryland's business portals, and presented a recommendation: bring the tasks into one place, and turn the small business advocate's site, which almost no one visited, into a simple About page.</p>
+            <p>From there, I designed the concepts we tested with 12 business owners: a guide that tailors itself after a few questions, a dashboard for deadlines and permits, and a home for their documents. One owner said it seemed like the state really wanted her to succeed. That's a fairly low bar for government, and I think it's exactly the one that matters.</p>
+            <p>The business redesign didn't move forward while I was on the project, and that site hasn't changed since.</p>
+          </div>
         </section>
         <section class="cs-sec" aria-labelledby="cs-lesson">
           <h2 id="cs-lesson">What I learned</h2>
@@ -151,7 +178,7 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
         </section>
         <section class="cs-sec" aria-labelledby="cs-role">
           <h2 id="cs-role">My role</h2>
-          <div><p>I owned the UX architecture, led four designers, and set direction for the visual design lead, working directly with the governor's digital team. I ran the agency workshops and set the content strategy behind search.</p></div>
+          <div><p>I owned the UX architecture, led four designers, and set direction for the visual design lead, working directly with the governor's digital team. I ran the agency workshops, set the content strategy behind search, and made the final call on labels and structure from the tree test results.</p><p>I also built the user types and journey maps the team worked from. The faces on the user types are images I made with Midjourney, an early use of AI in my client work.</p></div>
         </section>
       </div>
 
