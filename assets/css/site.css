@@ -613,3 +613,8 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 .hero .hero-copy h1.statement,.case h3,.cs-lead,.cs-next a{letter-spacing:-.012em}
 .xp-list h3,.approach h3,.stats dd,.case.cs .outcome{letter-spacing:-.008em}
 .mark,.points h4,.cs-sec .cs-sub{letter-spacing:0}
+
+/* ---------- Type scale (Nov 2026): the hero headline always outranks the case study titles, at every width ---------- */
+.hero .hero-copy h1.statement{font-size:clamp(1.875rem, 1.2rem + 2.6vw, 3rem); font-weight:700; line-height:1.12; letter-spacing:-.015em}
+#work .case h3{font-size:clamp(1.375rem, 1.1rem + 1vw, 1.875rem); line-height:1.15}
+.hero .hero-copy{max-width:960px}
