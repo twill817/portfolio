@@ -591,3 +591,15 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 
 /* Ten chapters sit in two even rows of five on wide screens */
 @media (min-width:961px){ .vid-chapters.five{grid-template-columns:repeat(5,minmax(0,1fr))} }
+
+/* ---------- User-first framing (preview, Nov 2026): each project opens with who it was for ---------- */
+.work-intro{margin:0 0 28px; color:var(--muted); max-width:38em; font-size:1.0625rem}
+.tz-for{margin:0 0 8px; color:var(--accent); font-size:var(--step1); line-height:1.4; max-width:34em; text-wrap:pretty}
+.case .tz-for + h3{margin-top:0}
+.cs-lead{font-family:var(--display); font-weight:600; font-size:var(--step3); line-height:1.15; letter-spacing:-.02em; color:var(--accent); max-width:22em; margin:0 0 14px; text-wrap:balance}
+.case.cs .cs-lead + .outcome{font-size:var(--step1); color:var(--muted)}
+.cs-people{list-style:none; margin:8px 0 22px; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px}
+.cs-people li{border-top:2px solid var(--accent); padding-top:12px; min-width:0}
+.cs-people h3{font-family:var(--display); font-weight:600; font-size:1.0625rem; margin:0 0 6px}
+.cs-sec .cs-people p{font-size:1rem; color:var(--muted); margin:0}
+@media (max-width:960px){ .cs-people{grid-template-columns:1fr; gap:20px} }
