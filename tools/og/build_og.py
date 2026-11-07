@@ -4,7 +4,7 @@ import os
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-FONTS = os.path.join(ROOT, 'tools', 'pa-video', 'fonts')
+FONTS = os.path.join(ROOT, 'tools', 'walkthroughs', 'fonts')
 S = 2  # draw at 2x, then downsample for clean edges
 
 BG, INK, MUTED, LINE, ACCENT = '#FFFFFF', '#111418', '#596170', '#E2E5EA', '#1F4A8C'
@@ -22,7 +22,7 @@ d = ImageDraw.Draw(im)
 d.rectangle([0, 0, 8 * S, H * S], fill=ACCENT)
 
 d.text((M * S, 58 * S), 'Tucker Williams', font=font('body', 24, 500), fill=INK)
-d.text((M * S, 92 * S), 'UX & Product Design Leader · tuckerwilliams.info', font=font('body', 17, 400), fill=MUTED)
+d.text((M * S, 92 * S), 'UX Director & Design Leader · tuckerwilliams.info', font=font('body', 17, 400), fill=MUTED)
 
 # Headline, with "feel simple" in the accent color as on the site. Words are laid out one at a time so color can change mid-line.
 hf = font('display', 58, 600)
