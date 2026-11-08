@@ -653,3 +653,11 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
   .top .mark{align-self:center; padding-bottom:4px}
   .top nav{flex:0 1 auto; min-width:0}
 }
+
+/* Playground */
+.pg-meta{color:var(--muted); margin:0 0 .9em !important}
+.more-play{margin:28px 0 0}
+.more-play a{display:inline-flex; align-items:center; gap:8px; font-family:var(--display); font-weight:600; text-decoration:none}
+.more-play a:hover{color:var(--accent)}
+.more-play svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s}
+.more-play a:hover svg{transform:translateX(3px)}
