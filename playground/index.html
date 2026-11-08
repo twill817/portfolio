@@ -4,12 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Playground · Tucker Williams</title>
-<meta name="description" content="Side projects by Tucker Williams, UX Director and Design Leader: a mobile game, a 15-second commercial, this site, and a paper-trading experiment.">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)">
+<meta name="description" content="A back room of side projects by Tucker Williams: a mobile game, a 15-second commercial, this website, and a trading experiment.">
+<meta name="theme-color" content="#100F0A">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Playground · Tucker Williams">
-<meta property="og:description" content="Side projects by Tucker Williams, UX Director and Design Leader: a mobile game, a 15-second commercial, this site, and a paper-trading experiment.">
+<meta property="og:description" content="A back room of side projects by Tucker Williams: a mobile game, a 15-second commercial, this website, and a trading experiment.">
 <meta property="og:url" content="https://tuckerwilliams.info/playground/">
 <meta property="og:image" content="https://tuckerwilliams.info/assets/img/og.jpg?v=7">
 <meta property="og:image:width" content="1200">
@@ -31,8 +30,70 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/assets/css/site.css?v=20261108a">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#100F0A; --ink:#ECE6C9; --muted:#ABA483; --dim:#8E8869; --glow:#F4EAA6; --line:rgba(236,230,201,.13);
+  --sans:"Atkinson Hyperlegible Next",system-ui,sans-serif; --mono:"Atkinson Hyperlegible Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+html{background:var(--bg); color-scheme:dark}
+body{margin:0; min-height:100vh; color:var(--ink); font:400 1.0625rem/1.65 var(--sans); -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(244,234,166,.13), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(236,230,201,.022) 0 2px, transparent 2px 46px),
+    var(--bg)}
+/* film grain and a vignette, so the room feels a little off */
+body::before{content:""; position:fixed; inset:0; pointer-events:none; z-index:2; opacity:.07; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body::after{content:""; position:fixed; inset:0; pointer-events:none; z-index:1; background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.55) 100%)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--glow); outline-offset:4px; border-radius:2px}
+
+.tube{position:fixed; top:0; left:50%; translate:-50% 0; width:min(420px,70vw); height:3px; border-radius:0 0 3px 3px; z-index:3;
+  background:var(--glow); box-shadow:0 0 18px 4px rgba(244,234,166,.45), 0 0 90px 20px rgba(244,234,166,.12); animation:flicker 9s infinite}
+@keyframes flicker{0%,91%,100%{opacity:1} 92%{opacity:.25} 93%{opacity:.9} 94.5%{opacity:.15} 95.5%{opacity:1} 97%{opacity:.6} 97.6%{opacity:1}}
+
+.room-wrap{position:relative; z-index:0; max-width:760px; margin:0 auto; padding:28px 24px 96px}
+.back{display:inline-flex; align-items:center; gap:8px; font:500 .8125rem/1 var(--mono); letter-spacing:.06em; color:var(--muted); text-decoration:none; padding:8px 0; transition:color .2s}
+.back:hover{color:var(--ink)}
+.back svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:translate .2s}
+.back:hover svg{translate:-3px 0}
+
+.arrive{padding:18vh 0 14vh}
+.kicker,.door-no,.status{font:500 .75rem/1.4 var(--mono); letter-spacing:.12em; text-transform:uppercase}
+.kicker{color:var(--dim); margin:0 0 22px}
+h1{font:700 clamp(2.4rem,7vw,4rem)/1.02 var(--sans); letter-spacing:-.03em; margin:0 0 24px; text-wrap:balance;
+  text-shadow:0 0 28px rgba(244,234,166,.18)}
+.arrive p.lede{color:var(--muted); font-size:1.1875rem; max-width:32em; margin:0; text-wrap:pretty}
+
+.rooms{list-style:none; margin:0; padding:0; display:grid; gap:28px}
+.door{position:relative; border:1px solid var(--line); border-radius:3px; padding:34px 32px 30px;
+  background:linear-gradient(180deg, rgba(244,234,166,.045), rgba(244,234,166,0) 60%);
+  transition:opacity .9s ease, border-color .9s ease, box-shadow .9s ease}
+.door::before{content:""; position:absolute; left:32px; right:32px; top:-1px; height:1px; background:var(--glow); opacity:.0; transition:opacity .9s ease}
+.door-head{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px}
+.door-no{color:var(--dim)}
+.status{color:var(--muted)}
+.door h2{font:600 1.5rem/1.2 var(--sans); letter-spacing:-.01em; margin:0 0 12px}
+.door p{margin:0 0 .9em; color:#D8D2B4; max-width:36em; text-wrap:pretty}
+.door p:last-child{margin-bottom:0}
+/* doors start dim and the light comes on as you reach them (only when scripting is on) */
+.js .door{opacity:.28}
+.js .door.lit{opacity:1; border-color:rgba(244,234,166,.28); box-shadow:0 0 60px -20px rgba(244,234,166,.25)}
+.js .door.lit::before{opacity:.6}
+.js .door.lit.flick{animation:on .7s steps(1) 1}
+@keyframes on{0%{opacity:.3} 20%{opacity:1} 35%{opacity:.4} 55%{opacity:1} 70%{opacity:.7} 100%{opacity:1}}
+
+.door.locked{border-style:dashed; background:none}
+.door.locked h2{color:var(--muted)}
+.js .door.locked.lit{opacity:.85; box-shadow:none; border-color:var(--line)}
+.js .door.locked.lit::before{opacity:0}
+
+.exit{padding:16vh 0 0; color:var(--dim)}
+.exit p{margin:0 0 18px; font:400 .875rem/1.5 var(--mono); letter-spacing:.04em}
+
+@media (max-width:560px){.room-wrap{padding-inline:18px} .door{padding:26px 22px 24px} .door::before{left:22px; right:22px} .arrive{padding:12vh 0 10vh}}
+@media (prefers-reduced-motion:reduce){.tube{animation:none} .door{transition:none} .js .door.lit.flick{animation:none}}
+</style>
 <!-- Microsoft Clarity. Skipped in review mode so reviewer visits stay out of analytics. -->
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -44,68 +105,69 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 </script>
 </head>
 <body>
+<div class="tube" aria-hidden="true"></div>
+<div class="room-wrap">
+  <a class="back" href="/#more" data-goatcounter-click="playground-back-top" data-goatcounter-title="Left the Playground from the top link"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg>Back to the work</a>
 
-<div class="wrap">
-  <header class="top">
-    <a class="mark" href="/" id="top" aria-label="Tucker Williams, home"><span class="mark-full">Tucker Williams</span><span class="mark-short" aria-hidden="true">TW</span></a>
-    <nav aria-label="Sections">
-      <a href="/#work">Work</a>
-      <a href="/#experience">Experience</a>
-      <a href="/#ai">AI</a>
-      <a href="/#approach">Approach</a>
-      <a href="/#contact">Contact</a>
-    </nav>
-  </header>
+  <main>
+    <header class="arrive">
+      <p class="kicker">Playground</p>
+      <h1>You found the back room.</h1>
+      <p class="lede">This is where I keep the things I make for myself. Most of it is unfinished, and that's fine. It's where I try new tools and methods before I'd bring them to a team.</p>
+    </header>
 
-  <main class="cs-main">
-    <article class="case cs" id="playground">
-      <a class="cs-back node" href="/#more"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg>All work</a>
-      <div class="case-meta node"><span>Side projects</span></div>
-      <h1 class="cs-title">Playground</h1>
-      <p class="outcome">What I make when nobody's paying for it. Most of it is unfinished, and that's fine. It's where I try new tools and methods on my own time before I'd bring them to a team.</p>
-
-      <div class="cs-body">
-        <section class="cs-sec" aria-labelledby="pg-derby">
-          <h2 id="pg-derby">Dead Derby</h2>
-          <div><p class="pg-meta node">Mobile game · In progress</p><p>A zombie physics runner for iPhone and Android that I'm building completely on my own. I don't write code, so it's a fairly honest test of how far design skills and AI tools can take one person.</p><p>The game runs in Unity. I make the 3D models with Tripo and Blender, use AI image generation for artwork and references, and work through the code with Claude and Google Antigravity. Early on I settled on one-finger controls. The design doc is still a work in progress, and so is the game.</p></div>
-        </section>
-        <section class="cs-sec" aria-labelledby="pg-svedka">
-          <h2 id="pg-svedka">A 15-second spot</h2>
-          <div><p class="pg-meta node">Commercial · Contest entry</p><p>Svedka is running a contest for a 15-second Big Game commercial for its Vodka Water, and I'm entering on my own. I'm producing it mostly with AI video tools, maybe with some real footage mixed in.</p><p>I wanted something a little subversive, so I started by developing three concepts before committing to one.</p></div>
-        </section>
-        <section class="cs-sec" aria-labelledby="pg-site">
-          <h2 id="pg-site">This site</h2>
-          <div><p class="pg-meta node">Website · Live</p><p>I designed and built this portfolio with Claude Code, and it runs on GitHub Pages. Along the way it picked up a few things a portfolio doesn't usually have: a private review mode, where invited reviewers leave comments only I can read, and a weekly analytics report that pulls itself together every Monday morning.</p><p>It's also been good practice at something I ask of teams: put a real thing in front of people early and let their feedback shape it.</p></div>
-        </section>
-        <section class="cs-sec" aria-labelledby="pg-trading">
-          <h2 id="pg-trading">Paper trading</h2>
-          <div><p class="pg-meta node">Experiment · Running</p><p>A simulated stock portfolio, with no real money, that buys and sells on its own once a week for a few months. It started with $10,000, split between long-term holdings and a smaller portion it trades more actively. Claude does the market research and makes the calls, and a dashboard tracks how it's doing.</p><p>I'm not interested in day trading. What I want is the reasoning: why each stock was bought or sold, which trends it's following, and whether those calls hold up against history.</p></div>
-        </section>
-      </div>
-
-      <nav class="cs-next" aria-label="More work">
-        <span class="node">Back to the work</span>
-        <a href="/#work">Selected work<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a>
-      </nav>
-    </article>
+    <ol class="rooms">
+      <li class="door">
+        <div class="door-head"><span class="door-no">Room 01</span><span class="status">In progress</span></div>
+        <h2>A mobile game</h2>
+        <p>A physics runner with zombies, for iPhone and Android, that I'm building completely on my own. I don't write code, so it's a fairly honest test of how far design skills and AI tools can take one person.</p>
+        <p>I make the 3D models and artwork with a mix of modeling and AI tools, and I work through the code with AI coding assistants. Early on I settled on one-finger controls. The design doc is still a work in progress, and so is the game.</p>
+      </li>
+      <li class="door">
+        <div class="door-head"><span class="door-no">Room 02</span><span class="status">Contest entry</span></div>
+        <h2>A 15-second commercial</h2>
+        <p>A drinks brand is running a contest for a 15-second Big Game commercial, and I'm entering on my own. I'm producing it mostly with AI video tools, maybe with some real footage mixed in.</p>
+        <p>I wanted something a little subversive, so I started by developing three concepts before committing to one.</p>
+      </li>
+      <li class="door">
+        <div class="door-head"><span class="door-no">Room 03</span><span class="status">Live</span></div>
+        <h2>This website</h2>
+        <p>I designed and built this portfolio with an AI coding tool. Along the way it picked up a few things a portfolio doesn't usually have: a private review mode, where invited reviewers leave comments only I can read, and a weekly analytics report that pulls itself together every Monday morning.</p>
+        <p>It's also been good practice at something I ask of teams: put a real thing in front of people early and let their feedback shape it.</p>
+      </li>
+      <li class="door">
+        <div class="door-head"><span class="door-no">Room 04</span><span class="status">Running</span></div>
+        <h2>A trading experiment</h2>
+        <p>A simulated stock portfolio, with no real money, that buys and sells on its own once a week for a few months. It started with $10,000, split between long-term holdings and a smaller portion it trades more actively. An AI model does the market research and makes the calls, and a dashboard tracks how it's doing.</p>
+        <p>I'm not interested in day trading. What I want is the reasoning: why each stock was bought or sold, which trends it's following, and whether those calls hold up against history.</p>
+      </li>
+      <li class="door locked">
+        <div class="door-head"><span class="door-no">Room 05</span><span class="status">Not open yet</span></div>
+        <h2>Something on canvas</h2>
+      </li>
+    </ol>
   </main>
 
-  <footer>
-    <div class="foot-id">
-      <span class="foot-name">Tucker Williams</span>
-      <span>UX Director &amp; Design Leader · Dallas–Fort Worth</span>
-    </div>
-    <nav class="foot-links" aria-label="Contact">
-      <span class="foot-email"><span>williams.tucker@gmail.com</span><button type="button" class="copy-icon" data-copy-email="williams.tucker@gmail.com" aria-label="Copy email address" data-goatcounter-click="footer-copy-email" data-goatcounter-title="Copied email from footer"><svg class="i-copy" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.2V3a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.3"/></svg><svg class="i-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></button><span class="copy-note" role="status" aria-live="polite"></span></span>
-      <a href="https://www.linkedin.com/in/tuckerwilliams/" target="_blank" rel="noopener" data-goatcounter-click="footer-linkedin" data-goatcounter-title="Footer LinkedIn">LinkedIn</a>
-      <a href="/assets/docs/Tucker-Williams-Resume.pdf?v=7" download data-goatcounter-click="footer-resume" data-goatcounter-title="Footer résumé">Résumé (PDF)</a>
-    </nav>
-  </footer>
+  <div class="exit">
+    <p>That's everything, for now.</p>
+    <a class="back" href="/#more" data-goatcounter-click="playground-back-bottom" data-goatcounter-title="Left the Playground from the bottom link"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg>Back to the work</a>
+  </div>
 </div>
 
-<button class="to-top" id="to-top" type="button" aria-label="Back to top"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>Top</button>
-
-<script src="/assets/js/site.js?v=20261106e"></script>
+<script>
+(function(){
+  var d=document.documentElement, doors=document.querySelectorAll('.door');
+  if(!('IntersectionObserver' in window))return;
+  d.classList.add('js');
+  var still=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){var el=e.target;
+      setTimeout(function(){el.classList.add('lit'); if(!still)el.classList.add('flick')}, still?0:180);
+      io.unobserve(el)}
+  })},{rootMargin:'0px 0px -18% 0px'});
+  doors.forEach(function(el){io.observe(el)});
+})();
+</script>
 <script data-goatcounter="https://tuckerwilliams.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
