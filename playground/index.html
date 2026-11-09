@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Playground · Tucker Williams</title>
 <meta name="description" content="A back room of side projects by Tucker Williams: a mobile game, a 15-second commercial, this website, and a trading experiment.">
-<meta name="theme-color" content="#100F0A">
+<meta name="theme-color" content="#0A0F1A">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Playground · Tucker Williams">
 <meta property="og:description" content="A back room of side projects by Tucker Williams: a mobile game, a 15-second commercial, this website, and a trading experiment.">
@@ -32,14 +32,14 @@ if(localStorage.getItem(k)){window.goatcounter={no_onload:true};var s=document.c
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap">
 <style>
-:root{--bg:#100F0A; --ink:#ECE6C9; --muted:#ABA483; --dim:#8E8869; --glow:#F4EAA6; --line:rgba(236,230,201,.13);
+:root{--bg:#0A0F1A; --ink:#EEF2F8; --muted:#A9B5C9; --dim:#8794AA; --glow:#E4EDFF; --halo:143,177,232; --line:rgba(220,232,255,.12);
   --sans:"Atkinson Hyperlegible Next",system-ui,sans-serif; --mono:"Atkinson Hyperlegible Mono",ui-monospace,monospace}
 *{box-sizing:border-box}
 html{background:var(--bg); color-scheme:dark}
 body{margin:0; min-height:100vh; color:var(--ink); font:400 1.0625rem/1.65 var(--sans); -webkit-font-smoothing:antialiased;
   background:
-    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(244,234,166,.13), transparent 70%),
-    repeating-linear-gradient(90deg, rgba(236,230,201,.022) 0 2px, transparent 2px 46px),
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(31,74,140,.45), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(220,232,255,.022) 0 2px, transparent 2px 46px),
     var(--bg)}
 /* film grain and a vignette, so the room feels a little off */
 body::before{content:""; position:fixed; inset:0; pointer-events:none; z-index:2; opacity:.07; mix-blend-mode:overlay;
@@ -49,7 +49,7 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--glow); outline-offset:4px; border-radius:2px}
 
 .tube{position:fixed; top:0; left:50%; translate:-50% 0; width:min(420px,70vw); height:3px; border-radius:0 0 3px 3px; z-index:3;
-  background:var(--glow); box-shadow:0 0 18px 4px rgba(244,234,166,.45), 0 0 90px 20px rgba(244,234,166,.12); animation:flicker 9s infinite}
+  background:var(--glow); box-shadow:0 0 18px 4px rgba(var(--halo),.45), 0 0 90px 20px rgba(var(--halo),.12); animation:flicker 9s infinite}
 @keyframes flicker{0%,91%,100%{opacity:1} 92%{opacity:.25} 93%{opacity:.9} 94.5%{opacity:.15} 95.5%{opacity:1} 97%{opacity:.6} 97.6%{opacity:1}}
 
 .room-wrap{position:relative; z-index:0; max-width:760px; margin:0 auto; padding:28px 24px 96px}
@@ -62,23 +62,23 @@ a{color:inherit}
 .kicker,.door-no,.status{font:500 .75rem/1.4 var(--mono); letter-spacing:.12em; text-transform:uppercase}
 .kicker{color:var(--dim); margin:0 0 22px}
 h1{font:700 clamp(2.4rem,7vw,4rem)/1.02 var(--sans); letter-spacing:-.03em; margin:0 0 24px; text-wrap:balance;
-  text-shadow:0 0 28px rgba(244,234,166,.18)}
+  text-shadow:0 0 28px rgba(var(--halo),.18)}
 .arrive p.lede{color:var(--muted); font-size:1.1875rem; max-width:32em; margin:0; text-wrap:pretty}
 
 .rooms{list-style:none; margin:0; padding:0; display:grid; gap:28px}
 .door{position:relative; border:1px solid var(--line); border-radius:3px; padding:34px 32px 30px;
-  background:linear-gradient(180deg, rgba(244,234,166,.045), rgba(244,234,166,0) 60%);
+  background:linear-gradient(180deg, rgba(var(--halo),.045), rgba(var(--halo),0) 60%);
   transition:opacity .9s ease, border-color .9s ease, box-shadow .9s ease}
 .door::before{content:""; position:absolute; left:32px; right:32px; top:-1px; height:1px; background:var(--glow); opacity:.0; transition:opacity .9s ease}
 .door-head{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:14px}
 .door-no{color:var(--dim)}
 .status{color:var(--muted)}
 .door h2{font:600 1.5rem/1.2 var(--sans); letter-spacing:-.01em; margin:0 0 12px}
-.door p{margin:0 0 .9em; color:#D8D2B4; max-width:36em; text-wrap:pretty}
+.door p{margin:0 0 .9em; color:#D3DCEA; max-width:36em; text-wrap:pretty}
 .door p:last-child{margin-bottom:0}
 /* doors start dim and the light comes on as you reach them (only when scripting is on) */
 .js .door{opacity:.28}
-.js .door.lit{opacity:1; border-color:rgba(244,234,166,.28); box-shadow:0 0 60px -20px rgba(244,234,166,.25)}
+.js .door.lit{opacity:1; border-color:rgba(var(--halo),.28); box-shadow:0 0 60px -20px rgba(var(--halo),.25)}
 .js .door.lit::before{opacity:.6}
 .js .door.lit.flick{animation:on .7s steps(1) 1}
 @keyframes on{0%{opacity:.3} 20%{opacity:1} 35%{opacity:.4} 55%{opacity:1} 70%{opacity:.7} 100%{opacity:1}}
