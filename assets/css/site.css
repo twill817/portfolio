@@ -661,3 +661,10 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 .more-play a:hover{color:var(--accent)}
 .more-play svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s}
 .more-play a:hover svg{transform:translateX(3px)}
+
+/* ---------- Home footer: role and logistics facts ---------- */
+.foot-facts{margin:8px 0 0; max-width:36em; color:var(--muted); font-size:var(--step--1); line-height:1.55}
+.contact-q{font-family:var(--display); font-weight:700; font-size:var(--step4); letter-spacing:-.035em; line-height:1.02; margin:0 0 16px; max-width:none; text-wrap:balance}
+.contact-lede{color:var(--muted); max-width:34em; margin:0; text-wrap:pretty}
+#contact{padding-bottom:0}
+#contact .foot-home{border-top:0; margin-top:32px; padding-top:0}
