@@ -191,7 +191,6 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.getElementById('top').focus({ preventScroll: true });
   };
   b.addEventListener('click', toTop);
-  document.getElementById('top').addEventListener('click', toTop);
 })();
 
 /* ---------- Scroll settle + index highlight ---------- */
