@@ -446,8 +446,6 @@ footer a:hover{color:var(--ink)}
 .case-teaser{display:block; position:relative; margin:0 0 26px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); text-decoration:none; color:inherit}
 .case-teaser img{display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .case-teaser:hover img{transform:scale(1.015)}
-.case-teaser .tz-tag{position:absolute; left:14px; bottom:14px; display:inline-flex; align-items:center; gap:8px; padding:8px 13px; border-radius:999px; background:rgba(18,24,30,.82); color:#fff; font-size:var(--step--1)}
-.case-teaser .tz-tag svg{width:12px; height:12px; fill:currentColor}
 .case .read{display:inline-flex; align-items:center; gap:8px; margin-top:26px; font-weight:600; font-size:var(--step--1); color:var(--accent); text-decoration:none}
 .case .read svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s}
 .case .read:hover svg{transform:translateX(3px)}
@@ -512,7 +510,7 @@ footer a:hover{text-decoration-color:currentColor}
 .tz-screen{display:block; height:100%; overflow:hidden; border-radius:6px 6px 0 0; background:#fff;
   box-shadow:0 1px 2px rgba(16,24,40,.06), 0 14px 32px -12px rgba(16,24,40,.28)}
 .case-teaser .tz-screen img{width:100%; height:100%; aspect-ratio:auto; object-fit:cover; object-position:top center; transform-origin:top center}
-@media (max-width:480px){ .case-teaser{padding:6% 6% 0} .case-teaser .tz-tag{left:10px; bottom:10px; padding:7px 11px} }
+@media (max-width:480px){ .case-teaser{padding:6% 6% 0} }
 
 /* ---------- Homepage video teasers: play in place ---------- */
 .tz-link{display:block; height:100%; color:inherit; text-decoration:none}
@@ -521,7 +519,6 @@ footer a:hover{text-decoration-color:currentColor}
 .tz-play svg{width:28px; height:28px; fill:currentColor; margin-left:4px}
 .tz-play:hover{transform:translate(-50%,-50%) scale(1.06); background:rgba(18,24,30,.92)}
 .tz-play:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:999px}
-.case-teaser .tz-tag{pointer-events:none}
 .tz-video{margin:0 0 26px}
 .case h3 + .tz-outcome + .tz-video, .case .tz-stats + .tz-video{margin-top:20px}
 @media (max-width:480px){ .tz-play{width:56px; height:56px; top:40%} .tz-play svg{width:22px; height:22px} }
