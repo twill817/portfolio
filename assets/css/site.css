@@ -1,7 +1,7 @@
 /* Layout: one wide reading column, a sticky section index on desktop, a quiet, text-led hero with the work directly beneath it. */
 :root{
   --bg:#FFFFFF; --surface:#F5F6F8; --ink:#111418; --muted:#596170; --line:#E2E5EA;
-  --accent:#1F4A8C; --accent-soft:#E5ECF6; --warm:#A86F2C; --warm-soft:#F4ECE0;
+  --accent:#1F4A8C; --accent-soft:#E5ECF6; --warm:#A86F2C; --warm-soft:#F4ECE0; --on-dark:#8FB1E8;
   --display:"Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
   --body:"Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
   --mono:"Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
@@ -22,7 +22,7 @@ body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); 
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   padding-top:env(safe-area-inset-top, 0px); padding-bottom:env(safe-area-inset-bottom, 0px)}
 img{max-width:100%}
-a{color:inherit}
+a{color:var(--accent)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
 ::selection{background:var(--accent); color:var(--bg)}
 
@@ -45,23 +45,23 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-of
   .hero .lede{font-size:.9375rem; line-height:1.55; margin-bottom:26px}
 }
 .top nav{display:flex; gap:22px; flex-wrap:wrap}
-.top nav a{font-size:var(--step--1); text-decoration:none; color:var(--muted); white-space:nowrap}
-.top nav a.on{color:var(--ink)}
-.top nav a:hover{color:var(--ink)}
+.top nav a{font-size:var(--step--1); text-decoration:none; color:var(--accent); white-space:nowrap; text-underline-offset:6px}
+.top nav a:hover{text-decoration:underline}
+.top nav a.on{text-decoration:underline; text-decoration-thickness:2px}
 
 /* ---------- Hero ---------- */
 .hero{position:relative; padding-block:72px 48px; border-bottom:1px solid var(--line)}
 .hero-copy{position:relative; z-index:1; min-width:0; max-width:600px}
 html,body{overflow-x:clip}
 .hero h1{font-family:var(--display); font-weight:700; font-size:var(--step4); line-height:1.02; letter-spacing:-.035em; margin:0 0 22px; text-wrap:balance}
-.hero h1 em{font-style:normal; color:var(--accent)}
+.hero h1 em{font-style:normal; color:inherit}
 .lede{font-size:1.0625rem; color:var(--muted); max-width:36em; margin:0 0 30px; text-wrap:pretty}
 .actions{display:flex; gap:12px; flex-wrap:wrap}
 .btn{display:inline-flex; align-items:center; gap:8px; font:600 var(--step--1)/1 var(--body); padding:13px 18px; border-radius:var(--radius);
-  text-decoration:none; border:1px solid var(--ink); background:var(--ink); color:var(--bg); cursor:pointer; transition:transform .2s ease, background .2s ease}
+  text-decoration:none; border:1px solid var(--accent); background:var(--accent); color:var(--bg); cursor:pointer; transition:transform .2s ease, background .2s ease}
 .btn:hover{transform:translateY(-1px)}
-.btn.ghost{background:transparent; color:var(--ink); border-color:var(--line)}
-.btn.ghost:hover{border-color:var(--ink)}
+.btn.ghost{background:transparent; color:var(--accent); border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
 
 .rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
 .rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.24s}.rise.d4{animation-delay:.32s}
@@ -71,11 +71,12 @@ html,body{overflow-x:clip}
 .layout{display:grid; grid-template-columns:200px minmax(0,1fr); gap:56px; padding-block:64px 24px}
 .index{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 24px); align-self:start}
 .index ol{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:2px}
-.index a{display:block; padding:6px 0; text-decoration:none; font-size:var(--step--1); color:var(--muted); border-left:2px solid transparent; padding-left:10px; transition:color .2s, border-color .2s}
-.index a:hover,.index a.on{color:var(--ink); border-left-color:var(--accent)}
+.index a{display:block; padding:6px 0; text-decoration:none; font-size:var(--step--1); color:var(--accent); border-left:2px solid transparent; padding-left:10px; transition:border-color .2s}
+.index a:hover,.index a.on{border-left-color:var(--accent)}
+.index a.on{font-weight:600}
 
 .section-head{display:flex; align-items:baseline; gap:14px; margin:0 0 20px}
-.section-head h2{font-family:var(--body); font-weight:600; font-size:var(--step--1); line-height:1.3; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0}
+.section-head h2{font-family:var(--body); font-weight:600; font-size:var(--step--1); line-height:1.3; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin:0}
 .intro{color:var(--muted); max-width:38em; margin:0 0 40px}
 
 .case{border-top:1px solid var(--line); padding-block:40px 44px; scroll-margin-top:24px}
@@ -118,7 +119,7 @@ html,body{overflow-x:clip}
 .caps li{color:var(--muted)}
 @media (max-width:960px){ .caps{grid-template-columns:repeat(2,minmax(0,1fr))} }
 .caps > div{min-width:0; border-top:1px solid var(--line); padding-top:12px}
-.caps dt{font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:8px}
+.caps dt{font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:8px}
 .caps dd{margin:0}
 .caps ul{list-style:none; margin:0; padding:0; display:grid; gap:8px}
 @media (max-width:480px){ .caps{grid-template-columns:1fr; gap:22px} }
@@ -148,14 +149,14 @@ html,body{overflow-x:clip}
 .car-title{margin:0 0 4px; font-family:var(--display); font-weight:600; font-size:var(--step1); line-height:1.3}
 .car-desc{margin:0; color:var(--muted); text-wrap:pretty}
 .car-nav{display:flex; gap:8px; flex:none}
-.car-btn{width:42px; height:42px; display:grid; place-items:center; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; transition:border-color .2s}
-.car-btn:hover{border-color:var(--ink)}
+.car-btn{width:42px; height:42px; display:grid; place-items:center; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--accent); cursor:pointer; transition:border-color .2s}
+.car-btn:hover{border-color:var(--accent)}
 .car-btn svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
 .lightbox{max-width:min(1200px, calc(100vw - 32px)); max-height:calc(100vh - 32px); padding:0; border:0; border-radius:var(--radius); background:var(--surface); color:var(--ink)}
 .lightbox::backdrop{background:rgba(8,12,12,.72)}
 .lightbox img{display:block; width:100%; height:auto; max-height:calc(100vh - 110px); object-fit:contain; background:#fff}
 .lightbox-cap{margin:0; padding:12px 16px; font-size:var(--step--1); color:var(--muted)}
-.lightbox-close{position:absolute; top:8px; right:8px; width:36px; height:36px; border-radius:999px; border:0; background:var(--ink); color:var(--bg); font-size:20px; line-height:1; cursor:pointer}
+.lightbox-close{position:absolute; top:8px; right:8px; width:36px; height:36px; border-radius:999px; border:0; background:var(--accent); color:var(--bg); font-size:20px; line-height:1; cursor:pointer}
 @media (max-width:640px){
   .car-stage{aspect-ratio:5/4}
   .car-slide{width:74%}
@@ -178,8 +179,8 @@ html,body{overflow-x:clip}
 @media (max-width:640px){
   .clients{display:block; border-top:1px solid var(--line); margin-top:20px}
   .client-group{border-bottom:1px solid var(--line)}
-  .client-group summary{display:flex; justify-content:space-between; align-items:center; gap:12px; margin:0; padding-block:15px; cursor:pointer; color:var(--ink); font-size:.78rem}
-  .client-group .chev{display:block; color:var(--muted)}
+  .client-group summary{display:flex; justify-content:space-between; align-items:center; gap:12px; margin:0; padding-block:15px; cursor:pointer; color:var(--accent); font-size:.78rem}
+  .client-group .chev{display:block}
   .client-group[open] .chev{transform:rotate(180deg)}
   .client-group .count{display:inline-block}
   .toggle-all{display:inline-block}
@@ -196,7 +197,7 @@ html,body{overflow-x:clip}
 .contact p{color:var(--muted); max-width:30em; margin:0}
 .email{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
 .email code{font-family:var(--mono); font-size:var(--step1); user-select:all; word-break:break-all}
-.status{font-family:var(--mono); font-size:.72rem; color:var(--accent); min-height:1.2em; text-align:right; width:100%}
+.status{font-family:var(--mono); font-size:.72rem; color:var(--muted); min-height:1.2em; text-align:right; width:100%}
 footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:var(--step--1); color:var(--muted)}
 
 /* ---------- Sticky top navigation on narrower screens (the side index is hidden there) ---------- */
@@ -220,11 +221,11 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
 /* ---------- Back to top ---------- */
 .to-top{position:fixed; right:calc(20px + env(safe-area-inset-right, 0px)); bottom:calc(20px + env(safe-area-inset-bottom, 0px)); z-index:20;
   display:inline-flex; align-items:center; gap:6px; padding:10px 14px; border-radius:999px; border:1px solid var(--line);
-  background:var(--surface); color:var(--ink); font:500 var(--step--1)/1 var(--body); cursor:pointer;
+  background:var(--surface); color:var(--accent); font:500 var(--step--1)/1 var(--body); cursor:pointer;
   box-shadow:0 6px 18px -8px rgba(0,0,0,.25);
   opacity:0; visibility:hidden; transform:translateY(8px); transition:opacity .25s ease, transform .25s ease, visibility .25s, border-color .2s}
 .to-top.show{opacity:1; visibility:visible; transform:none}
-.to-top:hover{border-color:var(--ink)}
+.to-top:hover{border-color:var(--accent)}
 .to-top svg{width:14px; height:14px}
 @media (prefers-reduced-motion: reduce){ .to-top{transition:none} }
 
@@ -251,7 +252,7 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
 /* video */
 .vid{position:relative; border-radius:var(--radius); overflow:hidden; background:#12181E; border:1px solid var(--line)}
 .case-visual .vid video{display:block; width:100%; height:auto; aspect-ratio:1280/974; cursor:pointer}
-.vid-big{position:absolute; left:50%; top:calc(50% - 26px); transform:translate(-50%,-50%); width:76px; height:76px; border-radius:999px; border:0; background:rgba(18,24,30,.82); color:#fff; display:grid; place-items:center; cursor:pointer; transition:opacity .2s, transform .2s}
+.vid-big{position:absolute; left:50%; top:calc(50% - 26px); transform:translate(-50%,-50%); width:76px; height:76px; border-radius:999px; border:0; background:var(--accent); color:var(--bg); display:grid; place-items:center; cursor:pointer; transition:opacity .2s, transform .2s}
 .vid-big svg{width:28px; height:28px; fill:currentColor; margin-left:4px}
 .vid-big:hover{transform:translate(-50%,-50%) scale(1.06)}
 .vid.started .vid-big{opacity:0; pointer-events:none}
@@ -274,12 +275,12 @@ footer{border-top:1px solid var(--line); padding-block:22px 40px; display:flex; 
 
 /* private theme toggle */
 .theme-pin{position:fixed; left:50%; transform:translateX(-50%); bottom:16px; z-index:90; display:flex; border:1px solid var(--line); border-radius:999px; background:var(--surface); box-shadow:0 4px 16px rgba(0,0,0,.12); overflow:hidden}
-.theme-pin button{border:0; background:none; color:var(--ink); font:500 var(--step--1)/1 var(--body); padding:9px 12px; cursor:pointer}
-.theme-pin .tp-clear{border-left:1px solid var(--line); color:var(--muted); padding:9px 11px}
+.theme-pin button{border:0; background:none; color:var(--accent); font:500 var(--step--1)/1 var(--body); padding:9px 12px; cursor:pointer}
+.theme-pin .tp-clear{border-left:1px solid var(--line); padding:9px 11px}
 .theme-pin button:hover{background:var(--accent-soft)}
 
 .email .li{text-decoration:none}
-footer a{color:var(--muted); text-underline-offset:3px}
+footer a{color:var(--accent); text-underline-offset:3px}
 
 /* ---------- AI in my process ---------- */
 #ai{scroll-margin-top:24px}
@@ -291,10 +292,10 @@ footer a{color:var(--muted); text-underline-offset:3px}
 /* ---------- Video chapters ---------- */
 .vid-chapters{list-style:none; margin:12px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px}
 .vid-chapters button{width:100%; height:100%; text-align:left; display:flex; gap:10px; align-items:baseline; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius);
-  background:var(--surface); color:var(--ink); font:400 var(--step--1)/1.35 var(--body); cursor:pointer; transition:border-color .2s, background .2s}
-.vid-chapters button:hover{border-color:var(--ink)}
+  background:var(--surface); color:var(--accent); font:400 var(--step--1)/1.35 var(--body); cursor:pointer; transition:border-color .2s, background .2s}
+.vid-chapters button:hover{border-color:var(--accent)}
 .vid-chapters button.on{border-color:var(--accent); background:var(--accent-soft)}
-.vid-chapters .node{flex:none}
+.vid-chapters .node{flex:none; color:inherit}
 .vid-chapters button.on .node{color:var(--accent)}
 @media (max-width:960px){ .vid-chapters{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:480px){ .vid-chapters{grid-template-columns:1fr; gap:6px} .vid-chapters button{padding:12px 14px} }
@@ -326,7 +327,7 @@ footer a{color:var(--muted); text-underline-offset:3px}
   .lightbox .lb-pan{background:#0c1010}
   .lightbox img{max-height:none}
   .lightbox-cap{color:#aab4b1; padding:12px 16px 6px}
-  .lightbox-close{top:calc(10px + env(safe-area-inset-top, 0px)); right:12px; width:40px; height:40px; background:#fff; color:#111}
+  .lightbox-close{top:calc(10px + env(safe-area-inset-top, 0px)); right:12px; width:40px; height:40px; background:var(--on-dark); color:#0c1010}
 }
 .ai-site{margin:28px 0 0; color:var(--muted); max-width:44em}
 
@@ -342,7 +343,7 @@ footer a{color:var(--muted); text-underline-offset:3px}
   .lb-foot{flex-direction:column; align-items:stretch; gap:4px; padding:0 16px 10px 0}
   .lb-nav{justify-content:space-between; padding-left:16px}
   .lb-count{color:#aab4b1; margin-right:auto}
-  .lightbox .car-btn{background:transparent; border-color:#3a4442; color:#e6eae8; width:44px; height:44px}
+  .lightbox .car-btn{background:transparent; border-color:#3a4442; color:var(--on-dark); width:44px; height:44px}
 }
 .car-btn:focus-visible,.lightbox-close:focus-visible{border-radius:999px}
 .lb-hint-touch{display:none}
@@ -350,7 +351,7 @@ footer a{color:var(--muted); text-underline-offset:3px}
 /* Hero proof line */
 .lede + .proof{margin-top:-18px}
 .proof{font-size:var(--step--1); color:var(--muted); margin:0 0 30px; max-width:36em}
-.proof a{color:var(--ink); text-underline-offset:3px}
+.proof a{text-underline-offset:3px}
 /* Outcome-first case openers */
 .case .outcome{font-size:var(--step1); line-height:1.5; max-width:40em; margin:0 0 8px; text-wrap:pretty}
 .case .outcome + .summary{font-size:1rem; color:var(--muted)}
@@ -358,7 +359,7 @@ footer a{color:var(--muted); text-underline-offset:3px}
 .work-start + .xp{padding-top:40px}
 /* Capabilities, collapsed by default */
 .caps-wrap{margin-top:20px}
-.caps-wrap summary{list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; padding-block:14px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); cursor:pointer; color:var(--muted)}
+.caps-wrap summary{list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; padding-block:14px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); cursor:pointer; color:var(--accent)}
 .caps-wrap summary::-webkit-details-marker{display:none}
 .caps-wrap[open] summary{border-bottom-color:transparent}
 .caps-more{display:inline-flex; align-items:center; gap:6px; flex:none; color:var(--accent); font-weight:500; font-size:var(--step--1)}
@@ -399,9 +400,9 @@ footer a{color:var(--muted); text-underline-offset:3px}
 /* Case media switch: one space, choose the walkthrough video or the screens */
 .mswitch-tabs{display:inline-flex; gap:4px; padding:4px; margin:0 0 14px; border:1px solid var(--line); border-radius:999px; background:var(--surface)}
 .mswitch-tabs button{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; background:none; cursor:pointer; white-space:nowrap;
-  font:500 var(--step--1)/1 var(--body); color:var(--muted); padding:9px 15px; border-radius:999px; transition:background .2s, color .2s}
-.mswitch-tabs button:hover{color:var(--ink)}
-.mswitch-tabs button[aria-selected="true"]{background:var(--ink); color:var(--bg)}
+  font:500 var(--step--1)/1 var(--body); color:var(--accent); padding:9px 15px; border-radius:999px; transition:background .2s, color .2s}
+.mswitch-tabs button:hover{background:var(--accent-soft)}
+.mswitch-tabs button[aria-selected="true"]{background:var(--accent); color:var(--bg)}
 .mswitch-tabs button:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:999px}
 .mswitch-n{font-variant-numeric:tabular-nums; opacity:.65; font-weight:400}
 .mswitch .case-visual[hidden]{display:none}
@@ -415,8 +416,8 @@ footer a{color:var(--muted); text-underline-offset:3px}
 /* ---------- Case study pages: one project, more room ---------- */
 .cs-main{padding-block:40px 24px}
 .case.cs{border-top:0; padding-block:0 32px}
-.cs-back{display:inline-flex; align-items:center; gap:6px; text-decoration:none; margin:0 0 36px; transition:color .2s}
-.cs-back:hover{color:var(--ink)}
+.cs-back{display:inline-flex; align-items:center; gap:6px; color:var(--accent); text-decoration:none; text-underline-offset:4px; margin:0 0 36px}
+.cs-back:hover{text-decoration:underline}
 .cs-back svg,.cs-next svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
 .cs-title{font-family:var(--display); font-weight:700; font-size:var(--step4); line-height:1.02; letter-spacing:-.035em; margin:14px 0 18px; text-wrap:balance}
 .case.cs .outcome{font-size:var(--step2); line-height:1.35; letter-spacing:-.01em; max-width:30em; margin:0 0 14px}
@@ -424,21 +425,20 @@ footer a{color:var(--muted); text-underline-offset:3px}
 .cs-media{margin-bottom:24px}
 .cs-body{border-top:1px solid var(--line)}
 .cs-sec{display:grid; grid-template-columns:200px minmax(0,1fr); gap:56px; padding-block:36px; border-bottom:1px solid var(--line)}
-.cs-sec h2{font-family:var(--mono); font-weight:500; font-size:.72rem; text-transform:uppercase; letter-spacing:.09em; color:var(--accent); margin:6px 0 0}
+.cs-sec h2{font-family:var(--mono); font-weight:500; font-size:.72rem; text-transform:uppercase; letter-spacing:.09em; color:var(--ink); margin:6px 0 0}
 .cs-sec p{margin:0 0 1em; max-width:38em; font-size:1.0625rem; text-wrap:pretty}
 .cs-sec p:last-child{margin-bottom:0}
 .cs-list{list-style:none; margin:0; padding:0; max-width:38em}
 .cs-list li{font-size:1.0625rem; padding:12px 0 12px 26px; position:relative; border-top:1px solid var(--line)}
 .cs-list li:first-child{border-top:0; padding-top:0}
-.cs-list li::before{content:""; position:absolute; left:0; top:calc(12px + .8em); width:12px; height:1.5px; background:var(--accent)}
+.cs-list li::before{content:""; position:absolute; left:0; top:calc(12px + .8em); width:12px; height:1.5px; background:var(--muted)}
 .cs-list li:first-child::before{top:.8em}
 .cs-next{display:flex; flex-direction:column; gap:6px; padding-top:48px}
 .cs-next a{display:inline-flex; align-items:center; gap:10px; align-self:flex-start; font-family:var(--display); font-weight:600; font-size:var(--step3); letter-spacing:-.02em; line-height:1.1; text-decoration:none}
-.cs-next a:hover{color:var(--accent)}
+.cs-next a:hover{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:.16em}
 .cs-next a svg{width:22px; height:22px; transition:transform .2s}
 .cs-next a:hover svg{transform:translateX(4px)}
-footer a{color:var(--muted); text-underline-offset:3px}
-footer a:hover{color:var(--ink)}
+footer a{color:var(--accent); text-underline-offset:3px}
 @media (max-width:960px){ .cs-main{padding-top:32px} .cs-sec{grid-template-columns:1fr; gap:10px; padding-block:28px} }
 @media (prefers-reduced-motion: reduce){ .cs-next a svg{transition:none} }
 
@@ -453,7 +453,7 @@ footer a:hover{color:var(--ink)}
 
 /* Case study pages: the screens, laid out in full */
 .cs-work{padding-block:36px 8px; border-bottom:1px solid var(--line)}
-.cs-work-h{font-family:var(--mono); font-weight:500; font-size:.72rem; text-transform:uppercase; letter-spacing:.09em; color:var(--accent); margin:6px 0 28px}
+.cs-work-h{font-family:var(--mono); font-weight:500; font-size:.72rem; text-transform:uppercase; letter-spacing:.09em; color:var(--ink); margin:6px 0 28px}
 .cs-shot{margin:0 0 56px}
 .cs-shot-img{border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:#fff}
 .cs-shot-img img{display:block; width:100%; height:auto}
@@ -473,8 +473,8 @@ footer a:hover{color:var(--ink)}
 .hero h1.statement + .proof{margin-top:0}
 @media (max-width:640px){ .hero .hero-copy h1.statement{font-size:1.625rem; line-height:1.22; margin-bottom:12px} }
 .case h3 + .case-teaser{margin-top:20px}
-.case-link{color:inherit; text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:2px; text-underline-offset:.16em; transition:color .2s, text-decoration-color .2s}
-.case-link:hover,.case:has(a.case-teaser:hover) .case-link,.case:has(.tz-link:hover) .case-link{color:var(--accent); text-decoration-color:currentColor}
+.case-link{color:var(--accent); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:2px; text-underline-offset:.16em; transition:color .2s, text-decoration-color .2s}
+.case-link:hover,.case:has(a.case-teaser:hover) .case-link,.case:has(.tz-link:hover) .case-link{text-decoration-color:currentColor}
 .case:has(.case-link:hover) .case-teaser img{transform:scale(1.015)}
 @media (prefers-reduced-motion: reduce){ .case-link{transition:none} }
 .case > h3:first-child{margin-top:0}
@@ -495,7 +495,7 @@ footer a:hover{text-decoration-color:currentColor}
 @media (max-width:640px){ footer{flex-direction:column; align-items:flex-start; gap:16px} }
 
 /* ---------- Hero: experience line and text link (Nov 2026) ---------- */
-.hero-xp{margin:0 0 22px; padding-left:14px; border-left:2px solid var(--accent); color:var(--muted); font-size:1.0625rem; line-height:1.5; max-width:46em; text-wrap:pretty}
+.hero-xp{margin:0 0 22px; padding-left:14px; border-left:2px solid var(--ink); color:var(--muted); font-size:1.0625rem; line-height:1.5; max-width:46em; text-wrap:pretty}
 .hero-link{display:inline-flex; align-items:center; gap:6px; color:var(--accent); font-weight:600; font-size:var(--step0); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:4px; transition:text-decoration-thickness .2s}
 .hero-link:hover{text-decoration-thickness:2px}
 @media (max-width:640px){ .hero-xp{font-size:.9375rem; margin-bottom:18px} }
@@ -515,9 +515,9 @@ footer a:hover{text-decoration-color:currentColor}
 /* ---------- Homepage video teasers: play in place ---------- */
 .tz-link{display:block; height:100%; color:inherit; text-decoration:none}
 .tz-play{position:absolute; left:50%; top:52%; transform:translate(-50%,-50%); width:76px; height:76px; border-radius:999px; border:0; padding:0;
-  background:rgba(18,24,30,.82); color:#fff; display:grid; place-items:center; cursor:pointer; box-shadow:0 8px 24px -8px rgba(0,0,0,.4); transition:transform .2s, background .2s}
+  background:var(--accent); color:var(--bg); display:grid; place-items:center; cursor:pointer; box-shadow:0 8px 24px -8px rgba(0,0,0,.4); transition:transform .2s}
 .tz-play svg{width:28px; height:28px; fill:currentColor; margin-left:4px}
-.tz-play:hover{transform:translate(-50%,-50%) scale(1.06); background:rgba(18,24,30,.92)}
+.tz-play:hover{transform:translate(-50%,-50%) scale(1.06)}
 .tz-play:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:999px}
 .tz-video{margin:0 0 26px}
 .case h3 + .tz-outcome + .tz-video, .case .tz-stats + .tz-video{margin-top:20px}
@@ -541,13 +541,13 @@ footer a:hover{text-decoration-color:currentColor}
 .hero-xp strong{color:var(--ink); font-weight:600}
 .work-start .section-head{margin-bottom:12px}
 .tz-stats{list-style:none; display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0; padding:0}
-.tz-stats li{font-size:.8125rem; font-weight:600; color:var(--accent); background:var(--accent-soft); border-radius:999px; padding:4px 11px; font-variant-numeric:tabular-nums}
+.tz-stats li{font-size:.8125rem; font-weight:600; color:var(--ink); background:var(--surface); border-radius:999px; padding:4px 11px; font-variant-numeric:tabular-nums}
 .case h3 + .tz-outcome + .tz-stats + .case-teaser{margin-top:20px}
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; margin:0 0 26px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; max-width:46em}
 .stats .stat{background:var(--surface); padding:18px 18px 16px; display:flex; flex-direction:column-reverse; gap:4px}
-.stats dd{margin:0; font-family:var(--display); font-weight:700; font-size:clamp(1.6rem,2.6vw,2.125rem); line-height:1.05; letter-spacing:-.02em; color:var(--accent); font-variant-numeric:tabular-nums}
+.stats dd{margin:0; font-family:var(--display); font-weight:700; font-size:clamp(1.6rem,2.6vw,2.125rem); line-height:1.05; letter-spacing:-.02em; color:var(--ink); font-variant-numeric:tabular-nums}
 .stats dt{font-size:.875rem; line-height:1.35; color:var(--muted)}
-.foot-copy{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px}
+.foot-copy{font:inherit; color:var(--accent); background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px}
 .sr-status{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
 @media (max-width:640px){ .hero{padding-block:24px 22px} .stats{grid-template-columns:1fr 1fr} .stats .stat{padding:14px} }
 .layout{padding-top:32px}
@@ -591,13 +591,13 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 
 /* ---------- User-first framing (preview, Nov 2026): each project opens with who it was for ---------- */
 .work-intro{margin:0 0 28px; color:var(--muted); max-width:38em; font-size:1.0625rem}
-.tz-for{margin:0 0 8px; color:var(--accent); font-size:var(--step1); line-height:1.4; max-width:34em; text-wrap:pretty}
+.tz-for{margin:0 0 8px; color:var(--ink); font-size:var(--step1); line-height:1.4; max-width:34em; text-wrap:pretty}
 .case .tz-for + h3{margin-top:0}
-.cs-lead{font-family:var(--display); font-weight:600; font-size:var(--step3); line-height:1.15; letter-spacing:-.02em; color:var(--accent); max-width:22em; margin:0 0 14px; text-wrap:balance}
+.cs-lead{font-family:var(--display); font-weight:600; font-size:var(--step3); line-height:1.15; letter-spacing:-.02em; color:var(--ink); max-width:22em; margin:0 0 14px; text-wrap:balance}
 .case.cs .cs-lead + .outcome{font-size:var(--step1); color:var(--muted)}
 .cs-people{list-style:none; margin:8px 0 22px; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px}
 .cs-people:has(> li:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr)); max-width:46em}
-.cs-people li{border-top:2px solid var(--accent); padding-top:12px; min-width:0}
+.cs-people li{border-top:2px solid var(--ink); padding-top:12px; min-width:0}
 .cs-people h3{font-family:var(--display); font-weight:600; font-size:1.0625rem; margin:0 0 6px}
 .cs-sec .cs-people p{font-size:1rem; color:var(--muted); margin:0}
 @media (max-width:960px){ .cs-people{grid-template-columns:1fr; gap:20px} }
@@ -618,21 +618,21 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 
 /* ---------- Homepage highlights as plain text instead of pills (Nov 2026) ---------- */
 .tz-stats{gap:0 4px; margin-top:10px}
-.tz-stats li{background:none; border-radius:0; padding:0; font-size:.9375rem; font-weight:600; color:var(--accent)}
+.tz-stats li{background:none; border-radius:0; padding:0; font-size:.9375rem; font-weight:600; color:var(--ink)}
 .tz-stats li:not(:last-child)::after{content:"·"; margin-left:5px; color:var(--muted); font-weight:400}
 
 /* ---------- Contact cleanup (Nov 2026): résumé with Experience, secondary links in the footer, copy as an icon ---------- */
 .sec-action{margin-left:auto; align-self:center; font-weight:600; font-size:var(--step--1); color:var(--accent); text-decoration:underline; text-underline-offset:3px}
 .sec-action:hover{text-decoration-thickness:2px}
-.copy-icon{width:44px; height:44px; flex:none; display:inline-grid; place-items:center; padding:0; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--ink); cursor:pointer; transition:border-color .2s, color .2s}
-.copy-icon:hover{border-color:var(--ink)}
+.copy-icon{width:44px; height:44px; flex:none; display:inline-grid; place-items:center; padding:0; border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--accent); cursor:pointer; transition:border-color .2s, color .2s}
+.copy-icon:hover{border-color:var(--accent)}
 .copy-icon svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
 .copy-icon .i-check{display:none}
 .copy-icon.copied{color:var(--accent); border-color:var(--accent)}
 .copy-icon.copied .i-check{display:block}
 .copy-icon.copied .i-copy{display:none}
 .copy-icon:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:999px}
-.copy-note{font-size:var(--step--1); font-weight:600; color:var(--accent); min-width:5.5em}
+.copy-note{font-size:var(--step--1); font-weight:600; color:var(--ink); min-width:5.5em}
 .email{gap:12px; flex-wrap:nowrap}
 .email code{word-break:normal}
 .foot-email{display:inline-flex; align-items:center; gap:8px}
@@ -655,7 +655,7 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 .pg-meta{color:var(--muted); margin:0 0 .9em !important}
 .more-play{margin:28px 0 0}
 .more-play a{display:inline-flex; align-items:center; gap:8px; font-family:var(--display); font-weight:600; text-decoration:none}
-.more-play a:hover{color:var(--accent)}
+.more-play a:hover{text-decoration:underline; text-underline-offset:4px}
 .more-play svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s}
 .more-play a:hover svg{transform:translateX(3px)}
 
@@ -665,3 +665,7 @@ body.has-mini .to-top{bottom:calc(32px + var(--mini-h, 0px) + env(safe-area-inse
 .contact-lede{color:var(--muted); max-width:34em; margin:0; text-wrap:pretty}
 #contact{padding-bottom:0}
 #contact .foot-home{border-top:0; margin-top:32px; padding-top:0}
+
+/* ---------- Color roles (Nov 2026): blue means clickable, and nothing else is blue. Emphasis and labels use ink or gray.
+   --accent is the link and control color; --on-dark is the same blue for controls on the always-dark phone lightbox. Video player controls stay white by choice. ---------- */
+@media (max-width:960px){ .top nav a.on,.top nav a:hover{text-decoration:none} }
