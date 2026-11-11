@@ -433,6 +433,12 @@ footer a{color:var(--accent); text-underline-offset:3px}
 .cs-list li:first-child{border-top:0; padding-top:0}
 .cs-list li::before{content:""; position:absolute; left:0; top:calc(12px + .8em); width:12px; height:1.5px; background:var(--muted)}
 .cs-list li:first-child::before{top:.8em}
+.cs-quote{margin:0; max-width:38em}
+.cs-quote blockquote{margin:0; padding-left:22px; border-left:2px solid var(--line)}
+.cs-sec .cs-quote blockquote p{font-size:1.1875rem; line-height:1.5; color:var(--ink)}
+.cs-quote figcaption{display:flex; flex-direction:column; gap:2px; margin-top:16px; padding-left:24px; font-size:var(--step--1)}
+.cs-quote figcaption a{font-weight:600; width:fit-content; text-underline-offset:.16em}
+.cs-quote figcaption span{color:var(--muted)}
 .cs-next{display:flex; flex-direction:column; gap:6px; padding-top:48px}
 .cs-next a{display:inline-flex; align-items:center; gap:10px; align-self:flex-start; font-family:var(--display); font-weight:600; font-size:var(--step3); letter-spacing:-.02em; line-height:1.1; text-decoration:none}
 .cs-next a:hover{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:.16em}
