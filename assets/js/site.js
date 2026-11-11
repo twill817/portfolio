@@ -371,7 +371,8 @@ document.querySelectorAll('.tz-play').forEach(btn => btn.addEventListener('click
 
 /* Visit counts (GoatCounter): video plays and case-study carousel opens */
 (() => {
-  const gc = (path, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path, title, event: true }); } catch (e) {} };
+  // window.twTag (set in each page's head script) repeats the event under the application tag, when there is one
+  const gc = (path, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path, title, event: true }); window.twTag && window.twTag('do/' + path, title); } catch (e) {} };
   document.querySelectorAll('.vid').forEach(box => {
     const v = box.querySelector('video'); let sent = false;
     // the visualization video keeps its original event name so earlier counts still line up
